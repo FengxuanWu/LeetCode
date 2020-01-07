@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tree", "Tree\Tree.vcxproj", "{F24D3919-17E5-4216-B0E1-BB2B19B49F34}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tree", "Tree\Tree.vcxproj", "{E1667064-1F4D-4261-8801-AC343430B95B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F24D3919-17E5-4216-B0E1-BB2B19B49F34}.Debug|Win32.ActiveCfg = Debug|Win32
-		{F24D3919-17E5-4216-B0E1-BB2B19B49F34}.Debug|Win32.Build.0 = Debug|Win32
-		{F24D3919-17E5-4216-B0E1-BB2B19B49F34}.Release|Win32.ActiveCfg = Release|Win32
-		{F24D3919-17E5-4216-B0E1-BB2B19B49F34}.Release|Win32.Build.0 = Release|Win32
+		{E1667064-1F4D-4261-8801-AC343430B95B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E1667064-1F4D-4261-8801-AC343430B95B}.Debug|Win32.Build.0 = Debug|Win32
+		{E1667064-1F4D-4261-8801-AC343430B95B}.Release|Win32.ActiveCfg = Release|Win32
+		{E1667064-1F4D-4261-8801-AC343430B95B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

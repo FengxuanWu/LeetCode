@@ -4,8 +4,8 @@
 *.pdb
 *.suo
 ipch/
-Debug/
+*/*Debug/
 *.obj
 *.log
 *.idb
-
+*-*
