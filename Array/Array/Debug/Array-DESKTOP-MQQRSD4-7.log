@@ -1,0 +1,299 @@
+﻿Build started 2019/12/31 17:00:24.
+     1>Project "C:\Users\wufen\OneDrive\Documents\Visual Studio 2013\Projects\Array\Array\Array.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Array.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Array.cpp
+         Array.cpp
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(32): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(43): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(70): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(85): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(128): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(134): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(138): warning C4805: '&=' : unsafe mix of type 'bool' and type 'int' in operation
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(138): warning C4805: '&' : unsafe mix of type 'bool' and type 'int' in operation
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(138): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(161): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(167): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(171): warning C4805: '&=' : unsafe mix of type 'bool' and type 'int' in operation
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(171): warning C4805: '&' : unsafe mix of type 'bool' and type 'int' in operation
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(171): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(199): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(212): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(282): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(291): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(336): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(409): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(412): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(456): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(485): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(546): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(548): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(550): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(566): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(577): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(716): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(724): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(727): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(829): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(836): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(864): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(879): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(894): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(918): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(950): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(964): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(976): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(980): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(989): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(991): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1039): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1082): warning C4018: '<=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1087): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1097): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1099): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1115): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1126): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1242): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1244): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1263): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1305): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1354): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1362): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1507): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1538): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1577): warning C4554: '<<' : check operator precedence for possible error; use parentheses to clarify precedence
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1592): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1599): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1671): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1695): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1808): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1973): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1975): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(1999): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2027): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2051): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2053): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2071): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2114): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2175): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2190): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2231): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2241): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2274): warning C4018: '<=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2276): warning C4018: '<=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2297): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2300): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2303): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2341): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2351): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2358): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2507): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2531): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2567): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2606): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2633): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2640): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2653): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2664): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2714): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2746): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2756): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2759): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2762): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2764): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2782): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2806): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2808): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2813): warning C4018: '<=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2816): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2836): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2857): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2865): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2891): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2910): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2912): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2914): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2928): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2941): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2961): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2979): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2987): warning C4018: '<=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(2999): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3013): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3017): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3053): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3116): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3129): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3183): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3196): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3214): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3222): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3231): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3233): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3254): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3271): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3273): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3287): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3303): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3447): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3476): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3521): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3527): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3541): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3554): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3612): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3621): warning C4554: '<<' : check operator precedence for possible error; use parentheses to clarify precedence
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3648): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3650): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3665): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3668): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3697): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3729): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3739): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3748): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3761): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3781): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3785): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3797): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3801): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3811): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3817): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3848): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3864): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3888): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3913): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3921): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3934): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3936): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3943): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(3945): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4002): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4017): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4038): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4051): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4068): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4074): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4125): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4127): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4149): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4161): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4177): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4179): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4175): warning C4101: 'rotton' : unreferenced local variable
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4226): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4254): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4263): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4265): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4276): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4291): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4301): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4328): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4342): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4353): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4358): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4369): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4375): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4377): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4428): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4469): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4479): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4495): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4497): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4513): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4539): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4601): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4802): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4804): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4825): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4841): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4847): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4866): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4891): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4906): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4907): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4950): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(4973): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5033): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5062): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5087): warning C4244: 'return' : conversion from '__int64' to 'int', possible loss of data
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5171): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5177): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5191): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5193): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5195): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5239): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5246): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5266): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5285): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5301): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5303): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5320): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5332): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5334): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5342): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5344): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5372): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5388): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5391): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5411): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5477): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5483): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5507): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5509): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5541): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5543): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5562): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5569): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5602): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5604): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5606): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5635): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5635): warning C4018: '<=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5648): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5652): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5674): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5685): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5701): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5712): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5732): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5740): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5758): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5760): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5783): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5789): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5795): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5797): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5848): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5854): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5855): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5859): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5866): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5892): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5931): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5933): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5962): warning C4018: '<=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5965): warning C4018: '<=' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5968): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5970): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(5980): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.h(41): warning C4018: '<' : signed/unsigned mismatch
+                 c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(288) : see reference to function template instantiation 'std::ostream &operator <<<int>(std::ostream &,std::vector<int,std::allocator<_Ty>>)' being compiled
+                 with
+                 [
+                     _Ty=int
+                 ]
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.h(49): warning C4018: '<' : signed/unsigned mismatch
+                 c:\users\wufen\onedrive\documents\visual studio 2013\projects\array\array\array.cpp(997) : see reference to function template instantiation 'std::ostream &operator <<<int>(std::ostream &,std::vector<std::vector<int,std::allocator<_Ty>>,std::allocator<std::vector<_Ty,std::allocator<_Ty>>>>)' being compiled
+                 with
+                 [
+                     _Ty=int
+                 ]
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\wufen\OneDrive\Documents\Visual Studio 2013\Projects\Array\Debug\Array.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\wufen\OneDrive\Documents\Visual Studio 2013\Projects\Array\Debug\Array.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\wufen\OneDrive\Documents\Visual Studio 2013\Projects\Array\Debug\Array.lib" /MACHINE:X86 Debug\Array.obj
+         Debug\stdafx.obj
+         Array.vcxproj -> C:\Users\wufen\OneDrive\Documents\Visual Studio 2013\Projects\Array\Debug\Array.exe
+     1>Done Building Project "C:\Users\wufen\OneDrive\Documents\Visual Studio 2013\Projects\Array\Array\Array.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:05.46

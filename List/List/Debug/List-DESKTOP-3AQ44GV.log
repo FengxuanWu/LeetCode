@@ -1,0 +1,46 @@
+﻿Build started 2019/3/2 4:01:00.
+     1>Project "C:\Users\wufen\OneDrive\Documents\Visual Studio 2013\Projects\List\List\List.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\List.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt List.cpp
+         List.cpp
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\list\list\list.cpp(107): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\list\list\list.cpp(115): error C2679: binary '<<' : no operator found which takes a right-hand operand of type 'std::string' (or there is no acceptable conversion)
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(498): could be 'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_streambuf<char,std::char_traits<char>> *)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(478): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(const void *)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(458): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(long double)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(438): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(double)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(418): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(float)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(397): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned __int64)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(377): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(__int64)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(356): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned long)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(336): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(long)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(316): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned int)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(291): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(int)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(271): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned short)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(237): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(short)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(217): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::_Bool)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(210): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::ios_base &(__cdecl *)(std::ios_base &))'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(203): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_ios<char,std::char_traits<char>> &(__cdecl *)(std::basic_ios<char,std::char_traits<char>> &))'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(197): or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_ostream<char,std::char_traits<char>> &(__cdecl *)(std::basic_ostream<char,std::char_traits<char>> &))'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(1026): or       'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const std::error_code &)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(988): or       'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>,std::string>(std::basic_ostream<char,std::char_traits<char>> &&,const _Ty &)'
+                 with
+                 [
+                     _Ty=std::string
+                 ]
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(978): or       'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,unsigned char)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(971): or       'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const unsigned char *)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(964): or       'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,signed char)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(957): or       'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const signed char *)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(831): or       'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,char)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(784): or       'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(746): or       'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,char)'
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\ostream(699): or       'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)'
+                 while trying to match the argument list '(std::ostream, std::string)'
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\list\list\list.cpp(117): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\wufen\onedrive\documents\visual studio 2013\projects\list\list\list.cpp(125): warning C4018: '<' : signed/unsigned mismatch
+     1>Done Building Project "C:\Users\wufen\OneDrive\Documents\Visual Studio 2013\Projects\List\List\List.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.42
