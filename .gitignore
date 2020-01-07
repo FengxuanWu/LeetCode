@@ -2,3 +2,10 @@
 *.exe
 *.ilk
 *.pdb
+*.suo
+ipch/
+Debug/
+*.obj
+*.log
+*.idb
+
