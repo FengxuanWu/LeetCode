@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <string>
 #include <map>
+#include <unordered_map>
 #include <queue>
 #include <stack>
 #include <iostream>
@@ -195,6 +196,14 @@ template<typename T>
 ostream& operator<<(ostream& os, vector<T>& v)
 {
 	for (auto c : v)
-		os << c << ' ';
+		os << c << ',';
+	return os;
+}
+
+template<typename T>
+ostream& operator<<(ostream& os, vector<vector<T>>& v)
+{
+	for (auto c : v)
+		os << c << endl;
 	return os;
 }
