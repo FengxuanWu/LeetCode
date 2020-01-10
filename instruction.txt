@@ -1,0 +1,2 @@
+["WordDictionary","addWord","addWord","search","search","search","search","search","search"]
+[[],["a"],["a"],["."],["a"],["aa"],["a"],[".a"],["a."]]
