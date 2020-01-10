@@ -9,11 +9,14 @@
 #include <iostream>
 using namespace std;
 
+#define is_vowel(c)(c == 'a' || c =='e' || c == 'i' || c == 'o' || c == 'u' || c == 'A' || c =='E' || c == 'I' || c == 'O' || c == 'U')
+#define lowerCase(c)(c >= 'a' && c <= 'z' ? c : (c - 'A' + 'a'))
 class Trie
 {
 private:
 	int critical;
-	map<char, Trie*> children;
+	unordered_map<char, Trie*> children;
+	vector<char> char_set;
 public:
 	Trie(): critical(false){};
 	
@@ -23,7 +26,11 @@ public:
 		for (int i = 0; i < s.size(); i++)
 		{
 			if (iterator->children.find(s[i]) == iterator->children.end())
+			{
 				iterator->children[s[i]] = new Trie();
+				iterator->char_set.push_back(s[i]);
+			}
+				
 			iterator = iterator->children[s[i]];
 			if (i == s.size() - 1)
 				(iterator->critical += 1);
@@ -86,6 +93,51 @@ public:
 		}
 		collect(iter, start, ans);
 		return ans;
+	}
+
+	bool match(string& s, int idx, Trie* iter, string& res)
+	{
+		
+		for (char c : iter->char_set)
+		{
+			if (s[idx] == c || lowerCase(s[idx]) == lowerCase(c))
+			{
+				res += c;
+				if (match(s, idx + 1, iter->children[c], res))
+					break;
+				res.pop_back();
+			}
+
+			if (is_vowel(c) && is_vowel(s[idx]))
+			{
+				res += c;
+				if (match(s, idx + 1, iter->children[c], res))
+					break;
+				res.pop_back();
+			}
+		}
+
+		// for(char c : iter->char_set)
+		// {
+		//     if(is_vowel(c) && is_vowel(s[idx]))
+		//     {
+		//         res += c;
+		//         if(match(s, idx + 1, iter->children[c], res))
+		//             break;
+		//         res.pop_back();
+		//     }
+		// }
+
+		return res.size() == s.size();
+	}
+
+	string match(string& s)
+	{
+		if (search(s))
+			return s;
+		string res = "";
+		match(s, 0, this, res);
+		return res;
 	}
 	
 	~Trie()
