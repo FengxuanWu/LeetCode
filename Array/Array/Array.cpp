@@ -6218,12 +6218,85 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x)
 	return res;
 }
 
+int sumRegion(vector<vector<int>>& sum, int row1, int col1, int row2, int col2)
+{
+
+	int res = sum[row2][col2];
+
+	if (col1 > 0)
+		res -= sum[row2][col1 - 1];
+	if (row1 > 0)
+		res -= sum[row1 - 1][col2];
+	if (row1 > 0 && col1 > 0)
+		res += sum[row1 - 1][col1 - 1];
+
+	return res;
+}
+
+vector<vector<int>> matrixBlockSum(vector<vector<int>>& mat, int k)
+{
+	if (mat.size() == 0 || mat[0].size() == 0)
+		return vector<vector<int>>();
+
+	vector<vector<int>> sum = vector<vector<int>>(mat.size(), vector<int>(mat[0].size()));
+	for (int i = 0; i < mat.size(); i++)
+	{
+		for (int j = 0; j < mat[0].size(); j++)
+		{
+			if (i > 0)
+				mat[i][j] += mat[i - 1][j];
+			if (j > 0)
+				mat[i][j] += mat[i][j - 1];
+			if (i > 0 && j > 0)
+				mat[i][j] -= mat[i - 1][j - 1];
+		}
+		//cout << sum << endl;
+	}
+	cout << mat << endl;
+
+	for (int i = 0; i < mat.size(); i++)
+	{
+		for (int j = 0; j < mat[i].size(); j++)
+		{
+			int lr = max(i - k, 0), lc = max(j - k, 0), rr = min(i + k, (int)mat.size() - 1), rc = min(j + k, (int)mat[i].size() - 1);
+			sum[i][j] = sumRegion(mat, lr, lc, rr, rc);
+		}
+		//cout << sum << endl;
+	}
+
+	return sum;
+}
+
+int distinctEchoSubstrings(string text) 
+{
+	unordered_set<string> vis;
+	int res = 0;
+	for (int i = 0; i < text.size(); i++)
+	{
+		for (int j = i + 1; j + (j - i) <= text.size(); j++)
+		{
+			if (text[i] == text[j] && vis.find(text.substr(i, (j - i) * 2)) == vis.end())
+			{
+				vis.insert(text.substr(i, (j - i) * 2));
+				int k = 0;
+				while (k + i < j)
+				{
+					if (text[i + k] != text[j + k])
+						break;
+					k++;
+				}
+				res += (k + i == j);
+			}
+		}
+	}
+
+	return res;
+}
+
 int main()
 {
-	vector<int> nums = { 1, 1, 2, 3, 3, 3, 4, 6, 8, 8 };
-	int k = 6;
-	int x = 7;
-	cout << findClosestElements(nums, k, x) << endl;
+	string s = "tkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnratkfbgwgqvdsbnukcpxlpifuhbvtdxhhhqurotspohiuwhblnra";
+	cout << distinctEchoSubstrings(s) << endl;
 	return 0;
 }
 

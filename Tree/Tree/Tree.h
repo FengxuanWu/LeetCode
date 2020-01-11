@@ -4,6 +4,8 @@
 #include <iostream>
 #include <set>
 #include <stack>
+#include <algorithm>
+#include <string>
 using namespace std;
 
 class TreeNode
@@ -81,7 +83,7 @@ void destruct(TreeNode* root)
 	delete root;
 }
 
-TreeNode* construct(vector<int> nums)
+TreeNode* construct(vector<string> nums)
 {
 	if (nums.size() == 0)
 		return NULL;
@@ -90,9 +92,12 @@ TreeNode* construct(vector<int> nums)
 	q.push(&root);
 	for (int i = 0; i < nums.size(); i++)
 	{
-		*q.front() = new TreeNode(nums[i]);
-		q.push(&((*q.front())->left));
-		q.push(&((*q.front())->right));
+		if (nums[i] != "null")
+		{
+			*q.front() = new TreeNode(stoi(nums[i]));
+			q.push(&((*q.front())->left));
+			q.push(&((*q.front())->right));
+		}		
 		q.pop();
 	}
 	return root;
