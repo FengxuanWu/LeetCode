@@ -24,7 +24,7 @@ def write_test_interface(file_name):
 	display['search'] = 1; 
 	write_instruction(file_name, display)
 
-def write_convert_to_cpp(file_name, lis):
+def write_convert_to_cpp(file_name):
 	data = ""
 	with open(file_name, 'r') as file:
 		string = 0
@@ -58,25 +58,24 @@ def write_convert_to_cpp(file_name, lis):
 						data += '{\n'
 						break;
 
-			line = lines[idx].replace('\'', '').replace('\"', '').replace('[', '').replace('],', '\n').replace(',', ' ').replace(']]', '\n')
+			line = lines[idx].replace('\'', '').replace('\"', '').replace('[', '').replace('],', '\n').replace(',', ' ')
 			for d in line.split('\n'):
 				if(len(d) > 0):
+					d = d.replace(']', '')
 					data += '{' + '\"' * string + '\'' * char
 					data += ('\"' * string  + '\'' * char + ',' + '\"' * string  + '\'' * char).join(d.split())
 					data +=  '\"' * string  + '\'' * char+ '}' + (dimention == 2) * ',' + '\n'
 			idx += 1
 
 		if(dimention == 2):
-			data += '}\n'
-		
+			data += '}'
 	print(data)
-		# with open(file_name.split('.')[0] + '_out.txt', 'w') as out:
-		# 	for line in file:
-		# 		out.write(line.replace('[','{').replace(']', '}').replace(' ',''))
+	# with open(file_name.split('.')[0] + '_out.txt', 'w') as out:
+	# 	out.write(data)
 
 
 if __name__ == '__main__':
-	write_convert_to_cpp('test.txt', [[0]])
-	# write_test_interface('instruction.txt')
+	# write_convert_to_cpp('test.txt')
+	write_test_interface('instruction.txt')
 
 
