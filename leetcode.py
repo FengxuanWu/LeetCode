@@ -36,11 +36,15 @@ def write_convert_to_cpp(file_name, lis):
 			lines.remove('\n')
 
 		idx = 0
-		dimention  += min(len(lines) - 1, 2) * ('[[') not in lines[1]
-		if dimention == 2:
+		if(len(lines) > 2):
+			dimention = 2
 			data += '{\n'
 
 		while idx < len(lines): 
+			if(']' == lines[idx]):
+				idx += 1
+				continue
+				
 			if(not string and not char and ("string" in lines[idx] or "char" in lines[idx])):
 				string = "string" in lines[idx]
 				char = "char" in lines[idx]
@@ -49,15 +53,17 @@ def write_convert_to_cpp(file_name, lis):
 
 			if(dimention == 0):
 				for c in lines[idx]:
-					dimention += c == ord('[')
+					dimention += c == '['
 					if dimention == 2:
 						data += '{\n'
 						break;
-			
-			d = lines[idx].replace('\'', '').replace('\"', '').replace('[', '').replace(']', '').replace('\n', '').replace(',', ' ').split()
-			data += '{' + '\"' * string + '\'' * char
-			data += ('\"' * string  + '\'' * char + ',' + '\"' * string  + '\'' * char).join(d)
-			data +=  '\"' * string  + '\'' * char+ '}' + (dimention == 2) * ',' + '\n'
+
+			line = lines[idx].replace('\'', '').replace('\"', '').replace('[', '').replace('],', '\n').replace(',', ' ').replace(']]', '\n')
+			for d in line.split('\n'):
+				if(len(d) > 0):
+					data += '{' + '\"' * string + '\'' * char
+					data += ('\"' * string  + '\'' * char + ',' + '\"' * string  + '\'' * char).join(d.split())
+					data +=  '\"' * string  + '\'' * char+ '}' + (dimention == 2) * ',' + '\n'
 			idx += 1
 
 		if(dimention == 2):
