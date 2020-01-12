@@ -6293,14 +6293,77 @@ int distinctEchoSubstrings(string text)
 	return res;
 }
 
+vector<int> getNoZeroIntegers(int n)
+{
+	int a = 1;
+	string b;
+	for (int i = 0; i < n; i++)
+	{
+		b = to_string(n - a);
+		int idx = 0;
+		while (idx < b.size())
+		{
+			if (b[idx] == '0')
+				break;
+			idx++;
+		}
+		
+		if (idx == b.size())
+			break;
+	}
+
+	return{ a, stoi(b) };
+}
+
+bool not_contain(string s)
+{
+	int idx = 0;
+	while (idx < s.size())
+	{
+		if (s[idx] == '0')
+			break;
+		idx++;
+	}
+
+	return idx == s.size();
+}
+
+int minFlips(int a, int b, int c)
+{
+	int res = 0;
+	for (int i = 0; i < 32; i++)
+	{
+		if (get_bit(c, i) == 1)
+			res += (get_bit(a, i) | get_bit(b, i)) == 0;
+		else
+			res += (get_bit(a, i) == 1) + (get_bit(b, i) == 1);
+	}
+	return res;
+}
+
+vector<int> get_coordintate(char c)
+{
+	return { (c - 'A') / 6, (c - 'A') % 6};
+}
+
+int minimumDistance(string& word)
+{
+	vector<vector<int>> distance(26,vector<int>(26));
+	for (int i = 0; i < 26; i++)
+		for (int j = 0; j < 26; j++)
+			distance[i][j] = abs(i / 6 - j / 6) + abs(i % 6 + j % 6);
+
+	cout << distance << endl;;
+	int res = 0;
+	
+		
+	return res;
+}
+
 int main()
 {
-	vector<vector<int>> nums = {
-		{ 1, 2, 3 },
-		{ 4, 5, 6 },
-		{ 7, 8, 9 },
-	};
-	cout << nums << endl;
+	string s = "CAKE";
+	cout << minimumDistance(s) << endl;
 	return 0;
 }
 
