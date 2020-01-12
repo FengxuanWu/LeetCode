@@ -44,7 +44,6 @@ public:
 	{
 		return find().rank;
 	}
-
 };
 
 template<typename T>

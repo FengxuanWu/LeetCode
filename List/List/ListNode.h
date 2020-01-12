@@ -20,6 +20,13 @@ public:
 	{
 		return val < n.next->val;
 	}
+
+	~ListNode()
+	{
+		if (this->next)
+			delete this->next;
+		delete this;
+	}
 };
 
 

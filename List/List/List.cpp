@@ -352,6 +352,7 @@ string addStrings(string num1, string num2)
 
 int main()
 {
-	
+	ListNode* head = Construct(vector<int>({ 1, 2, 3, 4 }));
+	cout << head << endl;
 	return 0; 
 }
