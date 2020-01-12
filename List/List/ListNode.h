@@ -23,9 +23,13 @@ public:
 
 	~ListNode()
 	{
-		if (this->next)
-			delete this->next;
-		delete this;
+		ListNode *iter = this;
+		while (iter)
+		{
+			ListNode* tmp = iter->next;
+			delete iter;
+			iter = tmp;
+		}
 	}
 };
 
