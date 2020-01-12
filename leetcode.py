@@ -75,7 +75,7 @@ def write_convert_to_cpp(file_name):
 
 
 if __name__ == '__main__':
-	# write_convert_to_cpp('test.txt')
-	write_test_interface('instruction.txt')
+	write_convert_to_cpp('test.txt')
+	# write_test_interface('instruction.txt')
 
 

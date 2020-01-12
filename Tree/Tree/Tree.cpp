@@ -656,8 +656,8 @@ vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete)
 //1 2 -1 -1 3 -1 4 -1 -1
 int main()
 {
-	vector<string> nodes = { "5", "4", "8", "11", "null", "13", "4", "7", "2", "null", "null", "5", "1" };
+	vector<string> nodes = { "1", "2", "2", "3", "4", "4", "3" };
 	TreeNode* root = construct(nodes);
-	cout << root->val << endl;
+	cout << root << endl;
 	return 0;
 }

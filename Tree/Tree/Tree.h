@@ -23,7 +23,7 @@ typedef TreeNode* PTreeNode;
 #define PRE 1
 #define POST 2
 
-void print_tree_by_layer(PTreeNode root)
+ostream& operator<<(ostream& os, TreeNode* root)
 {
 	queue<PTreeNode> q;
 	TreeNode* p = root;
@@ -44,7 +44,7 @@ void print_tree_by_layer(PTreeNode root)
 		q.pop();
 		//cout << endl;
 	}
-	cout << endl;
+	return os;
 }
 
 TreeNode* copy(TreeNode* root)
