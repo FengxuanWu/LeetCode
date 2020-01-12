@@ -16,6 +16,14 @@ public:
 	TreeNode* right;
 
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+	~TreeNode()
+	{
+		if (this->left)
+			delete this->left;
+		if (this->right)
+			delete this->right;
+		delete this;
+	}
 };
 typedef TreeNode* PTreeNode;
 
