@@ -19,12 +19,12 @@ def write_instruction(file_name, display):
 	# 	for i in range(1, len(instructions)):
 	# 		out.write(display[instructions[i]] * 'cout << ' + instructions[0].lower() + '.' + instructions[i] + '(' + parameters[i] + ')'+ display[instructions[i]] * ' << endl' +';\n')
 
-def write_test_interface(file_name):
+def test_interface(file_name):
 	display = {}
 	display['search'] = 1; 
 	write_instruction(file_name, display)
 
-def write_convert_to_cpp(file_name):
+def convert_to_cpp(file_name):
 	data = ""
 	with open(file_name, 'r') as file:
 		string = 0
@@ -75,7 +75,7 @@ def write_convert_to_cpp(file_name):
 
 
 if __name__ == '__main__':
-	write_convert_to_cpp('test.txt')
-	# write_test_interface('instruction.txt')
+	convert_to_cpp('test.txt')
+	# test_interface('instruction.txt')
 
 

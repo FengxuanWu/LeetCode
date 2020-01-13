@@ -20,17 +20,6 @@ public:
 	{
 		return val < n.next->val;
 	}
-
-	~ListNode()
-	{
-		ListNode *iter = this;
-		while (iter)
-		{
-			ListNode* tmp = iter->next;
-			delete iter;
-			iter = tmp;
-		}
-	}
 };
 
 

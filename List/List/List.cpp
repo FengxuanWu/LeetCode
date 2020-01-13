@@ -278,6 +278,7 @@ void remove(ListNode*& head, int val)
 		{
 			ListNode* tmp = *iter;
 			*iter = (*iter)->next;
+			tmp->next = NULL;
 			delete tmp;
 		}
 		else
@@ -353,6 +354,7 @@ string addStrings(string num1, string num2)
 int main()
 {
 	ListNode* head = Construct(vector<int>({ 1, 2, 3, 4 }));
+	remove(head, 1);
 	cout << head << endl;
 	return 0; 
 }
