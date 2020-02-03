@@ -58,7 +58,7 @@ def convert_to_cpp(file_name):
 						data += '{\n'
 						break;
 
-			line = lines[idx].replace('\'', '').replace('\"', '').replace('[', '').replace('],', '\n').replace(',', ' ')
+			line = lines[idx].replace('\'', '').replace('\"', '').replace('[', '').replace('],', '\n').replace(',', ' ').replace('{', '').replace('}', '')
 			for d in line.split('\n'):
 				if(len(d) > 0):
 					d = d.replace(']', '')

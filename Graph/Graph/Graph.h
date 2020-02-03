@@ -31,7 +31,7 @@ ostream& operator<<(ostream& os, queue<T> q)
 {
 	while (!q.empty())
 	{
-		os << q.front() << ' ';
+		os << q.front() << ", ";
 		q.pop();
 	}
 	return os;
@@ -42,7 +42,7 @@ ostream& operator<<(ostream& os, vector<T>& v)
 {
 	for (int i = 0; i != v.size(); i++)
 	{
-		cout << v[i] << ' ';
+		cout << v[i] << ", ";
 	}
 	return os;
 }
@@ -51,9 +51,7 @@ template<typename T>
 ostream& operator<<(ostream& os, vector<vector<T>>& v)
 {
 	for (int i = 0; i != v.size(); i++)
-	{
 		cout << v[i] << endl;
-	}
 	return os;
 }
 
@@ -62,3 +60,21 @@ class Func
 public:
 	virtual void operator()(void*) = 0;
 };
+
+vector<vector<int>> floyed(int n, vector<vector<int>>& edges)
+{
+	vector<vector<int>> distance(n, vector<int>(n, INT_MAX));
+	for (int i = 0; i < edges.size(); i++)
+		distance[edges[i][1]][edges[i][0]] = distance[edges[i][0]][edges[i][1]] = edges[i][2];
+
+	for (int i = 0; i < n; i++)
+		distance[i][i] = 0;
+
+	for (int k = 0; k < n; k++)
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+				if (distance[i][k] != INT_MAX && distance[k][j] != INT_MAX)
+						distance[i][j] = min(distance[i][j], distance[i][k] + distance[k][j]);
+
+	return distance;
+}

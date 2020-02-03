@@ -1424,26 +1424,6 @@ bool validUtf8(vector<int>& data)
 	return res;
 }
 
-int arr[100000] = {};
-bool duplicate(int numbers[], int length, int* duplication)
-{
-	int* bar_chart = new int[length];
-	memset(bar_chart, 0, length * sizeof(int));
-	int index = 0;
-	for (int i = 0; i < length; i++)
-	{
-		bar_chart[numbers[i]]++;
-		//cout << bar_chart[numbers[i]] << endl;
-		if (bar_chart[numbers[i]] > 1)
-			duplication[index++] = numbers[i];
-	}
-	
-	delete bar_chart;
-	if (index == 0)
-		return false;
-	return true;
-}
-
 vector<int> multiply(const vector<int>& a)
 {
 	vector<int> res(a.size(), 1);
@@ -6360,43 +6340,308 @@ int minimumDistance(string& word)
 	return res;
 }
 
-int main()
+bool duplicate(int nums[], int length, int* duplication)
 {
-	string s = "CAKE";
-	cout << minimumDistance(s) << endl;
+	for (int i = 0; i < length; i++)
+	{
+		if (i == nums[i])
+			continue;
+		else
+		{
+			if (nums[i] == nums[nums[i]])
+			{
+				*duplication = nums[i];
+				return true;
+			}
+			swap(nums[i], nums[nums[i]]);
+		}
+	}
+	return false;
+}
+
+int countDigitOne(int n)
+{
+	vector<int> dp(1, 0);
+	dp.push_back(1);
+	int curr = 1, sum = dp.back();
+	while (curr * 10 < n)
+	{
+		dp.push_back(9 * dp.back() + curr * 10);
+		curr *= 10;
+		sum += dp.back();
+	}
+	cout << dp << endl;
+	if (n > curr)
+	{
+		string num = to_string(n - curr);
+		for (int i = 0; i < num.size(); i++)
+		{
+			if (num[i] > '1')
+			{
+				sum += (num[i] - 1) * dp[num.size() - i - 1] + dp[num.size() - i];
+			}
+			else if (num[i] == '1')
+			{
+				sum += stoi(num.substr(i + 1, num.size() - i));
+				break;
+			}
+		}
+	}
+
 	return 0;
 }
 
-// SEND
-// MORE
-//MONEY
+vector<string> split(string s, char c, int* length = NULL)
+{
+	vector<string> res;
+	int left = 0, right = 0;
+	while (s[left] == c)right = ++left;
+	while (right < s.size())
+	{
+		if (s[right] == c && right > left)
+		{
+			res.push_back(s.substr(left, right - left));
+			*length = max(*length, right - left);
+			left = right + 1;
+		}
+		++right;
+	}
+	if (right > left)
+		res.push_back(s.substr(left, right - left));
+	return res;
+}
 
-/*
-D + E % 10 = Y;
-N + R + c = E;
-E + O + 
-*/
+vector<string> printVertically(string s)
+{
+	int length = 0;
 
-/*
-"aabaac"
-"aadaaeaaf"
-"aadaaeaabaafaac"
-*/
+	vector<string> res;
+	if (s.size() == 0)
+		return res;
 
-//int main()
-//{
-//	vector<vector<char>> matrix = { 
-//		{ '5', '3', '.', '.', '7', '.', '.', '.', '.' }, 
-//		{ '6', '.', '.', '1', '9', '5', '.', '.', '.' }, 
-//		{ '.', '9', '8', '.', '.', '.', '.', '6', '.' }, 
-//		{ '8', '.', '.', '.', '6', '.', '.', '.', '3' },
-//		{ '4', '.', '.', '8', '.', '3', '.', '.', '1' }, 
-//		{ '7', '.', '.', '.', '2', '.', '.', '.', '6' }, 
-//		{ '.', '6', '.', '.', '.', '.', '2', '8', '.' }, 
-//		{ '.', '.', '.', '4', '1', '9', '.', '.', '5' }, 
-//		{ '.', '.', '.', '.', '8', '.', '.', '7', '9' } 
-//	};
-//	stack<unordered_map<int, int>::iterator> s;
-//	solveSudoku(matrix);
-//	return 0;
-//}
+	vector<string> strs = split(s, ' ', &length);
+	res.resize(length);
+
+	for (int i = 0; i < length; i++)
+	{
+		for (int j = 0; j < strs.size(); j++)
+		{
+			if (i < strs[j].size())
+				res[i].push_back(strs[j][i]);
+			else
+				res[i].push_back(' ');
+		}
+		cout << res << endl;
+	}
+
+	for (int i = 0; i < res.size(); i++)
+	{
+		while (res[i].back() == ' ')
+			res[i].pop_back();
+	}
+
+	return res;
+}
+
+int minTaps(int n, vector<int>& ranges)
+{
+	if (ranges.size() == 0)
+		return 0;
+
+	vector<int> taps(ranges.size());
+	int max_length = -1;
+	for (int i = 0; i < taps.size(); i++)
+	{
+		int left = max(i - ranges[i], 0), right = min(n, i + ranges[i]);
+
+		if (right > max_length)
+		{
+			int num = (left == 0 ? 0 : taps[left - 1]) + 1;
+			for (int j = left; j <= right; j++)
+				taps[j] = taps[j] > 0 ? min(taps[j], num) : num;
+			max_length = right;
+		}
+
+		cout << taps << endl;
+	}
+
+	return taps.back();
+}
+
+bool string_cmp(string& a, string& b)
+{
+	int idx = 0;
+	while (idx < a.size() && idx < b.size())
+	{
+		if (a[idx] == b[idx])
+			idx++;
+		else if (a[idx] > b[idx])
+			return false;
+		else
+			return true;
+	}
+	// 32 321
+	// 321 32
+	// 3 3334
+	// 3334 3
+	if (idx == a.size() && idx == b.size())
+		return false;
+	else if (idx == a.size())
+	{
+		while (idx < b.size())
+		{
+			if (a.front() > b[idx])
+				return false;
+			idx++;
+		}
+		return true;
+	}
+	else
+	{
+		while (idx < a.size())
+		{
+			if (a[idx] < b.front())
+				return true;
+			idx++;
+		}
+		return false;
+	}
+}
+
+string PrintMinNumber(vector<int> numbers)
+{
+	vector<string> nums;
+	for (int i = 0; i < numbers.size(); i++)
+		nums.push_back(to_string(numbers[i]));
+	sort(nums.begin(), nums.end(), string_cmp);
+	string res = "";
+	for (int i = 0; i < nums.size(); i++)
+		res += nums[i];
+	return res;
+}
+
+int GetNumberOfK(vector<int> nums, int k)
+{
+	int left = search_left(nums, 0, nums.size(), k),
+		right = search_right(nums, 0, nums.size(), k);
+	return nums[left] == k ? right - left + 1 : 0;
+}
+
+vector<int> filterRestaurants(vector<vector<int>>& restaurants, int veganFriendly, int maxPrice, int maxDistance)
+{
+	unordered_map<int, int> id_idx;
+	vector<int> res;
+	for (int i = 0; i < restaurants.size(); i++)
+	{
+		if ((!veganFriendly || restaurants[i][2]) && maxPrice >= restaurants[i][3] && maxDistance >= restaurants[i][4])
+		{
+			id_idx[restaurants[i][0]] = i;
+			res.push_back(restaurants[i][0]);
+		}
+
+	}
+
+	sort(res.begin(), res.end(), [&](int a, int b){
+		a = id_idx[a];
+		b = id_idx[b];
+		return restaurants[a][1] > restaurants[b][1] || (restaurants[a][1] == restaurants[b][1] && restaurants[a][0] > restaurants[b][0]);
+	});
+
+	return res;
+}
+
+void bubble_sort(vector<int>& nums)
+{
+	for (int i = 0; i < nums.size(); i++)
+	{
+		for (int j = 0; j < nums.size() - i - 1; j++)
+		{
+			if (nums[j] > nums[j + 1])
+				swap(nums[j], nums[j + 1]);
+		}
+	}
+}
+
+vector<int> kWeakestRows(vector<vector<int>>& mat, int k)
+{
+	vector<pair<int, int>> cnt(mat.size());
+	for (int i = 0; i < mat.size(); i++)
+	{
+		cnt[i].first = i;
+		for (int j = 0; j < mat[i].size(); j++)
+			cnt[i].second += mat[i][j];
+	}
+
+	sort(cnt.begin(), cnt.end(), [&](pair<int, int>& a, pair<int, int>& b){
+		return a.second < b.second || (a.second == b.second && a.first < a.first);
+	});
+
+	vector<int> res;
+	for (int i = 0; i < k; i++)
+		res.push_back(cnt[i].first);
+	return res;
+}
+
+int minSetSize(vector<int>& arr)
+{
+	unordered_map<int, int> mapping;
+	for (int i = 0; i < arr.size(); i++)
+		mapping[arr[i]]++;
+
+	priority_queue<int> q;
+	for (auto it = mapping.begin(); it != mapping.end(); ++it)
+		q.push((*it).second);
+
+	int size = arr.size() / 2;
+	int res = 0;
+	while (size > 0)
+	{
+		size -= q.top();
+		++res;
+		q.pop();
+	}
+	return res;
+}
+
+int jump_helper(vector<int>& map, int idx, int d, vector<int>& steps)
+{
+	if (steps[idx] != -1)
+		return steps[idx];
+
+	int start = idx - 1;
+	while (start >= 0 && idx - start < d && map[start] < map[idx])
+		start--;
+	start = max(start, 0);
+
+	int end = idx + 1;
+	while (end < map.size() && end - idx <= d && map[end] < map[idx])
+		end++;
+	end = min(end, (int)map.size());
+
+	for (int i = start; i < end; i++)
+	{
+		if (map[idx] > map[i])
+			steps[idx] = max(jump_helper(map, i, d, steps) + 1, steps[idx]);
+	}
+	steps[idx] = steps[idx] == -1 ? 0 : steps[idx];
+	return  steps[idx];
+}
+
+int maxJumps(vector<int>& arr, int d) 
+{
+	vector<int> steps(arr.size(), -1);
+	int res = 0;
+	for (int i = 0; i < arr.size(); i++)
+		res = max(res, jump_helper(arr, i, d, steps));
+	
+	return res + 1;
+}
+
+
+int main()
+{
+	vector<int> nums = { 40, 98, 14, 22, 45, 71, 20, 19, 26, 9, 29, 64, 76, 66, 32, 79, 14, 83, 62, 39, 69, 25, 92, 79, 70, 34, 22, 19, 41, 26, 5, 82, 38 };
+
+	cout << maxJumps(nums, 6) << endl;
+	return 0;
+}

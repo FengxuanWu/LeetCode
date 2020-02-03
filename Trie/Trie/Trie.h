@@ -161,6 +161,8 @@ vector<string> split(string s, char c)
 		}
 		++right;
 	}
+	if (right > left)
+		res.push_back(s.substr(left, right - left));
 	return res;
 }
 
