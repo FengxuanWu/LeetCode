@@ -2251,137 +2251,6 @@ string longestPalindrome(string s)
 	return s.substr(mx - (p[mx]) / 2, p[mx]);
 }
 
-#define STATE_START -1
-#define STATE_DIGIT 1
-#define STATE_SIGN 2
-#define STATE_DOT 3
-#define STATE_EXP 4
-#define STATE_DIGIT_POST 5
-#define STATE_SIGN_POST 6
-#define STATE_DOT_POST 7
-#define STATE_REFUSE 8
-
-#define CHAR_DIGIT 1
-#define CHAR_SIGN 2
-#define CHAR_DOT 3
-#define CHAR_EXP 4
-
-class MiniDFA
-{
-protected:
-	int current_state;
-public:
-	MiniDFA() :current_state(STATE_START){};
-
-	bool read_char(char c)
-	{
-		//cout << c << endl;
-		int char_type = 
-			(c == '.') * CHAR_DOT + 
-			(c == '-' || c == '+') * CHAR_SIGN + 
-			(c == 'e') * CHAR_EXP + 
-			(IS_DIGIT(c));
-
-			switch (current_state)
-			{
-			case STATE_START:
-				if (char_type != STATE_EXP)
-					current_state = char_type;
-				else
-					current_state = STATE_REFUSE;
-				break;
-
-			case STATE_DOT:
-				if (char_type == CHAR_DIGIT)
-					current_state = STATE_DIGIT_POST;
-				else
-					current_state = STATE_REFUSE;
-				break;
-
-			case STATE_EXP:
-				if (char_type == CHAR_DIGIT)
-					current_state = STATE_DIGIT_POST;
-				else if (char_type == CHAR_SIGN)
-					current_state = STATE_SIGN_POST;
-				else
-					current_state = STATE_REFUSE;
-				break;
-
-			case STATE_DIGIT:
-				if (char_type == CHAR_DIGIT || char_type == CHAR_EXP)
-					current_state = char_type;
-				else if (char_type == CHAR_DOT)
-					current_state = STATE_DOT_POST;
-				else
-					current_state = STATE_REFUSE;
-				break;
-
-			case STATE_DIGIT_POST:
-				if (char_type == CHAR_DIGIT)
-					current_state = STATE_DIGIT_POST;
-				else if (char_type == CHAR_SIGN)
-					current_state = STATE_SIGN_POST;
-				else
-					current_state = STATE_REFUSE;
-				break;
-			
-			case STATE_SIGN_POST:
-				if (char_type != CHAR_DIGIT)
-					current_state = STATE_REFUSE;
-				else
-					current_state = STATE_DIGIT_POST;
-				break;
-
-			case STATE_DOT_POST:
-				if (char_type == CHAR_DIGIT)
-					current_state = STATE_DIGIT_POST;
-				else
-					current_state = STATE_REFUSE;
-				break;
-
-			case STATE_SIGN:
-				if (char_type == CHAR_DIGIT)
-					current_state = STATE_DIGIT;
-				else if (char_type == CHAR_DOT)
-					current_state = STATE_DOT_POST;
-				else
-					current_state = STATE_REFUSE;
-
-			case STATE_REFUSE:
-				break;
-			}
-		
-		return current_state == STATE_DIGIT || current_state == STATE_DIGIT_POST || current_state == STATE_DOT_POST;
-	}
-
-	bool accept()
-	{
-		return current_state == STATE_DIGIT || current_state == STATE_DIGIT_POST || current_state == STATE_DOT_POST;
-	}
-
-	bool read_string(string s)
-	{
-		int start = 0;
-		int end = s.size() - 1;
-		while (s[start] == ' ')start++;
-		while (s[end] == ' ')end--;
-
-		s = s.substr(start, end - start + 1);
-		cout << s << endl;
-
-		for (char c : s)
-			read_char(c);
-
-		return current_state == STATE_DIGIT || current_state == STATE_DIGIT_POST || current_state == STATE_DOT_POST;
-	}
-};
-
-bool isNumber(string s)
-{
-	MiniDFA dfa;
-	return dfa.read_string(s);
-}
-
 int lengthOfLongestSubstring(string s)
 {
 	size_t lower_bound = 0;
@@ -6637,11 +6506,192 @@ int maxJumps(vector<int>& arr, int d)
 	return res + 1;
 }
 
+int numOfSubarrays(vector<int>& arr, int k, int threshold)
+{
+	double sum = 0;
+	int idx = 0;
+	while (idx < k)
+		sum += arr[idx++];
+
+	int res = 0;
+	while (idx < arr.size())
+	{
+		res += (sum / k) >= threshold;	
+		sum -= arr[idx - k];
+		sum += arr[idx++];
+	}
+	return res + ((sum / k) >= threshold);
+}
+
+int jump_helper(vector<int>& arr, int curr, vector<int>& steps, unordered_map<int, vector<int>>& position, vector<int>& visited)
+{
+	if (curr + 1 == arr.size())
+		return 0;
+
+	if (steps[curr] != INT_MAX)
+		return steps[curr];
+
+	visited[curr] = 1;
+
+	if (curr + 1 < arr.size() && !visited[curr + 1])
+		steps[curr] = min(jump_helper(arr, curr + 1, steps, position, visited) + 1, steps[curr]);
+
+	if (position.find(arr[curr]) != position.end())
+	{
+		for (int i = 0; i < position[arr[curr]].size(); i++)
+		{
+			if (!visited[position[arr[curr]][i]])
+				steps[curr] = min(steps[curr], jump_helper(arr, position[arr[curr]][i], steps, position, visited) + 1);
+		}
+	}
+	return steps[curr];
+}
+
+int jump_helper2(vector<int>& arr, int curr, vector<int>& steps, unordered_map<int, vector<int>>& position, vector<int>& visited)
+{
+	if (curr + 1 == arr.size())
+		return 0;
+
+	if (steps[curr] != INT_MAX)
+		return steps[curr];
+
+	visited[curr] = 1;
+
+	if (curr - 1 < arr.size() && !visited[curr - 1])
+		steps[curr] = min(jump_helper(arr, curr - 1, steps, position, visited) + 1, steps[curr]);
+
+	if (position.find(arr[curr]) != position.end())
+	{
+		for (int i = 0; i < position[arr[curr]].size(); i++)
+		{
+			if (!visited[position[arr[curr]][i]])
+				steps[curr] = min(steps[curr], jump_helper(arr, position[arr[curr]][i], steps, position, visited) + 1);
+		}
+	}
+	return steps[curr];
+}
+
+int minJumps(vector<int>& arr)
+{
+	unordered_map<int, vector<int>> position;
+	for (int i = 0; i < arr.size(); i++)
+		position[arr[i]].push_back(i);
+
+	vector<int> steps(arr.size(), INT_MAX);
+	vector<int> visited(arr.size());
+	steps.back() = 0;
+	for (int i = 0; i < arr.size(); i++)
+		steps[i] = jump_helper(arr, i, steps, position, visited);
+	for (int i = 0; i < arr.size(); i++)
+		steps[i] = jump_helper2(arr, i, steps, position, visited);
+	cout << steps << endl;
+	return steps[0];
+}
+
+bool checkIfExist(vector<int>& arr)
+{
+	unordered_map<int, int> nums;
+	for (int i = 0; i < arr.size(); i++)
+		nums[arr[i]] = i;
+
+	for (int i = 0; i < arr.size(); i++)
+	{
+		if (nums.find(arr[i] * 2) != nums.end() && nums[arr[i]] != i)
+			return true;
+	}
+	return false;
+}
+
+int minSteps(string s, string t)
+{
+	vector<int> bar_s(26);
+	vector<int> bar_t(26);
+
+	for (int i = 0; i < s.size(); i++)
+		bar_s[to_digit(s[i])]++;
+
+	for (int i = 0; i < t.size(); i++)
+		bar_t[to_digit(t[i])]++;
+
+	int res = 0;
+	for (int i = 0; i < bar_s.size(); i++)
+		res += abs(bar_s[i] - bar_t[i]);
+	return res / 2;
+}
+
+class TweetCounts {
+public:
+	unordered_map<string, vector<int>> tweets;
+
+	TweetCounts()
+	{
+
+	}
+
+	void recordTweet(string tweetName, int time)
+	{
+		tweets[tweetName].push_back(time);
+		sort(tweets[tweetName].begin(), tweets[tweetName].end());
+	}
+
+	vector<int> getTweetCountsPerFrequency(string freq, string tweetName, int startTime, int endTime)
+	{
+		int delta = (freq == "minute") * 60 + (freq == "hour") * 3600 + (freq == "day") * 86400;
+		vector<int>& tweet_record = tweets[tweetName];
+
+		int start = 0, end = tweet_record.size() - 1;
+		while (start < tweet_record.size() && tweet_record[start] < startTime)start++;
+		while (end >= 0 && tweet_record[end] > endTime)end--;
+
+		vector<int> res;
+		int cnt = 0;
+		while (start <= end)
+		{
+			if (tweet_record[start] < startTime + delta)
+				cnt++;
+			else
+			{
+				res.push_back(cnt);
+				cnt = 1;
+			}
+			start++;
+		}
+		res.push_back(cnt);
+		return res;
+	}
+};
+
+int dfs(vector<vector<char>>& seat, int student)
+{
+	int res = 0;
+	for (int i = 0; i < seat.size(); i++)
+	{
+		for (int j = 0; j < seat[0].size(); j++)
+		{
+			if (seat[i][j] == '.')
+			{
+				if (i > 0)
+
+			}
+		}
+	}
+}
+
+int maxStudents(vector<vector<char>>& seats) 
+{
+
+}
 
 int main()
 {
-	vector<int> nums = { 40, 98, 14, 22, 45, 71, 20, 19, 26, 9, 29, 64, 76, 66, 32, 79, 14, 83, 62, 39, 69, 25, 92, 79, 70, 34, 22, 19, 41, 26, 5, 82, 38 };
+	vector<vector<char>> grid = {
+		{ '#', '.', '.', '.', '#' },
+		{ '.', '#', '.', '#', '.' },
+		{ '.', '.', '#', '.', '.' },
+		{ '.', '#', '.', '#', '.' },
+		{ '#', '.', '.', '.', '#' },
+	};
 
-	cout << maxJumps(nums, 6) << endl;
+	cout << maxStudents(grid) << endl;
 	return 0;
 }

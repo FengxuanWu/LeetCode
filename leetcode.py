@@ -1,12 +1,11 @@
 import re
 regex_instruction = re.compile('[\[\]\"\n]')
-regex_parameter = re.compile('[\[\]\n]')
 
 def write_instruction(file_name, display):
 	with open(file_name, 'r') as file_in:
 		lines = [line for line in file_in]
 		instructions = [regex_instruction.sub('', element) for element in lines[0].split(',')]
-		parameters = [regex_parameter.sub('', element) for element in lines[1].split(',')]
+		parameters = [element for element in lines[1][1 : -1].replace('[', '').split('],')]
 
 	print(instructions[0] + ' ' + instructions[0].lower()+';\n', end='')
 	for i in range(1, len(instructions)):
@@ -21,7 +20,8 @@ def write_instruction(file_name, display):
 
 def test_interface(file_name):
 	display = {}
-	display['search'] = 1; 
+	display['getTweetCountsPerFrequency'] = 1; 
+	#display['startsWith'] = 1
 	write_instruction(file_name, display)
 
 def convert_to_cpp(file_name):
@@ -75,7 +75,7 @@ def convert_to_cpp(file_name):
 
 
 if __name__ == '__main__':
-	convert_to_cpp('test.txt')
-	# test_interface('instruction.txt')
+	# convert_to_cpp('test.txt')
+	test_interface('instruction.txt')
 
 

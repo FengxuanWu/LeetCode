@@ -209,7 +209,7 @@ void construct_result(PrefixTree* node, vector<string>& res, string curr)
 		construct_result(node->children[i], res, curr + node->prefix);
 }
 
-void merge_prefix_ree(string s, int start, PrefixTree* node)
+void merge_prefix_tree(string s, int start, PrefixTree* node)
 {
 	bool found = false;
 
@@ -224,7 +224,7 @@ void merge_prefix_ree(string s, int start, PrefixTree* node)
 			{
 				//root found
 				if (same == node->children[i]->prefix.size())
-					merge_prefix_ree(s, start + same, node->children[i]);
+					merge_prefix_tree(s, start + same, node->children[i]);
 				else
 				{
 					// /aa/ab/ac /aa/ab/ac/ad, /aa/ab/ac and does not exist in the tree
