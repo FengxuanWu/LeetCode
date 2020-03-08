@@ -6,6 +6,8 @@
 #include <stack>
 #include <algorithm>
 #include <string>
+#include <functional>
+#include <unordered_map>
 using namespace std;
 
 class TreeNode
@@ -24,8 +26,28 @@ public:
 			delete this->right;
 		delete this;
 	}
-};
+};	
 typedef TreeNode* PTreeNode;
+
+struct ListNode {
+	int val;
+	ListNode *next;
+	ListNode(int x) : val(x), next(NULL) {}
+};
+
+ListNode* Construct(vector<int>& v)
+{
+	ListNode* head = NULL;
+	ListNode** iter = &head;
+
+	for (int i = 0; i < v.size(); i++)
+	{
+		(*iter) = new ListNode(v[i]);
+		iter = &((*iter)->next);
+	}
+
+	return head;
+}
 
 #define IN 0
 #define PRE 1
@@ -109,27 +131,6 @@ TreeNode* construct(vector<string> nums)
 		q.pop();
 	}
 	return root;
-}
-
-void print_tree(TreeNode* root)
-{
-	if (root)
-	{
-		cout << root->val << ' ';
-		print_tree(root->left);
-		print_tree(root->right);
-	}
-}
-
-
-void print_inorder(TreeNode* root)
-{
-	if (root)
-	{
-		print_inorder(root->left);
-		cout << root->val << ' ';
-		print_inorder(root->right);
-	}
 }
 
 template<typename T>
@@ -245,5 +246,36 @@ void stack_postorder(TreeNode* root)
 			current = IN;
 			break;
 		}
+	}
+}
+
+void inOrder(TreeNode* root, vector<int>& v)
+{
+	if (root)
+	{
+		inOrder(root->left, v);
+		v.push_back(root->val);
+		inOrder(root->right, v);
+	}
+}
+
+void preOrder(TreeNode* root, vector<int>& v)
+{
+	if (root)
+	{
+		v.push_back(root->val);
+		preOrder(root->left, v);
+		preOrder(root->right, v);
+	}
+}
+
+
+void postOrder(TreeNode* root, vector<int>& v)
+{
+	if (root)
+	{
+		postOrder(root->left, v);
+		postOrder(root->right, v);
+		v.push_back(root->val);
 	}
 }

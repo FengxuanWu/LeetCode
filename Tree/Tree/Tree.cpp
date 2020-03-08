@@ -714,15 +714,246 @@ bool IsBalanced_Solution(TreeNode* root)
 	return isAVL(root);
 }
 
+TreeNode* flattenBST(TreeNode* root, TreeNode **&tail)
+{
+	TreeNode* head = NULL;
+	if (root)
+	{
+		if (root->left)
+			head = flattenBST(root->left, tail);
+
+		if (tail == NULL)
+			tail = &root;
+		else
+			(*tail) = root;
+		tail = &((*tail)->right);
+		TreeNode **cpy = tail;
+		if (root->right)
+			(*cpy) = flattenBST(root->right, tail);
+
+		if (head == NULL)
+			head = root;
+	}
+	return head;
+}
+
+TreeNode* Convert(TreeNode* root)
+{
+	if (root == NULL)
+		return root;
+
+	TreeNode* head, **tail = NULL;
+	head = flattenBST(root, tail);
+
+	TreeNode* iter = head;
+
+	while (iter->right)
+	{
+		iter->right->left = iter;
+		iter = iter->right;
+	}
+
+	return head;
+}
+
+bool helper(vector<int> &sequence, int start, int end)
+{
+	if (start == end || start + 1 == end)
+		return true;
+
+	int x = sequence[end];
+	int left = start, right = end - 1;
+	
+	while (left < end && sequence[left] < x)left++;
+	while (right > start && sequence[right] > x)right--;
+
+	if (left - right != 1)
+		return false;
+	return helper(sequence, start, right) && helper(sequence, left, end - 1);
+}
+
+bool VerifySquenceOfBST(vector<int> sequence)
+{
+	return helper(sequence, 0, sequence.size() - 1);
+}
+
+int getSum(TreeNode* root)
+{
+	return root == NULL ? 0 : root->val + getSum(root->left) + getSum(root->right);
+}
+
+void helper(TreeNode* root, int& sum)
+{
+	if (root)
+	{
+		helper(root->right, sum);
+		root->val = sum += root->val;
+		helper(root->left, sum);
+	}
+}
+
+TreeNode* bstToGst(TreeNode* root)
+{
+	int sum = 0;
+	helper(root, sum);
+	return root;
+}
+
+bool match(ListNode* head, TreeNode* root)
+{
+	if (head == NULL)
+		return true;
+
+	if (root)
+	{
+		if (root->val == head->val)
+			return match(head->next, root->left) || match(head->next, root->right);
+		return false;
+	}
+	return false;
+}
+
+bool isSubPath(ListNode* head, TreeNode* root)
+{
+	if (root)
+	{
+		if (match(head, root))
+			return true;
+		return isSubPath(head, root->left) || isSubPath(head, root->right);
+	}
+	return false;
+}
+
+string rankTeams(vector<string>& votes)
+{
+	vector<pair<vector<int>, char>> teams(26);
+	for (int i = 0; i < teams.size(); i++)
+	{
+		teams[i].second = 'A' + i;
+	}
 
 
+	for (int i = 0; i < votes.size(); i++)
+		for (int j = 0; j < votes[i].size(); j++)
+		{
+			if (teams[votes[i][j] - 'A'].first.size() == 0)		
+				teams[votes[i][j] - 'A'].first.resize(26);		
+			teams[votes[i][j] - 'A'].first[j]++;
+		}
+			
 
-//1 2 4 -1 -1 5 -1 -1 3 6 -1 -1 7 -1 -1
-//1 2 -1 -1 3 -1 4 -1 -1
+		sort(teams.begin(), teams.end(), [=](pair<vector<int>, char> &a, pair<vector<int>, char> &b)
+		{
+			return a.first > b.first || a.first == b.first && a.second < b.second;
+		});
+	string  res = "";
+	for (int i = 0; i < teams.size(); i++)
+	if (teams[i].first.size() > 0)
+		res += teams[i].second;
+	return res;
+}
+
+TreeNode* buildTree(vector<string>& layer)
+{
+	TreeNode *root = NULL;
+	queue<TreeNode**> q;
+	q.push(&root);
+
+	for (int i = 0; i < layer.size(); i++)
+	{
+		if (layer[i] != "#")
+		{
+			*q.front() = new TreeNode(stoi(layer[i]));
+			q.push(&((*q.front())->left));
+			q.push(&((*q.front())->right));
+		}
+		q.pop();
+	}
+
+	return root;
+}
+
+void traverse(TreeNode* root)
+{
+	stack<TreeNode**> s;
+	unordered_map<TreeNode**, bool> visited;
+	s.push(&root);
+	int current = IN;
+	while (!s.empty())
+	{
+		switch (current)
+		{
+		case PRE:
+			s.push(&((*s.top())->left));
+			current = IN;
+			break;
+		case IN:
+			if (*s.top())
+			{
+				if (!visited[s.top()]){ cout << (*s.top())->val << endl; visited[s.top()] = 1; }
+				if (!visited[&((*s.top())->left)]){ current = PRE; break; }
+				if (!visited[&((*s.top())->right)]){ current = POST; break; }
+			}
+			else
+			{
+				visited[s.top()] = 1;
+				cout << '#' << endl;
+			}
+			s.pop();
+			break;
+		case POST:
+			s.push(&((*s.top())->right));
+			current = IN;
+			break;
+		}
+	}
+}
+
+int maximum = 0;
+
+int isBST(TreeNode* root)
+{
+	if (root)
+	{
+		if (root->left == NULL && root->right == NULL)
+		{
+			maximum = max(maximum, root->val);
+			return root->val;
+		}
+
+		int left = isBST(root->left);
+		int right = isBST(root->right);
+
+		int res = false;
+
+		if (left && right && (root->left ? left < root->val : true) && (root->right ? root->val < right : 1))
+			res = true;
+
+		int rv = root->val;
+		if (root->left)
+			root->val += root->left->val;
+		if (root->right)
+			root->val += root->right->val;
+		
+
+		if (res)
+			maximum = max(maximum, root->val);
+
+		return res * (root->left ? left : rv);
+	}
+	return 1;
+}
+
+int maxSumBST(TreeNode* root)
+{
+	isBST(root);
+	return maximum;
+}
+
 int main()
 {
-	vector<string> nodes = { "1", "2", "3", "4", "5", "null", "6", "null", "null", "7" };
-	TreeNode* root = construct(nodes);
-	cout << IsBalanced_Solution(root) << endl;
+	TreeNode* root = construct({ "9", "2", "3", "null", "2", "null", "null", "3", "null", "-5", "4", "null", "1", "null", "10" });
+		//construct({ "4", "8", "null", "6", "1", "9", "null", "-5", "4", "null", "null", "null", "-3", "null", "10" });
+	cout << maxSumBST(root) << endl;
 	return 0;
 }

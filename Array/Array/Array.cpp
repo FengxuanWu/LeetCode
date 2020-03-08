@@ -138,7 +138,7 @@ vector<vector<int>> subsets(vector<int>& nums)
 			flag &= vec[i];
 		}
 
-		//cout << r << endl;
+
 		res.push_back(r);
 
 		if (flag)
@@ -2439,18 +2439,6 @@ vector<int> grayCode(int n) {
 	return res;
 }
 
-#ifndef set_bit
-#define set_bit(n, pos, b)(b == 1 ? n |= (1 << pos) : n &= ~(1 << pos))
-#endif
-
-#ifndef to_digit
-#define to_digit(c)(c - 'a')
-#endif
-
-#ifndef get_bit
-#define get_bit(n,pos)((n & (1<<pos)) != 0)
-#endif
-
 int cnt_one(int n){
 	int res = 0;
 	while (n)
@@ -4100,21 +4088,21 @@ int maxDistToClosest(vector<int>& seats)
 	return ans;
 }
 
-vector<int> twoSum(vector<int>& nums, int target)
-{
-	map<int, int> mapping;
-	for (int i = 0; i < nums.size(); i++)
-	{
-		mapping[nums[i]] = i;
-	}
-
-	for (int i = 0; i < nums.size(); i++)
-	{
-		if (mapping.find(target - nums[i]) != mapping.end())
-			return vector<int>({ i, mapping[target - nums[i]] });
-	}
-	return vector<int>();
-}
+//vector<int> twoSum(vector<int>& nums, int target)
+//{
+//	map<int, int> mapping;
+//	for (int i = 0; i < nums.size(); i++)
+//	{
+//		mapping[nums[i]] = i;
+//	}
+//
+//	for (int i = 0; i < nums.size(); i++)
+//	{
+//		if (mapping.find(target - nums[i]) != mapping.end())
+//			return vector<int>({ i, mapping[target - nums[i]] });
+//	}
+//	return vector<int>();
+//}
 
 vector<int> prisonAfterNDays(vector<int>& cells, int n) 
 {
@@ -4196,7 +4184,6 @@ vector<vector<int>> combinationSum(vector<int>& nums, int target)
 	dfs(nums, 0, target, tmp, ans);
 	return ans;
 }
-
 
 
 void bfs(vector<vector<int>>& grid, int row, int col, int& res)
@@ -6270,7 +6257,8 @@ vector<string> split(string s, char c, int* length = NULL)
 		if (s[right] == c && right > left)
 		{
 			res.push_back(s.substr(left, right - left));
-			*length = max(*length, right - left);
+			if (length != NULL)
+				*length = max(*length, right - left);
 			left = right + 1;
 		}
 		++right;
@@ -6645,53 +6633,866 @@ public:
 
 		vector<int> res;
 		int cnt = 0;
-		while (start <= end)
+		int curr = startTime;
+		while (curr <= endTime)
 		{
-			if (tweet_record[start] < startTime + delta)
-				cnt++;
-			else
-			{
-				res.push_back(cnt);
-				cnt = 1;
-			}
-			start++;
+			int upper_bound = min(curr + delta, endTime);
+			while (start < tweet_record.size() && tweet_record[start] < upper_bound)
+				start++, cnt++;
+			res.push_back(cnt);
+			cnt = 0;
+			curr = curr + delta;
 		}
-		res.push_back(cnt);
 		return res;
 	}
 };
 
-int dfs(vector<vector<char>>& seat, int student)
+bool checkRecord(string s)
+{
+	int l = 0, a = 0;
+	for (int i = 0; i < s.size();)
+	{
+		a += s[i] == 'A';
+		if (s[i] == 'L')
+			while (s[i] == 'L')l++, i++;
+		else
+			i++;
+
+		if (l > 2 || a > 1)
+			return false;
+		l = 0;
+		
+	}
+	return true;
+}
+
+int mySqrt(int x)
+{
+	int start = 0, end = x, mid = start + (end - start) / 2;
+	while (true)
+	{
+		if (mid == x / mid || start + 1 == end)
+			break;
+
+		if (mid < x / mid)
+			start = mid;
+		else
+			end = mid;
+
+		mid = start + (end - start) / 2;
+	}
+	return mid - (x < mid * mid);
+}
+
+int arrangeCoins(int n)
+{
+	int res = 1, sum = 0;
+	while (sum < n)
+		sum += res++;
+
+	return --res - (sum != n);
+}
+
+bool hasAlternatingBits(int n)
+{
+	int s = ((n & -n) << (n & 1)) - 1;
+
+	int tmp;
+	if (n & 1)
+		tmp = n << 1;
+	else
+		tmp = n >> 1;
+	return (tmp ^ n) == s;
+}
+
+int subarraySum(vector<int>& nums, int k)
+{
+	vector<int> sums(nums.size() + 1);
+	int res = 0;
+	for (int i = 1; i <= nums.size(); i++)
+		sums[i] = sums[i - 1] + nums[i - 1];
+
+	for (int i = 0; i < sums.size() - 1; i++)
+		for (int j = i + 1; j < sums.size(); j++)
+			res += (k == sums[j] - sums[i]);
+
+	return res;
+}
+
+vector<vector<int>> reconstructQueue(vector<vector<int>>& people)
+{
+	if (people.size() == 0)
+		return people;
+
+	sort(people.begin(), people.end(), 
+		[=](vector<int>& a, vector<int>& b)
+		{
+			return a[0] < b[0] || a[0] == b[0] && a[1] < b[1]; 
+		}
+	);
+
+	map<int, int> greater;
+	int idx = 0;
+	for (int i = 0; i < people.size(); i++)
+	{
+		if (people[idx][0] != people[i][0])
+			greater[people[idx][0]] = people.size() - idx, idx = i;
+	}
+
+	greater[people[idx][0]] = people.size() - idx;
+
+	for (auto e : greater)
+		cout << e.first << ' ' << e.second << endl;
+
+	//for (int i = 1; i < people.size(); i++)
+	//{
+	//	int higher = 0;
+	//	for (int j = 0; j < i; j++)
+	//	{
+	//		higher += people[i][0] < people[j][0];
+	//		if (higher < people[i][1])
+	//			continue;
+	//		else if (higher < z)
+	//	}
+	//}
+
+	return people;
+}
+
+
+bool kSumdfs(vector<int>& nums, int curr, int target, int k, vector<int>& used)
+{
+	if (k == 1)
+		return true;
+
+	for (int i = 0; i < nums.size(); i++)
+	{
+		if (nums[i] > curr)
+			continue;
+		else
+		{
+			used[i] = true;
+			if (kSumdfs(nums,
+				curr - nums[i] == 0 ? target : curr - nums[i],
+				target,
+				k - (curr - nums[i] == 0),
+				used))
+				return true;
+			used[i] = false;
+		}
+	}
+	return false;
+}
+
+bool kSum(vector<int>& nums, int k)
+{
+	int sum = 0;
+	sort(nums.begin(), nums.end(), greater<int>());
+	for (int i = 0; i < nums.size(); i++)
+		sum += nums[i];
+
+	if (sum % k != 0) return false;
+	vector<int> used(nums.size());
+	return kSumdfs(nums, 0, sum / k, k, used);
+}
+
+vector<int> preprocess(string s)
+{
+	vector<int> res;
+	int i = 0;
+	while (i < s.size())
+	{
+		if (i == '[' || i == ']')
+			continue;
+		int digit_start = i;
+		int val = 0;
+		while (i < s.size() && is_digit(s[i]))
+			val = val * 10 + (s[i++] - '0');
+		res.push_back(val);
+		while (i < s.size() && !is_digit(s[i]))i++;
+	}
+	return res;
+}
+
+vector<int> FindNumbersWithSum(vector<int> nums, int target)
+{
+	vector<int> res(2);
+
+	int left = 0;
+	while (left < nums.size())
+	{
+		int right = nums.size() - 1;
+		while (left < right && nums[left] + nums[right] > target)
+			right--;
+
+		if (nums[left] + nums[right] == target)
+			res[0] = left, res[1] = right;
+		left++;
+	}
+
+	return res;
+}
+
+int kSum(int start, int k)
+{
+	start = start + start + k - 1;
+	if (start % 2 == 0)
+		start /= 2;
+	else
+		k /= 2;
+	return start * k;
+}
+
+int searchStart(int k, int target)
+{
+	int start = 1, end = target + 1, mid = start + (end - start) / 2;
+	while (start != mid)
+	{
+		int sum = kSum(mid, k);
+		if (sum == target)
+			return mid;
+		else if (sum < target)
+			start = mid;
+		else
+			end = mid;
+		mid = start + (end - start) / 2;
+	}
+	return kSum(mid, k) == target ? mid : -1;
+}
+
+vector<vector<int>> FindContinuousSequence(int target)
+{
+	vector<vector<int>> res;
+	for (int i = 2; kSum(1, i) <= target; i++)
+	{
+		int start = searchStart(i, target);
+		if (start != -1)
+		{
+			vector<int> tmp;
+			for (int j = 0; j < i; j++)
+				tmp.push_back(start + j);
+			res.push_back(tmp);
+		}
+	}
+	return res;
+}
+
+vector<int> calPrimes(int bound)
+{
+	vector<int> primes(1, 2);
+	for (int i = 3; i <= bound; i++)
+	{
+		bool isPrime = true;
+		for (int j = 0; j < primes.size(); j++)
+			isPrime &= (i % primes[j] != 0);
+		if (isPrime)
+			primes.push_back(i);
+	}
+	return primes;
+}
+
+int twoSum(vector<int>& nums, int target)
 {
 	int res = 0;
-	for (int i = 0; i < seat.size(); i++)
+	int left = 0;
+	while (left < nums.size())
 	{
-		for (int j = 0; j < seat[0].size(); j++)
-		{
-			if (seat[i][j] == '.')
-			{
-				if (i > 0)
+		int right = nums.size() - 1;
+		while (left < right && nums[left] + nums[right] > target)
+			right--;
+		res += (nums[left] + nums[right] == target);
+		left++;
+	}
+	return res;
+}
 
+int prime_sum(int n)
+{
+	vector<int> primes = calPrimes(n - 2);
+	return twoSum(primes, n);
+}
+
+vector<unsigned int> taskId(32);
+
+void setTask(int id)
+{
+	int idx = id / 32;
+	int bit = id % 32;
+	set_bit(taskId[idx], bit, 1);
+}
+
+int getTask(int id)
+{
+	int idx = id / 32;
+	int bit = id % 32;
+	return get_bit(taskId[idx], bit);
+}
+
+string decodeStr(string str)
+{
+	string res = "";
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (str[i] != ']')
+			res += str[i];
+		else
+		{
+			string tmp = "";
+			while (res.back() != '[')
+			{
+				tmp += res.back();
+				res.pop_back();
 			}
+			res.pop_back();
+			reverse(tmp.begin(), tmp.end());
+
+			int idx = 0;
+			while (idx < tmp.size() && tmp[idx] != '|') idx++;
+	
+			int time = stoi(tmp.substr(0, idx));
+			string sub = tmp.substr(idx + 1, tmp.size() - idx - 1);
+
+			for (int i = 0; i < time; i++)
+				res += sub;
+		}
+	}
+	return res;
+}
+
+void dfs(string& s, int idx, string tmp, vector<string>& res, stack<char> sta)
+{
+	if (idx == s.size())
+	{
+		while (!sta.empty())
+		{
+			tmp += sta.top();
+			sta.pop();
+		}
+		res.push_back(tmp);
+	}
+	else
+	{
+		sta.push(s[idx]);
+		dfs(s, idx + 1, tmp, res, sta);
+		sta.pop();
+
+		if (!sta.empty())
+		{
+			tmp += sta.top();
+			sta.pop();
+			dfs(s, idx, tmp, res, sta);
+		}
+	}
+
+}
+
+void GetAllSequence(string input, int i, const int N, stack<char> &stk, string &seq, vector<string> &result) {
+	if (i == N) {
+		// 输入序列全部入栈完毕，只能出栈。将栈中的元素添加到seq 的后面, 保存 seq
+		if (!stk.empty()) {
+			int top = stk.top();
+			seq.push_back(top);
+			stk.pop();
+			GetAllSequence(input, i, N, stk, seq, result); // 保持 i == N，递归地将 stk 元素复制到 seq
+			stk.push(top); //回溯
+			seq.pop_back();
+		}
+		else {
+			result.push_back(seq); // 保存结果
+		}
+	}
+	else {
+		// 对于一个输入元素，可以入栈；可以不入，弹出栈中已有元素
+		// 入栈
+		stk.push(input[i]);
+		GetAllSequence(input, i + 1, N, stk, seq, result); // 向 i+1 递归
+		stk.pop(); // 回溯，恢复栈之前的状态
+
+		// 出栈
+		if (!stk.empty()) {
+			int top = stk.top(); //记录
+			stk.pop();
+			seq.push_back(top);
+			GetAllSequence(input, i, N, stk, seq, result); // 保持 i 不变
+			seq.pop_back(); // 回溯，恢复栈和序列之前的状态
+			stk.push(top);
 		}
 	}
 }
 
-int maxStudents(vector<vector<char>>& seats) 
-{
 
+vector<string> popStack(string s)
+{
+	stack<char> sta;
+	vector<string> res;
+	string tmp = "";
+	dfs(s, 0, "", res, sta);
+	reverse(res.begin(), res.end());
+	//GetAllSequence(s, 0, s.size(), sta, tmp, res);
+	return res;
+}
+
+unsigned int align_n(unsigned int num, int n)
+{
+	int bit = 0;
+	int i = 0;
+	while (i < n)
+	{
+		bit |= get_bit(num, i);
+		set_bit(num, i, 0);
+		i++;
+	}
+
+	while (bit)
+	{
+		bit &= get_bit(num, i);
+		set_bit(num, i, 1 ^ get_bit(num, i));
+		i++;
+	}
+
+	return num;
+}
+
+unsigned int toDec(string s)
+{
+	int idx = 0;
+	while (s[idx] != 'x')idx++;
+	idx++;
+	unsigned int res = 0;
+	while (idx < s.size())
+	{
+		if (is_digit(s[idx]))
+			res = res * 16 + (s[idx] - '0');
+		else
+			res = res * 16 + 10 + (s[idx] - 'a');
+		idx++;
+	}
+	cout << hex << res << endl;
+	return res;
+}
+
+vector<int> table = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+//vector<string> split(string& s, char c)
+//{
+//	vector<string> res;
+//	int left = 0, right = left;
+//	while (right < s.size())
+//	{
+//		while (left < s.size() && s[left] == c)left++;
+//		right = left;
+//		while (right < s.size() && s[right] != c)right++;
+//		res.push_back(s.substr(left, right - left));
+//	}
+//
+//	if (right > left)
+//		res.push_back(s.substr(left, right - left));
+//	return res;
+//}
+
+int daysBetweenDates(string date1, string date2)
+{
+	if (date1 > date2)
+		swap(date1, date2);
+
+	vector<string> a = split(date1, '-');
+	vector<string> b = split(date2, '-');
+	int y_a = stoi(a[0]), m_a = stoi(a[1]), d_a = stoi(a[2]);
+	int y_b = stoi(b[0]), m_b = stoi(b[1]), d_b = stoi(b[2]);
+
+	int res = 0;
+	while (d_a != d_b)
+	{	
+		if (d_a == table[m_a])
+		{
+			d_a = 1;
+			if (m_a == 13)
+			{
+				y_a++;
+				m_a = 1;
+			}
+		}
+		else
+			d_a++;
+		res++;
+	}
+	cout << d_a << endl;
+	while (m_a != m_b)
+	{
+		res += table[m_a] + m_a == 2 && leap_year(y_a);
+		if (m_a == 12)
+		{
+			m_a = 1;
+			y_a++;
+		}
+		else
+			m_a++;
+	}
+	cout << m_a << endl;
+	while (y_a != y_b)
+		res += 365 + leap_year(y_a), y_a++;
+
+	return res;
+}
+
+vector<int> smallerNumbersThanCurrent(vector<int>& nums)
+{
+	map<int, int> num_count;
+	for (int i = 0; i < nums.size(); i++)
+		num_count[nums[i]]++;
+
+	int curr = 0;
+	for (auto it = num_count.begin(); it != num_count.end(); it++)
+	{
+		int tmp = (*it).second;
+		(*it).second = curr; 
+		curr += tmp;
+	}
+		
+
+	for (int i = 0; i < nums.size(); i++)
+		nums[i] = num_count[nums[i]];
+	return nums;
+}
+
+int getChar(const char* p, int idx, int size, char* c)
+{
+	int res = 0;
+	if (idx < size && p[idx] != '\\')
+		res = 1, *c = p[idx];
+	else{
+		if (idx + 2 > size)
+			return res;
+
+		switch (p[idx + 1])
+		{
+		case 'a':
+			res = 2, *c = '\a'; break;
+		case 'b':
+			res = 2, *c = '\b'; break;
+		case 'n':
+			res = 2, *c = '\n'; break;
+		case 'f':
+			res = 2, *c = '\f'; break;
+		case 'r':
+			res = 2, *c = '\r'; break;
+		case 't':
+			res = 2, *c = '\t'; break;
+		case 'v':
+			res = 2, *c = '\v'; break;
+		case '\\':
+			res = 2, *c = '\\'; break;
+		case '\'':
+			res = 2, *c = '\''; break;
+		case '\"':
+			res = 2, *c = '\"'; break;
+		case '\?':
+			res = 2, *c = '\?'; break;
+		case '\0':
+			res = 2, *c = '\0'; break;
+		default:
+			break;
+		}
+
+		if (res == 0){
+			if (idx + 4 > size)
+				return 0;
+			else{
+				int weight = (p[idx + 1] == 'd') * 8 + (p[idx + 1] == 'X') * 16;
+				res = 4;
+				*c = p[idx + 2] * weight + p[idx + 3];
+			}
+		}
+	}
+	return res;
+}
+
+int unescape_c_quoted(char *buf, const char *s)
+{
+	int length = strlen(s);
+	if (length < 2)
+		return 0;
+
+	int res = 0, idx = 0;
+	int iter = 1;
+
+	if (s[0] != '\"' || s[length - 1] != '\"')
+		res = -1;
+
+	else
+	{
+		while (iter + 1 < length)
+		{
+			char c = 0;
+			int used = getChar(s, iter, length, &c);
+			if (used == 0 || (used == 1 && c == '\"'))
+			{
+				res = -1;
+				break;
+			}
+			buf[idx++] = c;
+			iter += used;
+		}
+	}
+
+	if (res == -1)
+	{
+		memset(buf, 0, idx);
+		char *r = "error";
+		while (*buf++ = *r++);
+	}
+
+	return res;
+}
+
+int compare(const string& a, const string& b)
+{
+	int idx = 0;
+	while (idx < a.size() && idx < b.size() && a[idx] == b[idx]) idx++;
+
+	if (idx == a.size() && idx == b.size())
+		return 0;
+
+	if (idx == a.size() || a[idx] < b[idx])
+		return 1;
+	else
+		return -1;
+}
+
+class TCP
+{
+public:
+	string sIP;
+	string dIP;
+	string sPort;
+	string dPort;
+	TCP(string &a, string &b, string &c, string d) : sIP(a), sPort(c), dIP(b), dPort(d){};
+
+	bool operator<(const TCP &a) const
+	{
+		int csip = compare(sIP, a.sIP);
+		int cdip = compare(dIP, a.dIP);
+		int csp = compare(sPort, a.sPort);
+		int cdp = compare(dPort, a.dPort);
+		return (csip == 1)
+			|| (csip == 0 && cdip == 1)
+			|| (csip == 0 && cdip == 0 && csp == 1)
+			|| (csip == 0 && cdip == 0 && csp == 0 && cdp == 1);
+	}
+};
+
+map<TCP, int> tcp_record;
+
+int getNum(string& sip, string& dip, string& sport, string& dport)
+{
+	TCP t(sip, dip, sport, dport);
+	if (tcp_record.find(t) != tcp_record.end())
+		return tcp_record[t];
+	else{
+		tcp_record[t] = tcp_record.size() + 1;
+		return tcp_record.size();
+	}
+}
+
+void dfs(vector<int>& nums, int idx, int total, int target, vector<int>& tmp)
+{
+	if (idx + 1 == nums.size())
+	{
+		if (target - total <= nums[idx])
+		{
+			tmp.push_back(target - total);
+			for (auto e : tmp)
+				cout << e << ' ';
+			cout << endl;
+			tmp.pop_back();
+		}
+		else
+			return;
+	}
+	else
+	{
+		int i = 0;
+		for (; i <= nums[idx] && total + i < target; i++)
+		{
+			tmp.push_back(i);
+			dfs(nums, idx + 1, total + i, target, tmp);
+			tmp.pop_back();
+		}
+
+		if (i <= nums[idx] && total + i == target)
+		{
+			tmp.push_back(i);
+			while (tmp.size() < nums.size()) tmp.push_back(0);
+			for (auto e : tmp)
+				cout << e << ' ';
+			cout << endl;
+			while (tmp.size() > idx) tmp.pop_back();
+		}
+	}
+}
+
+int charReplacement(string& s, int k, char c)
+{
+	int left = 0, right = 0, res = 0;
+	int char_change = 0;
+	while (right < s.size() && k > 0) k -= s[right++] != c;
+	while (right < s.size() && s[right] == c) right++;
+
+	res = max(res, right - left);
+	while (right < s.size())
+	{
+		while (left < right && s[left] == c) left++;
+		++left;
+		++right;
+		while (right < s.size() && s[right] == c) right++;
+		res = max(res, right - left);
+	}
+	return res;
+}
+
+int characterReplacement(string s, int k)
+{
+	int res = 0;
+	for (int i = 0; i < 26; i++)
+		res = max(res, charReplacement(s, k, 'A' + i));
+	return res;
+}
+
+int numSquares(int n)
+{
+	vector<int> dp(n + 1, INT_MAX);
+	dp[0] = 0;
+	for (int i = 1; i * i <= n; i++)
+		dp[i * i] = 1;
+
+	for (int i = 1; i <= n; i++)
+	{
+		for (int j = 1; j * j <= i; j++)
+		{
+			dp[i] = min(dp[i], dp[i - j * j] + dp[j * j]);
+		}
+	}
+
+	return dp[n];
+}
+
+int paintHoust(vector<vector<int>> costs)
+{
+	vector<vector<int>> dp(costs.size() + 1, vector<int>(3, INT_MAX));
+	dp[0][1] = dp[0][0] = dp[0][2] = 0;
+
+	for (int i = 1; i <= costs.size(); i++)
+		for (int j = 0; j < 3; j++)
+			for (int k = 0; k < 3; k++)
+				if (k != j)
+					dp[i][j] = min(dp[i][j], dp[i - 1][k] + costs[i - 1][j]);
+
+	return min(dp.back()[0], min(dp.back()[1], dp.back()[2]));
+}
+
+vector<int> countBits(int num)
+{
+	vector<int> res(num + 1);
+	int mod = 0;
+	for (int i = 0; i <= num; i++)
+	{
+		if ((i & (i - 1)) == 0)
+			mod = i;
+
+		if (mod != 0)
+			res[i] = (1 + res[i % mod]);
+		else
+			res[i] = (i);
+	}
+
+	return res;
+}
+
+int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime)
+{
+	vector<vector<pair<int, int>>> graph(n, vector<pair<int, int>>());
+
+	for (int i = 0; i < n; i++)
+	if (i != headID)
+		graph[manager[i]].push_back({ i, informTime[i] });
+
+	vector<int> time(n, INT_MAX);
+	time[headID] = informTime[headID];
+
+	queue<int> q;
+	q.push(headID);
+
+	while (!q.empty())
+	{
+		for (int i = 0; i < graph[q.front()].size(); i++)
+		{
+			int employee = graph[q.front()][i].first;
+			int delay = graph[q.front()][i].second;
+			time[employee] = min(time[employee], time[q.front()] + delay);
+			q.push(employee);
+		}
+		q.pop();
+	}
+	
+	int res = 0;
+	for (int i = 0; i < time.size(); i++)
+		res = max(res, time[i]);
+
+	return res;
+}
+
+double frogPosition(int n, vector<vector<int>>& edges, int time, int target)
+{
+	vector<vector<int>> graph(n + 1, vector<int>());
+	for (int i = 0; i < edges.size(); i++)
+	{
+		int from = min(edges[i][0], edges[i][1]), to = max(edges[i][0], edges[i][1]);
+		graph[from].push_back(to);
+	}
+		
+
+	vector<double> prob(n + 1);
+	prob[1] = 1;
+
+	queue<pair<int, int>> q;
+	q.push({ 1, 0 });
+	int layer = 0;
+	int t = 0;
+	while (!q.empty())
+	{
+		while (!q.empty() && layer == q.front().second)
+		{
+			for (int i = 0; i < graph[q.front().first].size(); i++)
+			{
+				int next = graph[q.front().first][i];
+				q.push({ next, layer + 1 });
+				prob[next] = prob[q.front().first] * (1 / (double)(graph[q.front().first].size()));
+			}
+			prob[q.front().first] = 0;
+			q.pop();
+		}
+		layer++;
+		if (layer == time)
+			break;
+	}
+
+	return prob[target];
 }
 
 int main()
 {
-	vector<vector<char>> grid = {
-		{ '#', '.', '.', '.', '#' },
-		{ '.', '#', '.', '#', '.' },
-		{ '.', '.', '#', '.', '.' },
-		{ '.', '#', '.', '#', '.' },
-		{ '#', '.', '.', '.', '#' },
+	int n = 7;
+	int t = 20;
+	int target = 6;
+	vector<vector<int>> edges = {
+		{ 2, 1 },
+		{ 3, 2 },
+		{ 4, 1 },
+		{ 5, 1 },
+		{ 6, 4 },
+		{ 7, 1 },
+		{ 8, 7 },
 	};
-
-	cout << maxStudents(grid) << endl;
+	cout << frogPosition(n, edges, t, target) << endl;
 	return 0;
 }

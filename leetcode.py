@@ -5,7 +5,7 @@ def write_instruction(file_name, display):
 	with open(file_name, 'r') as file_in:
 		lines = [line for line in file_in]
 		instructions = [regex_instruction.sub('', element) for element in lines[0].split(',')]
-		parameters = [element for element in lines[1][1 : -1].replace('[', '').split('],')]
+		parameters = [element for element in lines[1][1 : -2].replace('[', '').split('],')]
 
 	print(instructions[0] + ' ' + instructions[0].lower()+';\n', end='')
 	for i in range(1, len(instructions)):
@@ -75,7 +75,6 @@ def convert_to_cpp(file_name):
 
 
 if __name__ == '__main__':
-	# convert_to_cpp('test.txt')
-	test_interface('instruction.txt')
-
+	convert_to_cpp('test.txt')
+	# test_interface('instruction.txt')
 

@@ -24,6 +24,20 @@ using namespace std;
 
 #define IS_DIGIT(c)(c >= '0' && c <= '9')
 #define IS_LETTER(c) (c >= 'a' && c <= 'z' || c >= 'A' || c <= 'Z')
+#define is_digit(c)(c >= '0' && c <= '9')
+
+#ifndef set_bit
+#define set_bit(n, pos, b)(b == 1 ? n |= (pos < 32 ? 1 << pos : 0) : n &= ~(pos < 32 ? 1 << pos : 0))
+#endif
+
+#ifndef to_digit
+#define to_digit(c)(c - 'a')
+#endif
+
+#ifndef get_bit
+#define get_bit(n,pos)((n & (1<<pos)) != 0)
+#endif
+
 
 #ifndef MALLOC
 #define MALLOC(type, size)((type*)malloc(sizeof(type) * size))
@@ -74,5 +88,18 @@ ostream& operator<<(ostream& os, set<T> s)
 	for (set<T>::iterator it = s.begin(); it != s.end(); it++)
 		os << *it << ", ";
 	return os;
+}
+
+vector<int> to_bin(int num)
+{
+	vector<int> res;
+	int cnt = sizeof(num)* 8;
+	while (cnt--)
+	{
+		res.push_back(num & 1);
+		num >>= 1;
+	}
+	reverse(res.begin(), res.end());
+	return res;
 }
 

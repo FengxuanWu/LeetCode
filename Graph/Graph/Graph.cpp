@@ -427,8 +427,65 @@ int makeConnected(int n, vector<vector<int>>& connections)
 	return connected_set - 1;
 }
 
+int networkDelayTime(vector<vector<int>>& times, int n, int k)
+{
+	vector<vector<pair<int, int>>> graph(n);
+	for (int i = 0; i < times.size(); i++)
+		graph[times[i][0] - 1].push_back({ times[i][1], times[i][2] });
+
+	vector<int> time(n, INT_MAX);
+	time[k - 1] = 0;
+	queue<int> q;
+	q.push(k - 1);
+
+
+	while (!q.empty())
+	{
+		int curr = q.front();
+		for (int i = 0; i < graph[curr].size(); i++)
+		{
+			int node = graph[curr][i].first, latency = graph[curr][i].second;
+			time[graph[curr][i].first] = min(time[curr] + graph[curr][i].second, time[graph[curr][i].first]);
+			q.push(node);
+		}
+		q.pop();
+	}
+
+	int res = 0;
+	for (int i = 0; i < time.size(); i++)
+	if (time[i] == INT_MAX)
+		return -1;
+	else
+		res = max(res, time[i]);
+	return res;
+}
+
+bool buddyStrings(string a, string b)
+{
+	vector<int> bar(26);
+	int idx1 = -1, idx2 = -1, diff = 0;
+	for (int i = 0; i < a.size(); i++)
+	{
+		bar[a[i] - 'a']++;
+
+		if (a[i] != b[i])
+		{
+			++diff;
+			idx1 = idx1 == -1 ? i : idx1;
+			idx2 = idx1 != -1 ? i : idx2;
+		}
+	}
+
+	bool res = false;
+	for (int i = 0; i < bar.size(); i++)
+		res |= (bar[i] > 0 && bar[i] % 2 == 0);
+
+	return (diff == 2 && a[idx1] == b[idx2] && a[idx2] == b[idx1]) || (diff == 0 && res);
+}
+
 int main()
 {
-	
+	string a = "ab", b = "ab";
+	cout << buddyStrings(a, b) << endl;
 	return 0;
  }

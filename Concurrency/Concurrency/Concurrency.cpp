@@ -5,50 +5,59 @@
 #include <Windows.h>
 #include <iostream>
 using namespace std;
-#define THREAD_NUM 10
+#define THREAD_NUM 100
+
 
 CRITICAL_SECTION critical_section;
-#define TIME 100
-int lock = 1;
+HANDLE mutex = 0;
 
+HANDLE s_foo = 0;
+HANDLE s_bar = 0;
+
+#define TIME 100
 void foo(void* param)
 {
 	for (int i = 0; i < TIME; i++)
-	{
-		//cout << lock << endl;
-		while (!lock);
+	{		
+		WaitForSingleObject(s_foo, INFINITE);
 		cout << "foo";
-		lock = 0;
+		ReleaseSemaphore(s_bar, 1, NULL);
 	}
-
 }
 
 void bar(void* bar)
 {	
 	for (int i = 0; i < TIME; i++)
-	{
-		//cout << lock << endl;
-		while (lock);
+	{	
+		WaitForSingleObject(s_bar, INFINITE);
 		cout << "bar" << endl;
-		lock = 1;
+		ReleaseSemaphore(s_foo, 1, NULL);
 	}
 }
 
 void test()
 {
 	HANDLE thread[2];
-	DWORD thrad_id = 0;
+	DWORD thrad_id = 0;	
+	s_foo = CreateSemaphore(NULL, 1, 1, L"full");
+	s_bar = CreateSemaphore(NULL, 0, 1, L"empty");
+	
 	thread[0] = CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)(foo), NULL, NULL, NULL);
 	thread[1] = CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)(bar), NULL, NULL, NULL);
+
 	WaitForMultipleObjects(2, thread, true, INFINITE);
-	//cout << "end" << endl;
+
+	CloseHandle(thread[0]);
+	CloseHandle(thread[1]);
+	CloseHandle(s_foo);
+	CloseHandle(s_bar);
+	cout << "end" << endl;
 }
 
 
 int main()
 {
-	test();	
-	cout << endl;
+	test();
 	return 0;
 }
 
