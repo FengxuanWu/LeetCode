@@ -7446,34 +7446,42 @@ double frogPosition(int n, vector<vector<int>>& edges, int time, int target)
 	vector<vector<int>> graph(n + 1, vector<int>());
 	for (int i = 0; i < edges.size(); i++)
 	{
-		int from = min(edges[i][0], edges[i][1]), to = max(edges[i][0], edges[i][1]);
-		graph[from].push_back(to);
+		graph[edges[i][0]].push_back(edges[i][1]);
+		graph[edges[i][1]].push_back(edges[i][0]);
 	}
-		
+
+	graph[1].push_back(0);
 
 	vector<double> prob(n + 1);
 	prob[1] = 1;
 
 	queue<pair<int, int>> q;
-	q.push({ 1, 0 });
+	vector<int> visited(n + 1);
 	int layer = 0;
-	int t = 0;
+	q.push({ 1, layer });
+
 	while (!q.empty())
 	{
+		layer = q.front().second;
+		if (layer == time)
+			break;
+
 		while (!q.empty() && layer == q.front().second)
 		{
 			for (int i = 0; i < graph[q.front().first].size(); i++)
 			{
 				int next = graph[q.front().first][i];
-				q.push({ next, layer + 1 });
-				prob[next] = prob[q.front().first] * (1 / (double)(graph[q.front().first].size()));
+				if (!visited[next])
+				{
+					q.push({ next, layer + 1 });
+					prob[next] = prob[q.front().first] * (1 / (double)(graph[q.front().first].size() - 1));
+					visited[next] = 1;
+				}
 			}
-			prob[q.front().first] = 0;
+			if (graph[q.front().first].size() > 1)
+				prob[q.front().first] = 0;
 			q.pop();
 		}
-		layer++;
-		if (layer == time)
-			break;
 	}
 
 	return prob[target];
