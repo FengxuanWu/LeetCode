@@ -74,7 +74,7 @@ public:
 	}
 };
 
-template<typename T>
+
 void exchange(ListNode** node1, ListNode** node2)
 {
 	ListNode* tmp = *node1;

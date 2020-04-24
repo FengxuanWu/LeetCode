@@ -8,6 +8,7 @@
 #include <string>
 #include <functional>
 #include <unordered_map>
+#include <unordered_set>
 using namespace std;
 
 class TreeNode
@@ -149,6 +150,12 @@ ostream& operator<<(ostream& os, vector<vector<T>> t)
 	return os;
 }
 
+template <typename T>
+ostream& operator<< (ostream& os, pair<T, T>& p)
+{
+	return os << p.first << ',' << p.second;
+}
+
 //#define check_left(s, visited)(if (!visited[s.top()->left]){current = PRE;break;})
 //#define check_right(s, visited)(if (!visited[s.top()->right]){current = POST;break;})
 //#define access_val(s, visited)(if (!visited[s.top()]){cout << s.top()->val << endl;visited[s.top()] = 1;})
@@ -156,10 +163,13 @@ ostream& operator<<(ostream& os, vector<vector<T>> t)
 void stack_preorder(TreeNode* root)
 {
 	stack<TreeNode*> s;
-	map<TreeNode*, bool> visited;
-	visited[NULL] = 1;
-	s.push(root);
-	int current = PRE;
+	unordered_set<TreeNode*> visited;
+	visited.insert(NULL);
+	
+	if (visited.find(root) == visited.end())
+		s.push(root);
+
+	int current = IN;
 	while (!s.empty())
 	{
 		switch (current)
@@ -169,12 +179,9 @@ void stack_preorder(TreeNode* root)
 			current = IN;
 			break;
 		case IN:
-			if (s.top())
-			{
-				if (!visited[s.top()]){ cout << s.top()->val << ' '; visited[s.top()] = 1; }
-				if (!visited[s.top()->left]){ current = PRE; break; }
-				if (!visited[s.top()->right]){ current = POST; break; }
-			}		
+			if (visited.find(s.top()) == visited.end()){ cout << s.top()->val << ' '; visited.insert(s.top()); }
+			if (visited.find(s.top()->left) == visited.end()){ current = PRE; break; }
+			if (visited.find(s.top()->right) == visited.end()){ current = POST; break; }
 			s.pop();
 			break;
 		case POST:

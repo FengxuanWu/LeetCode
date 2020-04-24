@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include <Windows.h>
+#include <vector>
 #include <iostream>
 using namespace std;
 #define THREAD_NUM 100
@@ -54,10 +55,21 @@ void test()
 	cout << "end" << endl;
 }
 
+vector<vector<int>> dp = vector<vector<int>>(200, vector<int>(200));
+int c(int n, int m)
+{
+	cout << n << ' ' << m << endl;
+	if (n == m || m == 0)
+		return dp[n][m] = 1;
+
+	if (dp[n][m] || dp[n][n - m])
+		return dp[n][m] ? dp[n][m] : dp[n][n - m];
+
+	return c(n - 1, m - 1) + c(n, m);
+}
 
 int main()
 {
-	test();
+	cout << c(5, 2) << endl;
 	return 0;
 }
-

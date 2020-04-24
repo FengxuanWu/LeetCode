@@ -350,11 +350,139 @@ string addStrings(string num1, string num2)
 	return ans;
 }
 
+void reverse(ListNode*& head)
+{
+	ListNode **list_head = &head;
+	ListNode *iter = head ? head->next : NULL;
+	*list_head ? (*list_head)->next = NULL : *list_head;
+
+	while (iter)
+	{
+		ListNode *nxt = iter->next;
+		iter->next = *list_head;
+		*list_head = iter;
+		iter = nxt;
+	}
+}
+
+void swapNode(ListNode* &node1, ListNode*& node2)
+{
+	ListNode* tmp = node1;
+	node1 = node2;
+	node2 = tmp;
+
+	if (node1->next != node2)
+	{
+
+
+		tmp = node2->next;
+		node2->next = node1->next;
+		node1->next = tmp;
+	}
+	else
+	{
+		//ListNode* tmp = node1;
+		//node1 = node2;
+		//node2 = tmp;
+
+		tmp = node2->next;
+		node2->next = node1;
+		node1->next = tmp;
+	}
+
+
+}
+
+ListNode* swapPairs(ListNode* head)
+{
+	if (head == NULL || head->next == NULL)
+		return head;
+
+	ListNode **iter1 = &head, **iter2 = &((*iter1)->next);
+
+	while (*iter2)
+	{
+		swapNode(*iter1, *iter2);
+		if (*iter1)
+			iter1 = &((*iter1)->next);
+		else
+			break;
+		if (*iter1)
+			iter1 = &((*iter1)->next);
+		else
+			break;
+		if (*iter1)
+			iter2 = &((*iter1)->next);
+		else
+			break;
+	}
+
+	return head;
+}
+
+void reverse(ListNode*& start, ListNode**& end)
+{
+	ListNode *iter = start, **head = &start;
+	if (iter->next != *end)
+	{
+		iter = iter->next;
+		start->next = *end;
+		end = &(start->next);
+		// iter = &((*iter)->next);
+		while (iter != *end)
+		{
+			ListNode* nxt = iter->next;
+			iter->next = *head;
+			*head = iter;
+			iter = nxt;
+		}
+	}
+}
+
+ListNode* reverseKGroup(ListNode* head, int k)
+{
+	ListNode **iter = &head;
+	while (iter)
+	{
+		int size = k;
+		ListNode** end = iter;
+		
+		while (size && *end)
+		{
+			size--;
+			end = &((*end)->next);
+		}
+		
+		if (size > 0)
+			break;
+		else
+			reverse(*iter, end);
+		iter = end;
+	}
+	return head;
+}
+
+ListNode* middleNode(ListNode* head)
+{
+	int len = 0;
+	ListNode* iter = head;
+	while (iter)
+	{
+		len++;
+		iter = iter->next;
+	}
+
+	int idx = 0;
+	iter = head;
+	while (idx * 2 < len)
+		iter = iter->next;
+	return iter;
+}
 
 int main()
 {
-	ListNode* head = Construct(vector<int>({ 1, 2, 3, 4 }));
-	remove(head, 1);
+	ListNode* head = Construct(vector<int>({ 1, 2, 3, 4, 5 }));
+	head = middleNode(head);
 	cout << head << endl;
 	return 0; 
 }

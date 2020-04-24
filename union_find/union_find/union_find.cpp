@@ -56,3 +56,9 @@ string findSmallestRegion(vector<vector<string>>& regions, string region1, strin
 	}
 	return region2;
 }
+
+int main()
+{
+	cout << "hello world" << endl;
+	return 0;
+}

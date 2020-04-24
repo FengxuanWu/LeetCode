@@ -153,118 +153,6 @@ vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites)
 	return res;
 }
 
-
-int string_subtraction(string& s1, string& s2)
-{
-	int res = 0, cnt = min(s1.size(), s2.size());
-	for (int i = 0; i < cnt; i++)
-		res += s1[i] != s2[i];
-	return res;
-}
-
-int build_graph_ladder(string begin, string end, vector<vector<int>>& graph, vector<string>& word_list)
-{
-	int end_point = -1;
-	for (int i = 0; i < word_list.size() - 1; i++)
-	{
-		end_point = string_subtraction(end, word_list[i]) == 0 ? i : end_point;
-		for (int j = i + 1; j < word_list.size(); j++)
-		{
-			if (string_subtraction(word_list[i], word_list[j]) == 1)
-			{
-				graph[i].push_back(j);
-				graph[j].push_back(i);
-			}
-		}
-	}
-		
-	return (end_point == -1 && string_subtraction(end, word_list.back()) == 0) ? word_list.size() - 1 : end_point;
-}
-
-vector<vector<string>> bfs_ladder(int start, int end, vector<vector<int>>& graph, vector<string>& wordList)
-{
-	vector<int> traversed(graph.size());
-	vector<vector<int>> res(1, vector<int>(1, start));
-
-	int cnt = res.size();
-	int next_layer = 0;
-	int depth = 1;
-	bool flag = false;
-	int start_idx = -1;
-	//cout << graph << endl;
-	while (!res.empty())
-	{
-		while (cnt--)
-		{
-			traversed[res.front().back()] = 1;
-			vector<int> tmp = res.front();
-			for (int i = 0; i < graph[res.front().back()].size(); i++)
-			{
-				if (traversed[graph[res.front().back()][i]])
-					continue;
-
-				if (graph[res.front().back()][i] == end)
-				{
-					if (flag == false)
-						start_idx = res.size();
-					flag = true;
-				}
-
-				tmp.push_back(graph[res.front().back()][i]);
-				
-				if (flag)
-				{
-					if (graph[res.front().back()][i] == end)
-						res.push_back(tmp);
-				}
-				else
-					res.push_back(tmp);
-
-				tmp.pop_back();
-					
-				next_layer++;
-			}
-
-			res.erase(res.begin());
-			if (start_idx != -1)
-				start_idx--;
-
-			cout << res << endl;
-		}
-
-		if (flag)
-			break;
-		cnt = next_layer;
-		next_layer &= 0;
-		depth++;
-	}
-
-	vector<vector<string>> ret;
-	for (int i = start_idx; i < res.size(); i++)
-	{
-		vector<string> tmp;
-		for (int j = 0; j < res[i].size(); j++)
-			tmp.push_back(wordList[res[i][j]]);
-		ret.push_back(tmp);
-	}
-
-	return ret;
-}
-
-vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList)
-{
-	vector<vector<string>> res;
-
-	wordList.insert(wordList.begin(), beginWord);
-	vector<vector<int>> graph(wordList.size());
-	int end = build_graph_ladder(beginWord, endWord, graph, wordList);
-
-	if (end == -1)
-		return res;
-
-	return bfs_ladder(0, end, graph, wordList);
-}
-
 vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) 
 {
 	//vector<int> in_degree(n);
@@ -481,6 +369,117 @@ bool buddyStrings(string a, string b)
 		res |= (bar[i] > 0 && bar[i] % 2 == 0);
 
 	return (diff == 2 && a[idx1] == b[idx2] && a[idx2] == b[idx1]) || (diff == 0 && res);
+}
+
+int string_subtraction(string& s1, string& s2)
+{
+	int res = 0, cnt = min(s1.size(), s2.size());
+	for (int i = 0; i < cnt; i++)
+		res += s1[i] != s2[i];
+	return res;
+}
+
+int build_graph_ladder(string begin, string end, vector<vector<int>>& graph, vector<string>& word_list)
+{
+	int end_point = -1;
+	for (int i = 0; i < word_list.size() - 1; i++)
+	{
+		end_point = string_subtraction(end, word_list[i]) == 0 ? i : end_point;
+		for (int j = i + 1; j < word_list.size(); j++)
+		{
+			if (string_subtraction(word_list[i], word_list[j]) == 1)
+			{
+				graph[i].push_back(j);
+				graph[j].push_back(i);
+			}
+		}
+	}
+
+	return (end_point == -1 && string_subtraction(end, word_list.back()) == 0) ? word_list.size() - 1 : end_point;
+}
+
+vector<vector<string>> bfs_ladder(int start, int end, vector<vector<int>>& graph, vector<string>& wordList)
+{
+	vector<int> traversed(graph.size());
+	vector<vector<int>> res(1, vector<int>(1, start));
+
+	int cnt = res.size();
+	int next_layer = 0;
+	int depth = 1;
+	bool flag = false;
+	int start_idx = -1;
+	//cout << graph << endl;
+	while (!res.empty())
+	{
+		while (cnt--)
+		{
+			traversed[res.front().back()] = 1;
+			vector<int> tmp = res.front();
+			for (int i = 0; i < graph[res.front().back()].size(); i++)
+			{
+				if (traversed[graph[res.front().back()][i]])
+					continue;
+
+				if (graph[res.front().back()][i] == end)
+				{
+					if (flag == false)
+						start_idx = res.size();
+					flag = true;
+				}
+
+				tmp.push_back(graph[res.front().back()][i]);
+
+				if (flag)
+				{
+					if (graph[res.front().back()][i] == end)
+						res.push_back(tmp);
+				}
+				else
+					res.push_back(tmp);
+
+				tmp.pop_back();
+
+				next_layer++;
+			}
+
+			res.erase(res.begin());
+			if (start_idx != -1)
+				start_idx--;
+
+			cout << res << endl;
+		}
+
+		if (flag)
+			break;
+		cnt = next_layer;
+		next_layer &= 0;
+		depth++;
+	}
+
+	vector<vector<string>> ret;
+	for (int i = start_idx; i < res.size(); i++)
+	{
+		vector<string> tmp;
+		for (int j = 0; j < res[i].size(); j++)
+			tmp.push_back(wordList[res[i][j]]);
+		ret.push_back(tmp);
+	}
+
+	return ret;
+}
+
+vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList)
+{
+	vector<vector<string>> res;
+
+	wordList.insert(wordList.begin(), beginWord);
+	vector<vector<int>> graph(wordList.size());
+	int end = build_graph_ladder(beginWord, endWord, graph, wordList);
+
+	if (end == -1)
+		return res;
+
+	return bfs_ladder(0, end, graph, wordList);
 }
 
 int main()

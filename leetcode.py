@@ -20,7 +20,7 @@ def write_instruction(file_name, display):
 
 def test_interface(file_name):
 	display = {}
-	display['getTweetCountsPerFrequency'] = 1; 
+	display['get'] = 1; 
 	#display['startsWith'] = 1
 	write_instruction(file_name, display)
 
@@ -75,6 +75,6 @@ def convert_to_cpp(file_name):
 
 
 if __name__ == '__main__':
-	convert_to_cpp('test.txt')
-	# test_interface('instruction.txt')
+	# convert_to_cpp('test.txt')
+	test_interface('instruction.txt')
 

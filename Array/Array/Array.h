@@ -6,6 +6,7 @@
 #include <stack>
 #include <bitset>
 #include <set>
+#include <list>
 #include <algorithm>
 #include <functional>
 #include <numeric>
@@ -30,10 +31,6 @@ using namespace std;
 #define set_bit(n, pos, b)(b == 1 ? n |= (pos < 32 ? 1 << pos : 0) : n &= ~(pos < 32 ? 1 << pos : 0))
 #endif
 
-#ifndef to_digit
-#define to_digit(c)(c - 'a')
-#endif
-
 #ifndef get_bit
 #define get_bit(n,pos)((n & (1<<pos)) != 0)
 #endif
@@ -43,10 +40,31 @@ using namespace std;
 #define MALLOC(type, size)((type*)malloc(sizeof(type) * size))
 #endif
 
+vector<string> split(string s, char c, int* length = NULL)
+{
+	vector<string> res;
+	int left = 0, right = 0;
+	while (s[left] == c)right = ++left;
+	while (right < s.size())
+	{
+		if (s[right] == c && right > left)
+		{
+			res.push_back(s.substr(left, right - left));
+			if (length != NULL)
+				*length = max(*length, right - left);
+			left = right + 1;
+		}
+		++right;
+	}
+	if (right > left)
+		res.push_back(s.substr(left, right - left));
+	return res;
+}
+
 template<typename T1, typename T2>
 ostream& operator<<(ostream& os, pair<T1, T2> p)
 {
-	os << p.first << ", " << p.second;
+	os << p.first << "," << p.second;
 	return os;
 }
 
@@ -54,7 +72,7 @@ template<typename T>
 ostream& operator<<(ostream& os, vector<T> v)
 {
 	for (int i = 0; i < v.size(); i++)
-		os << v[i] << ",";
+		os << v[i] << ", ";
 	return os;
 }
 
@@ -78,7 +96,7 @@ size_t find(vector<T> v, const T& target)
 template<typename T>
 ostream& operator<<(ostream& os, pair<T, T> p)
 {
-	os << p.first << ", " << p.second;
+	os << p.first << "," << p.second;
 	return os;
 }
 

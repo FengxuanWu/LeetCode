@@ -950,10 +950,197 @@ int maxSumBST(TreeNode* root)
 	return maximum;
 }
 
+TreeNode* addOneRow(TreeNode* root, int v, int d)
+{
+	queue<pair<TreeNode**, int>> q;
+	int layer = 1;
+	q.push({ &root, layer });
+
+	while (!q.empty() && layer + 1 < d)
+	{
+		while (!q.empty() && layer == q.front().second)
+		{
+			TreeNode** r = q.front().first;
+			if ((*r)->left)
+				q.push({ &((*r)->left), layer + 1 });
+			if ((*r)->right)
+				q.push({ &((*r)->right), layer + 1 });
+			q.pop();
+		}
+		layer = q.front().second;
+	}
+
+	while (!q.empty())
+	{
+		TreeNode** r = q.front().first;
+		TreeNode* child = NULL;
+		if ((*r)->left)
+		{
+			child = (*r)->left;
+			(*r)->left = new TreeNode(1);
+			(*r)->left->left = child;
+		}
+
+		if ((*r)->left)
+		{
+			child = (*r)->right;
+			(*r)->right = new TreeNode(1);
+			(*r)->right->right = child;
+		}
+
+		q.pop();
+	}
+
+	return root;
+}
+
+int rob(TreeNode* root)
+{
+	if (root == NULL)
+		return 0;
+
+	vector<int> val(2);
+	int layer_cnt = 1, next_layer = 0, layer = 0;
+
+	queue<TreeNode*> q;
+	q.push(root);
+
+	while (!q.empty())
+	{
+		while (layer_cnt--)
+		{
+			val[layer % 2] += q.front()->val;
+			if (q.front()->left)
+			{
+				q.push(q.front()->left);
+				next_layer++;
+			}
+
+			if (q.front()->right)
+			{
+				q.push(q.front()->right);
+				next_layer++;
+			}
+
+			q.pop();
+		}
+
+		layer_cnt = next_layer;
+		next_layer = 0;
+		layer++;
+	}
+
+	return max(val[0], val[1]);
+}
+
+class Solution {
+public:
+	int parent = 0;
+	int left = 0;
+	int right = 0;
+
+	int traverse(TreeNode* root, int x)
+	{
+		if (root)
+		{
+			int l = traverse(root->left, x);
+			int r = traverse(root->right, x);
+
+			if (root->val == x)
+				left = l, right = r;
+
+			return 1 + l + r;
+		}
+		return 0;
+	}
+
+	bool btreeGameWinningMove(TreeNode* root, int n, int x)
+	{
+		traverse(root, x);
+		parent = n - left - right - 1;
+		cout << left << ' ' << right << ' ' << parent << endl;
+		return left > (parent + right) || right > (parent + left) || parent > (left + right);
+	}
+};
+
+void swap(int* a, int *b)
+{
+	int tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+int *left_max = NULL;
+int *right_min = NULL;
+bool found = false;
+
+pair<int*, int*> recover(TreeNode* root)
+{
+	pair<int*, int*> res = { NULL, NULL };
+	if (root)
+	{	
+		pair<int*, int*> left = recover(root->left);
+		if (left.second && (*left.second) > root->val)
+			swap(left.second, &root->val);
+		
+		pair<int*, int*> right = recover(root->right);
+		if (right.first && (*left.first) < root->val)
+			swap(right.first, &root->val);
+		
+		res.first = left.first == NULL ? &root->val : left.first;
+		res.second = right.second == NULL ? &root->val : right.second;
+	}
+	return res;
+}
+
+void recoverTree(TreeNode* root)
+{
+	recover(root);
+}
+
+int res = 0;
+pair<int, int> zigzag(TreeNode* root)
+{
+	if (root)
+	{
+		pair<int, int> left = zigzag(root->left);
+		pair<int, int> right = zigzag(root->right);
+		res = max(res, max(left.first, left.second));
+		res = max(res, max(right.first, right.second));
+		cout << left << ' ' << right << endl;
+		return { left.second + 1, right.first + 1 };
+	}
+	return { 0, 0 };
+}
+
+int longestZigZag(TreeNode* root)
+{
+	zigzag(root);
+	return res - 1;
+}
+
+TreeNode* bstFromPreorder(vector<int>& preorder, int start, int end)
+{
+	if (start < end)
+	{
+		TreeNode* root = new TreeNode(preorder[start]);
+		int idx = start + 1;
+		while (idx < preorder.size() && preorder[start] > preorder[idx]) idx++;
+		root->left = bstFromPreorder(preorder, start + 1, idx);
+		root->right = bstFromPreorder(preorder, idx, end);
+		return root;
+	}
+	return NULL;
+}
+
+TreeNode* bstFromPreorder(vector<int>& preorder)
+{
+	return  bstFromPreorder(preorder, 0, preorder.size());
+}
+
 int main()
 {
-	TreeNode* root = construct({ "9", "2", "3", "null", "2", "null", "null", "3", "null", "-5", "4", "null", "1", "null", "10" });
-		//construct({ "4", "8", "null", "6", "1", "9", "null", "-5", "4", "null", "null", "null", "-3", "null", "10" });
-	cout << maxSumBST(root) << endl;
+	vector<int> nums = { 8, 5, 1, 7, 10, 12 };
+	stack_inorder(bstFromPreorder(nums));
 	return 0;
 }
