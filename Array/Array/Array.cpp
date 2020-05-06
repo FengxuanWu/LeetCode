@@ -4294,26 +4294,26 @@ ostream& operator<< (ostream& os, Rect r)
 	return os;
 }
 
-class Solution {
-public:
-	int minAreaRect(vector<vector<int>>& points)
-	{
-		if (points.size() < 2)
-			return 0;
-
-		Rect rect(points[0][0], points[0][1], points[1][0], points[1][1]);
-
-		for (int i = 2; i < points.size(); i++)
-		{
-			int x = points[i][0], y = points[i][1];
-			if (!rect.in(x, y))
-				rect.extend(x, y);
-			cout << rect << endl;
-		}
-
-		return rect.space();
-	}
-};
+//class Solution {
+//public:
+//	int minAreaRect(vector<vector<int>>& points)
+//	{
+//		if (points.size() < 2)
+//			return 0;
+//
+//		Rect rect(points[0][0], points[0][1], points[1][0], points[1][1]);
+//
+//		for (int i = 2; i < points.size(); i++)
+//		{
+//			int x = points[i][0], y = points[i][1];
+//			if (!rect.in(x, y))
+//				rect.extend(x, y);
+//			cout << rect << endl;
+//		}
+//
+//		return rect.space();
+//	}
+//};
 
 class MyCircularQueue {
 public:
@@ -8284,40 +8284,40 @@ public:
 	}
 };
 
-bool found(vector<int>& bar)
-{
-	bool res = true;
-	for (int i = 0; i < bar.size(); i++)
-		res &= bar[i] == INT_MIN || bar[i] >= 0;
-	return res;
-}
-
-string minWindow(string s, string t)
-{
-	vector<int> bar(256, INT_MIN);
-	for (int i = 0; i < t.size(); i++)
-		bar[t[i]] = bar[t[i]] == INT_MIN ? -1 : bar[t[i]] - 1;
-
-	int left = 0, res_start = 0, len = INT_MAX;
-
-	for (int i = 0; i < s.size(); i++)
-	{
-		if (bar[s[i]] != INT_MIN)
-		{
-			bar[s[i]]++;
-			while (bar[s[left]] == INT_MIN || bar[s[left]] > 0)
-			{
-				bar[s[left]] -= bar[s[left]] > 0;
-				left++;
-			}
-
-			if (found(bar) && len > i - left + 1)
-				res_start = left, len = i - left + 1;
-		}
-	}
-
-	return s.substr(res_start, len);
-}
+//bool found(vector<int>& bar)
+//{
+//	bool res = true;
+//	for (int i = 0; i < bar.size(); i++)
+//		res &= bar[i] == INT_MIN || bar[i] >= 0;
+//	return res;
+//}
+//
+//string minWindow(string s, string t)
+//{
+//	vector<int> bar(256, INT_MIN);
+//	for (int i = 0; i < t.size(); i++)
+//		bar[t[i]] = bar[t[i]] == INT_MIN ? -1 : bar[t[i]] - 1;
+//
+//	int left = 0, res_start = 0, len = INT_MAX;
+//
+//	for (int i = 0; i < s.size(); i++)
+//	{
+//		if (bar[s[i]] != INT_MIN)
+//		{
+//			bar[s[i]]++;
+//			while (bar[s[left]] == INT_MIN || bar[s[left]] > 0)
+//			{
+//				bar[s[left]] -= bar[s[left]] > 0;
+//				left++;
+//			}
+//
+//			if (found(bar) && len > i - left + 1)
+//				res_start = left, len = i - left + 1;
+//		}
+//	}
+//
+//	return s.substr(res_start, len);
+//}
 
 int maxProfit(vector<int>& prices)
 {
@@ -8859,17 +8859,268 @@ public:
 	}
 };
 
+int maxScore(vector<int>& cardPoints, int k)
+{
+	vector<int> sum_left(1);
+	vector<int> sum_right(1);
 
+	for (int i = 0; i < k; i++)
+		sum_left.push_back(sum_left.back() + cardPoints[i]);
+
+	for (int i = 0; i < k; i++)
+		sum_right.push_back(sum_right.back() + cardPoints[cardPoints.size() - i - 1]);
+
+	int res = 0;
+	for (int i = 0; i <= k; i++)
+		res = max(res, sum_left[i] + sum_right[k - i]);
+	
+	return res;
+}
+
+vector<int> findDiagonalOrder(vector<vector<int>>& nums)
+{
+	vector<vector<int>> line;
+	for (int i = 0; i < nums.size(); i++)
+	{
+		for (int j = 0; j < nums[i].size(); j++)
+		{
+			if (i + j >= line.size())
+				line.push_back({});
+			line[i + j].push_back(nums[i][j]);
+		}
+	}
+
+	vector<int> res;
+	for (int i = 0; i < line.size(); i++)
+	{
+		for (int j = line[i].size() - 1; j >= 0; j--)
+			res.push_back(line[i][j]);
+	}
+
+	return res;
+}
+
+int constrainedSubsetSum(vector<int>& nums, int k)
+{
+	vector<int> score(nums.size(), INT_MIN);
+	score[0] = nums[0];
+	for (int i = 0; i < nums.size(); i++)
+	{
+		//score[i] += nums[i];
+		for (int j = 1; j <= k && i + j < nums.size(); j++)
+		{
+			score[i + j] = max(score[i + j], score[i] + nums[i + j]);
+		}
+		cout << score << endl;
+	}
+
+	return score.back();
+}
+
+int maxProduct(vector<int>& nums)
+{
+	priority_queue<int> min_q;
+	priority_queue<int, vector<int>, greater<int>> max_q;
+
+	for (int i = 0; i < nums.size(); i++)
+	{
+		max_q.push(nums[i]);
+		min_q.push(nums[i]);
+
+		if (max_q.size() > 3)
+			max_q.pop();
+
+		if (min_q.size() > 2)
+			min_q.pop();
+	}
+
+	int res = 1, maximum = INT_MIN;
+	while (max_q.size())
+	{
+		res *= max_q.top();
+		maximum = max(max_q.top(), maximum);
+		max_q.pop();	
+	}
+
+	while (min_q.size())
+	{
+		maximum *= min_q.top();
+		min_q.pop();
+	}
+
+	return max(res, maximum);
+}
+
+int distrubuteCandy(vector<int>& child, vector<int>& candy)
+{
+	sort(child.begin(), child.end());
+	sort(candy.begin(), candy.end());
+	int i = 0, j = 0, res = 0;
+	while (i < child.size() && j < candy.size())
+	{
+		while (j < candy.size() && candy[j] < child[i])j++;
+		if (j < candy.size())
+			j++, res++, i++;
+	}
+	return res;
+}
+
+void count(int n, int pos, vector<int>& used, int& res)
+{
+	if (n == pos)
+	{
+		++res;
+		return;
+	}
+
+	for (int i = 1; i <= n; i++)
+	{
+		if (!used[i] && (i % (pos + 1) == 0 || (pos + 1) % i == 0))
+		{
+			used[i] = true;
+			count(n, pos + 1, used, res);
+			used[i] = false;
+		}
+	}
+}
+
+int countArrangement(int n)
+{
+	int res = 0;
+	vector<int> used(n + 1);
+	count(n, 0, used, res);
+	return res;
+}
+
+string destCity(vector<vector<string>>& paths)
+{
+	map<string, string> mapping;
+	for (int i = 0; i < paths.size(); i++)
+		mapping[paths[i][0]] = paths[i][1];
+
+	string curr = paths[0][0];
+	while (mapping.count(curr) != 0)
+	{
+		curr = mapping[curr];
+		cout << curr << endl;
+	}
+		
+
+	return curr;
+
+}
+
+bool kLengthApart(vector<int>& nums, int k)
+{
+	int idx = 0, prev = 0;
+	while (idx < nums.size() && nums[idx] != 1) idx++;
+	prev = idx++;
+
+	while (idx < nums.size())
+	{
+		while (idx < nums.size() && nums[idx] != 1) idx++;
+		if (idx - prev <= k)
+			return false;
+		prev = idx++;
+	}
+	return true;
+}
+
+int longestSubarray(vector<int>& nums, int limit)
+{
+	int left = 0, right = 0, max_idx = 0, min_idx = 0, res = 1;
+	while (right < nums.size())
+	{
+		while (right < nums.size())
+		{
+			if (nums[right] > nums[max_idx])
+				max_idx = right;
+			else if (nums[right] < nums[min_idx])
+				min_idx = right;
+
+			if (nums[max_idx] - nums[min_idx] > limit)
+				break;
+			right++;
+		}
+
+		res = max(res, right - left);
+
+		if (right == nums.size())
+			break;
+
+		if (right == max_idx)
+			left = ++min_idx;
+		else
+			left = ++max_idx;
+
+		int iter = left;
+
+		while (iter < right)
+		{
+			if (nums[iter] > nums[max_idx])
+				max_idx = iter;
+			else if (nums[iter] < nums[min_idx])
+				min_idx = iter;
+
+			if (abs(nums[iter] - nums[right]) > limit)
+				left = iter + 1;
+			iter++;
+		}
+	}
+
+	return res;
+}
+
+class Solution {
+public:
+	vector<vector<int>> direction;
+
+	int dfs(vector<vector<int>>& grid, int row, int col, vector<vector<int>>& gold)
+	{
+		if (gold[row][col] != grid[row][col] || grid[row][col] == 0)
+			return gold[row][col];
+
+		int tmp = grid[row][col];
+		grid[row][col] = 0;
+		for (int i = 0; i < direction.size(); i++)
+		{
+			int nr = row + direction[i][0], nc = col + direction[i][1];
+			if (nr >= 0 && nr < grid.size() && nc >= 0 && nc < grid[0].size() && grid[nr][nc])
+			{
+				gold[row][col] = max(gold[row][col], tmp + dfs(grid, nr, nc, gold));
+			}
+		}
+		grid[row][col] = tmp;
+		return gold[row][col];
+	}
+
+	int getMaximumGold(vector<vector<int>>& grid) 
+	{
+		direction = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+		if (grid.size() == 0 || grid[0].size() == 0)
+			return 0;
+		int res = 0;
+		vector<vector<int>> gold = grid;
+		for (int i = 0; i < grid.size(); i++)
+		{
+			for (int j = 0; j < grid[0].size(); j++)
+			{
+				res = max(res, dfs(grid, i, j, gold));
+				cout << gold << endl;
+			}
+		}
+		
+		return res;
+	}
+};
 
 int main()
 {
-	LRUCache lrucache(2);
-	cout << lrucache.get(2) << endl;
-	lrucache.put(2, 6);
-	cout << lrucache.get(1) << endl;
-	lrucache.put(1, 5);
-	lrucache.put(1, 2);
-	cout << lrucache.get(1) << endl;
-	cout << lrucache.get(2) << endl;
+	vector<vector<int>> nums = {
+		{ 0, 6, 0 },
+		{ 5, 8, 7 },
+		{ 0, 9, 0 },
+	};
+	cout << Solution().getMaximumGold(nums) << endl;
 	return 0;
 }
