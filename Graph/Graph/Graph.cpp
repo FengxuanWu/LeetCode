@@ -482,9 +482,55 @@ vector<vector<string>> findLadders(string beginWord, string endWord, vector<stri
 	return bfs_ladder(0, end, graph, wordList);
 }
 
+bool dfs(vector<vector<int>>& graph, int curr, int c, vector<int>& color)
+{
+	if (color[curr] == c)
+		return true;
+	else if (color[curr] == !c)
+		return false;
+
+	color[curr] = c;
+	for (int i = 0; i < graph[curr].size(); i++)
+	{
+		if (!dfs(graph, graph[curr][i], !c, color))
+			return false;
+	}
+
+	return true;
+}
+
+bool possibleBipartition(int n, vector<vector<int>>& dislikes)
+{
+	vector<vector<int>> graph(n + 1);
+	for (int i = 0; i < dislikes.size(); i++)
+	{
+		graph[dislikes[i][0]].push_back(dislikes[i][1]);
+		graph[dislikes[i][1]].push_back(dislikes[i][0]);
+	}
+
+	vector<int> color(n + 1, -1);
+	
+	for (int i = 1; i <= n; i++)
+	{
+		if (graph[i].size() == 0 || color[i] != -1)
+			continue;
+
+		if (!dfs(graph, i, 0, color))
+			return false;
+	}
+
+	return true;
+}
+
 int main()
 {
-	string a = "ab", b = "ab";
-	cout << buddyStrings(a, b) << endl;
+	vector<vector<int>> nums = {
+		{ 1, 2 },
+		{ 2, 3 },
+		{ 3, 4 },
+		{ 4, 5 },
+		{ 1, 5 },
+	};
+	cout << possibleBipartition(5, nums) << endl;
 	return 0;
  }

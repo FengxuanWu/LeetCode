@@ -4053,22 +4053,6 @@ int maxDistToClosest(vector<int>& seats)
 	return ans;
 }
 
-//vector<int> twoSum(vector<int>& nums, int target)
-//{
-//	map<int, int> mapping;
-//	for (int i = 0; i < nums.size(); i++)
-//	{
-//		mapping[nums[i]] = i;
-//	}
-//
-//	for (int i = 0; i < nums.size(); i++)
-//	{
-//		if (mapping.find(target - nums[i]) != mapping.end())
-//			return vector<int>({ i, mapping[target - nums[i]] });
-//	}
-//	return vector<int>();
-//}
-
 vector<int> prisonAfterNDays(vector<int>& cells, int n) 
 {
 	vector<int> next(8);
@@ -4486,36 +4470,6 @@ vector<vector<int>> removeInterval(vector<vector<int>>& intervals, vector<int>& 
 	cout << binSearch(intervals, lower_bound) << endl;
 	cout << binSearch(intervals, upper_bound) << endl;
 	
-	return ans;
-}
-
-
-int countSquares(vector<vector<int>>& matrix)
-{
-	if (matrix.size() == 0 || matrix[0].size() == 0)
-		return 0;
-
-	// vector<vector<int>> dp(matrix.size(), vector<int>(matrix[0].size()));
-	int max_length = min(matrix.size(), matrix[0].size());
-	int ans = 0;
-
-	vector<vector<int>> next(matrix.size(), vector<int>(matrix[0].size()));
-
-	for (int i = 1; i <= max_length; i++)
-	{
-		//next = vector<vector<int>>(matrix.size(), vector<int>(matrix[0].size()));
-		for (int row = i - 1; row < matrix.size(); row++)
-		{
-			for (int col = i - 1; col < matrix[0].size(); col++)
-			{
-				ans += matrix[row][col] &= ((i == 1) || (matrix[row - 1][col] & matrix[row][col - 1] & matrix[row - 1][col - 1]));
-			}
-		}
-		cout << matrix << endl;
-		cout << ans << endl;
-		//matrix = next;
-	}
-
 	return ans;
 }
 
@@ -6473,47 +6427,6 @@ bool hasAlternatingBits(int n)
 	return (tmp ^ n) == s;
 }
 
-vector<vector<int>> reconstructQueue(vector<vector<int>>& people)
-{
-	if (people.size() == 0)
-		return people;
-
-	sort(people.begin(), people.end(), 
-		[=](vector<int>& a, vector<int>& b)
-		{
-			return a[0] < b[0] || a[0] == b[0] && a[1] < b[1]; 
-		}
-	);
-
-	map<int, int> greater;
-	int idx = 0;
-	for (int i = 0; i < people.size(); i++)
-	{
-		if (people[idx][0] != people[i][0])
-			greater[people[idx][0]] = people.size() - idx, idx = i;
-	}
-
-	greater[people[idx][0]] = people.size() - idx;
-
-	for (auto e : greater)
-		cout << e.first << ' ' << e.second << endl;
-
-	//for (int i = 1; i < people.size(); i++)
-	//{
-	//	int higher = 0;
-	//	for (int j = 0; j < i; j++)
-	//	{
-	//		higher += people[i][0] < people[j][0];
-	//		if (higher < people[i][1])
-	//			continue;
-	//		else if (higher < z)
-	//	}
-	//}
-
-	return people;
-}
-
-
 bool kSumdfs(vector<int>& nums, int curr, int target, int k, vector<int>& used)
 {
 	if (k == 1)
@@ -7146,19 +7059,13 @@ int paintHoust(vector<vector<int>> costs)
 
 vector<int> countBits(int num)
 {
-	vector<int> res(num + 1);
-	int mod = 0;
-	for (int i = 0; i <= num; i++)
+	int bound = 1;
+	vector<int> res(1);
+	for (int i = 1; i <= num; i++)
 	{
-		if ((i & (i - 1)) == 0)
-			mod = i;
-
-		if (mod != 0)
-			res[i] = (1 + res[i % mod]);
-		else
-			res[i] = (i);
+		bound = i < (bound << 1) ? bound : bound << 1;
+		res.push_back(res[i - bound] + 1);
 	}
-
 	return res;
 }
 
@@ -9067,60 +8974,363 @@ int longestSubarray(vector<int>& nums, int limit)
 			iter++;
 		}
 	}
-
+ 
 	return res;
+}
+#include <iostream>
+using namespace std;
+
+bool rationalbe(long long int a, long long int b, long long int n)
+{
+	if (n == 0)
+		return a % 3;
+	if (n == 1)
+		return b % 3;
+
+	if (a % 3 == 0 && b % 3 == 0)
+		return true;
+	n -= 1;
+	a %= 3, b %= 3;
+
+	int curr = 0;
+	while (n)
+	{
+		curr = (a + b) % 3;
+		n--;
+		if (curr == 0)
+			break;
+
+		a = b;
+		b = curr;
+	}
+
+	return curr == 0 && (n == 0 || n % 4 == 0);
 }
 
 class Solution {
 public:
-	vector<vector<int>> direction;
-
-	int dfs(vector<vector<int>>& grid, int row, int col, vector<vector<int>>& gold)
+	void dfs(vector<int>& nums, vector<int>& used, vector<int>& tmp, vector<vector<int>>& res)
 	{
-		if (gold[row][col] != grid[row][col] || grid[row][col] == 0)
-			return gold[row][col];
-
-		int tmp = grid[row][col];
-		grid[row][col] = 0;
-		for (int i = 0; i < direction.size(); i++)
+		if (nums.size() == tmp.size())
 		{
-			int nr = row + direction[i][0], nc = col + direction[i][1];
-			if (nr >= 0 && nr < grid.size() && nc >= 0 && nc < grid[0].size() && grid[nr][nc])
+			res.push_back(tmp);
+			return;
+		}
+
+		for (int i = 0; i < nums.size(); i++)
+		{
+			if (!used[i])
 			{
-				gold[row][col] = max(gold[row][col], tmp + dfs(grid, nr, nc, gold));
+				used[i] = true;
+				tmp.push_back(nums[i]);
+				dfs(nums, used, tmp, res);
+				tmp.pop_back();
+				used[i] = false;
 			}
 		}
-		grid[row][col] = tmp;
-		return gold[row][col];
 	}
 
-	int getMaximumGold(vector<vector<int>>& grid) 
+
+	vector<vector<int>> permute(vector<int>& nums)
 	{
-		direction = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
-		if (grid.size() == 0 || grid[0].size() == 0)
-			return 0;
-		int res = 0;
-		vector<vector<int>> gold = grid;
-		for (int i = 0; i < grid.size(); i++)
-		{
-			for (int j = 0; j < grid[0].size(); j++)
-			{
-				res = max(res, dfs(grid, i, j, gold));
-				cout << gold << endl;
-			}
-		}
-		
+		vector<int> tmp;
+		vector<vector<int>> res;
+		vector<int> used(nums.size());
+
+		dfs(nums, used, tmp, res);
 		return res;
 	}
 };
 
+vector<vector<int>> directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+
+vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor)
+{
+	int color = image[sr][sc];
+	queue<pair<int, int>> q;
+	q.push({ sr, sc });
+	image[sr][sc] = newColor;
+
+	while (!q.empty())
+	{
+		int r = q.front().first, c = q.front().second;
+		for (int i = 0; i < directions.size(); i++)
+		{
+			int nr = r + directions[i][0], nc = c + directions[i][1];
+			if (nr >= 0 && nr < image.size()
+				&& nc >= 0 && nc < image[nr].size()
+				&& color == image[nr][nc])
+			{
+				cout << nr << ' ' << nc << endl;
+				image[nr][nc] = newColor;
+				q.push({ nr, nc });
+			}
+
+		}
+		q.pop();
+	}
+
+	return image;
+}
+
+string removeKdigits(string num, int k)
+{
+	reverse(num.begin(), num.end());
+
+	while (k--)
+	{
+		if (num.size() <= k)
+			return "0";		
+
+		if (num.size() > 1 && num[num.size() - 2] == '0')
+		{
+			num.pop_back();
+			while (num.size() && num.back() == '0')
+				num.pop_back();
+		}
+		else
+		{
+			bool found = false;
+			for (int i = num.size() - 1; i >= 1; i--)
+			{
+				if (num[i - 1] < num[i])
+				{
+					for (int j = i; j < num.size() - 1; j++)
+					{
+						swap(num[j], num[j + 1]);
+					}
+					num.pop_back();
+					found = true;
+					break;
+				}
+			}
+
+			if (!found)
+				num.erase(num.begin());
+		}
+		//cout << num << endl;
+	}
+	cout << num << endl;
+	reverse(num.begin(), num.end());
+	return num.size() ? num : "0";
+}
+
+
+set<int> intersection(set<int>&a, set<int>& b)
+{
+	set<int> res;
+	set_intersection(a.begin(), a.end(), b.begin(), b.end(), inserter(res, res.begin()));
+	return res;
+}
+
+vector<int> peopleIndexes(vector<vector<string>>& favoriteCompanies)
+{
+	unordered_map<string, set<int>> com;
+
+	for (int i = 0; i < favoriteCompanies.size(); i++)
+	for (string& c : favoriteCompanies[i])
+		com[c].insert(i);
+
+	vector<int> res;
+	for (int i = 0; i < favoriteCompanies.size(); i++)
+	{
+		set<int> r;
+		for (string& c : favoriteCompanies[i])
+		{
+			if (r.empty())
+				r = com[c];
+			else
+				r = intersection(r, com[c]);
+		}
+
+		if (r.size() == 1)
+			res.push_back(i);
+	}
+
+	return res;
+}
+
+int countSquares(vector<vector<int>>& matrix)
+{
+	int res = 0, len = 0;
+	while (true)
+	{
+		bool finished = false;
+		for (int i = matrix.size() - 1; i >= len; i--)
+		{
+			for (int j = matrix[i].size() - 1; j >= len; j--)
+			{
+				if (len)
+					matrix[i][j] &= matrix[i - 1][j] & matrix[i][j - 1] & matrix[i - 1][j - 1];
+				res += matrix[i][j];
+				finished |= matrix[i][j];
+			}
+		}
+		if (!finished)
+			break;
+		len++;
+	}
+	return res;
+}
+
+int maxArea(int h, int w, vector<int>& hor, vector<int>& ver)
+{
+	int mod = 1e7 + 9;
+	long long int max_hor = 0, max_ver = 0;
+	hor.insert(hor.begin(), 0);
+	ver.insert(ver.begin(), 0);
+	hor.push_back(h);
+	ver.push_back(w);
+	sort(hor.begin(), hor.end());
+	sort(ver.begin(), ver.end());
+
+	for (int i = 1; i < hor.size(); i++)
+		max_hor = max(max_hor, (long long int)hor[i] - hor[i - 1]);
+
+	cout << hor << endl;
+	for (int i = 1; i < ver.size(); i++)
+		max_ver = max(max_ver, (long long int)ver[i] - ver[i - 1]);
+	cout << ver << endl;
+	return (max_hor * max_ver) % mod;
+}
+
+int dfs(vector<vector<pair<int, int>>>& graph, int current, vector<pair<int, int>>& change, vector<int>& visisted)
+{
+	if (change[current].first != INT_MAX)
+		return change[current].first;
+
+	
+	for (int i = 0; i < graph[current].size(); i++)
+	{
+		if (graph[current][i].first == 0)
+		{
+			change[current] = { graph[current][i].second, 0 };
+			break;
+		}
+		else if (!visisted[graph[current][i].first])
+		{
+			visisted[graph[current][i].first] = true;
+			int t = dfs(graph, graph[current][i].first, change, visisted);
+			if (t < INT_MAX)
+			{
+				if (change[current].first > t + graph[current][i].second)
+				{
+					change[current].first = t + graph[current][i].second;
+					change[current].second = graph[current][i].first;
+				}
+				visisted[graph[current][i].first] = false;
+			}		
+		}			
+	}
+
+	return change[current].first;
+}
+
+int minReorder(int n, vector<vector<int>>& path)
+{
+	vector<vector<pair<int, int>>> graph(n);
+	for (int i = 0; i < path.size(); i++)
+	{
+		graph[path[i][0]].push_back({ path[i][1], 0 });
+		graph[path[i][1]].push_back({ path[i][0], 1 });
+	}
+
+	vector<pair<int, int>> change(n, {INT_MAX, -1});
+	change[0].first = change[0].second = 0;
+	vector<int> visited(n);
+	int res = 0;
+	for (int i = 1; i < n; i++)
+	{
+		visited[i] = true;
+		res += dfs(graph, i, change, visited) - change[change[i].second].first;
+		visited[i] = false;
+	}
+	//cout << change << endl;
+	return res;
+}
+
+vector<vector<int>> reconstructQueue(vector<vector<int>>& people)
+{
+	sort(people.begin(), people.end(), [&](vector<int> &a, vector<int> &b){return a[0] < b[0] || a[0] == b[0] && a[1] < b[1]; });
+	//cout << people << endl;
+	vector<vector<int>> res(people.size(), { INT_MAX, -1 });
+
+	int idx = 0;
+	while (idx < people.size())
+	{
+		int height = people[idx][0];
+		while (idx < people.size() && height == people[idx][0])
+		{
+			int cnt = people[idx][1];
+			int i = 0;
+			while (i < res.size() && (cnt || res[i][1] != -1))
+			{
+				cnt -= res[i][0] >= height;
+				++i;
+			}
+			
+			res[i] = people[idx];
+
+			++idx;
+		}
+	}
+
+	return res;
+}
+
+vector<int> getStrongest(vector<int>& arr, int k)
+{
+	sort(arr.begin(), arr.end());
+	cout << arr << endl;
+	float median = arr[(arr.size() - 1) / 2];
+
+	cout << median << endl;
+	auto cmp = [&](int a, int b){return abs(a - median) > abs(b - median) || abs(a - median) == abs(b - median) && a > b; };
+
+	priority_queue<int, vector<int>, decltype(cmp)> q(cmp);
+
+	for (int i = 0; i < arr.size(); i++)
+	{
+		q.push(arr[i]);
+		if (q.size() > k)
+			q.pop();
+	}
+
+	vector<int> res;
+	while (!q.empty())
+	{
+		res.push_back(q.top());
+		q.pop();
+	}
+
+	reverse(res.begin(), res.end());
+	return res;
+}
+
+// 1 1 1 1 
+// 1 1 2 
+// 2 2
+int change(int amount, vector<int>& coins)
+{
+	sort(coins.begin(), coins.end());
+	vector<int> dp(amount + 1);
+	dp[0] = 1;
+	for (int i = 0; i < coins.size(); i++)
+	{
+		int coin = coins[i];
+		for (int i = 0; i <= amount; i++)
+		{
+			if (i >= coin)
+				dp[i] += dp[i - coin];
+		}
+	}
+
+	return dp[amount];
+}
+
 int main()
 {
-	vector<vector<int>> nums = {
-		{ 0, 6, 0 },
-		{ 5, 8, 7 },
-		{ 0, 9, 0 },
-	};
-	cout << Solution().getMaximumGold(nums) << endl;
+	vector<int> nums = { 1, 2, 5 };
+	cout << change(5, nums) << endl;
 	return 0;
 }

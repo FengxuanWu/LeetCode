@@ -75,6 +75,7 @@ def convert_to_cpp(file_name):
 
 
 if __name__ == '__main__':
-	convert_to_cpp('test.txt')
-	# test_interface('instruction.txt')
-
+	# convert_to_cpp('test.txt')
+	import re
+	integer = re.compile( "^\\d+(\\.\\d+)?$")
+	print(integer.match('asdfb'))

@@ -1138,6 +1138,50 @@ TreeNode* bstFromPreorder(vector<int>& preorder)
 	return  bstFromPreorder(preorder, 0, preorder.size());
 }
 
+bool isCousins(TreeNode* root, int x, int y)
+{
+	queue<pair<TreeNode*, TreeNode*>> q;
+	q.push({ root, NULL });
+
+	int cnt = 1, nxt = 0;
+	TreeNode *p1 = NULL, *p2 = NULL;
+
+	while (!q.empty())
+	{
+		nxt = 0;
+		while (cnt--)
+		{
+			if (q.front().first->val == x)
+				p1 = q.front().second;
+			else if (q.front().first->val == y)
+				p2 = q.front().second;
+
+
+			if (q.front().first->left)
+			{
+				q.push({ q.front().first->left, q.front().first });
+				nxt++;
+			}
+
+			if (q.front().first->right)
+			{
+				q.push({ q.front().first->right, q.front().first });
+				nxt++;
+			}
+
+			q.pop();
+		}
+
+		cnt = nxt;
+		if ((bool)p1 ^ (bool)p2)
+			return false;
+		else if (p1 != NULL && p2 != NULL)
+			return p1 != p2;
+	}
+
+	return false;
+}
+
 int main()
 {
 	vector<int> nums = { 8, 5, 1, 7, 10, 12 };
