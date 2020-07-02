@@ -9331,6 +9331,12 @@ int change(int amount, vector<int>& coins)
 int main()
 {
 	vector<int> nums = { 1, 2, 5 };
-	cout << change(5, nums) << endl;
-	return 0;
+	auto accumulate = [&](vector<int>& nums){
+		int res = 0;
+		for (int i : nums)
+			res += i;
+		return res;
+	};
+
+	cout << accumulate(nums) << endl;
 }
