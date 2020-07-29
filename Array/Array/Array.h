@@ -21,11 +21,17 @@ using namespace std;
 
 #define VOWEL(c) (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u'||\
 	c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U')
-#define LETTER(c) (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z')
 
-#define IS_DIGIT(c)(c >= '0' && c <= '9')
-#define IS_LETTER(c) (c >= 'a' && c <= 'z' || c >= 'A' || c <= 'Z')
-#define is_digit(c)(c >= '0' && c <= '9')
+//#define LETTER(c) (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z')
+
+#define upper(c) (c >= 'A' && c <= 'Z')
+#define lower(c) (c >= 'a' && c <= 'z')
+#define digit(c) (c >= '0' && c <= '9')
+#define letter(c) (upper(c) || lower(c))
+
+//#define IS_DIGIT(c)(c >= '0' && c <= '9')
+//#define IS_LETTER(c) (c >= 'a' && c <= 'z' || c >= 'A' || c <= 'Z')
+//#define is_digit(c)(c >= '0' && c <= '9')
 
 #ifndef set_bit
 #define set_bit(n, pos, b)(b == 1 ? n |= (pos < 32 ? 1 << pos : 0) : n &= ~(pos < 32 ? 1 << pos : 0))
@@ -103,8 +109,8 @@ ostream& operator<<(ostream& os, pair<T, T> p)
 template<typename T>
 ostream& operator<<(ostream& os, set<T> s)
 {
-	for (set<T>::iterator it = s.begin(); it != s.end(); it++)
-		os << *it << ", ";
+	for (auto i : s)
+		os << i << ", ";
 	return os;
 }
 

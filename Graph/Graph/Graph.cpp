@@ -522,15 +522,90 @@ bool possibleBipartition(int n, vector<vector<int>>& dislikes)
 	return true;
 }
 
+double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end)
+{
+	vector<vector<vector<double>>> graph(n);
+	for (int i = 0; i < edges.size(); i++)
+	{
+		graph[edges[i][0]].push_back({ (double)edges[i][1], succProb[i] });
+		graph[edges[i][1]].push_back({ (double)edges[i][0], succProb[i] });
+	}
+
+	vector<double> prob(n);
+	prob[start] = 1;
+	queue<int> q;
+	q.push(start);
+
+	while (!q.empty())
+	{
+		int curr = q.front();
+		for (int i = 0; i < graph[curr].size(); i++)
+		{
+			int nxt = graph[curr][i][0];
+			if (prob[curr] * graph[curr][i][1] > prob[nxt])
+			{
+				prob[nxt] = prob[curr] * graph[curr][i][1];
+				q.push(nxt);
+			}
+		}
+		q.pop();
+	}
+
+	return prob[end];
+}
+
+int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k)
+{
+	vector<vector<vector<int>>> graph(n);
+	for (int i = 0; i < flights.size(); i++)
+		graph[flights[i][0]].push_back({ flights[i][1], flights[i][2] });
+
+	vector<int> visited(n);
+	queue<pair<int, int>> q;
+	q.push({ src, 0 });
+	visited[src] = 1;
+	int res = INT_MAX;
+	int cnt = 1;
+
+	for (int i = 0; i <= k; i++)
+	{
+		int nxt = 0;
+		while (cnt-- && q.size())
+		{
+			visited[q.front().first] = true;
+
+			for (int i = 0; i < graph[q.front().first].size(); i++)
+			{
+				int node = graph[q.front().first][i][0], cost = graph[q.front().first][i][1];
+				if (node != dst && res > q.front().second + cost)
+				{
+					q.push({ node, q.front().second + cost });
+					nxt++;
+				}
+				else
+					res = min(res, q.front().second + cost);
+			}
+			q.pop();
+		}
+		cnt = nxt;
+	}
+
+	return res == INT_MAX ? -1 : res;
+}
 int main()
 {
-	vector<vector<int>> nums = {
-		{ 1, 2 },
-		{ 2, 3 },
-		{ 3, 4 },
-		{ 4, 5 },
-		{ 1, 5 },
+	int n = 5;
+	int start = 0;
+	int end = 2;
+	int k = 2;
+	vector<vector<int>> graph = {
+{0,1,5},
+{1,2,5},
+{0,3,2},
+{3,1,2},
+{1,4,1},
+{4,2,1},
 	};
-	cout << possibleBipartition(5, nums) << endl;
+	cout << findCheapestPrice(n, graph, start, end, k) << endl;
 	return 0;
  }

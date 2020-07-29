@@ -3,7 +3,6 @@
 
 #include "stdafx.h"
 #include "Tree.h"
-#include<hash_map>
 
 vector<vector<int>> zigzagLevelOrder(TreeNode* root)
 {
@@ -1182,9 +1181,93 @@ bool isCousins(TreeNode* root, int x, int y)
 	return false;
 }
 
+//void count(TreeNode* root, vector<int>& cnt, int& res, int distance)
+//{
+//	if (root)
+//	{
+//		if (root->left == NULL && root->right == NULL)
+//		{
+//			cnt[1] = 1;
+//			return;
+//		}
+//
+//		vector<int> cpy = cnt;
+//		count(root->left, cnt, res, distance);
+//		count(root->right, cpy, res, distance);
+//	
+//		for (int i = 1; i <= distance; i++)
+//			for(int j = 1; j <= i; j++)
+//				res += cnt[j] * cpy[i - j];
+//
+//		for (int i = 1; i <= distance; i++)
+//			cnt[i] += cpy[i];
+//	
+//		for (int i = distance; i >= 1; i--)
+//			cnt[i] = cnt[i - 1];
+//	}
+//}
+//
+//int countPairs(TreeNode* root, int distance)
+//{
+//	if (distance < 2)
+//		return 0;
+//
+//	vector<int> cnt(distance + 1);
+//	int res = 0;
+//	count(root, cnt, res, distance);
+//	return res;
+//}
+
+void count(TreeNode* root, int*& cnt, int distance, int& res)
+{
+	if (root)
+	{
+		if (root->left == NULL && root->right == NULL)
+		{
+			cnt[1] = 1;
+			return;
+		}
+
+		//vector<int> cpy = cnt;
+		int* cpy = new int[distance + 1];
+		memcpy(cpy, cnt, (distance + 1) * sizeof(int));
+
+		count(root->left, cnt, distance, res);
+		count(root->right, cpy, distance, res);
+
+		for (int i = 1; i <= distance; i++)
+			for (int j = 1; j <= i; j++)
+				res += cnt[j] * cpy[i - j];
+
+		for (int i = 1; i <= distance; i++)
+			cnt[i] += cpy[i];
+
+		for (int i = distance; i > 0; i--)
+			cnt[i] = cnt[i - 1];
+
+		delete[] cpy;
+	}
+}
+
+int countPairs(TreeNode* root, int distance)
+{
+	if (distance < 2)
+		return 0;
+
+	int* cnt = new int[distance + 1];
+	memset(cnt, 0, sizeof(int) * (distance + 1));
+	//vector<int> cnt(distance + 1);
+	int res = 0;
+	count(root, cnt, distance, res);
+	delete[] cnt;
+	return res;
+}
+
 int main()
 {
-	vector<int> nums = { 8, 5, 1, 7, 10, 12 };
-	stack_inorder(bstFromPreorder(nums));
+	//{ "4","5","3","null","null","null","2" }; //
+	vector<string> nodes = { "1","2","3", "null", "4" };
+	TreeNode* root = construct(nodes);
+	cout << countPairs(root, 3) << endl;
 	return 0;
 }

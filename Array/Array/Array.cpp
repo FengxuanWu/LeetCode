@@ -114,38 +114,38 @@ int candy(vector<int>& ratings)
 	return res;
 }
 
-vector<vector<int>> subsets(vector<int>& nums)
-{
-	vector<vector<int>> res;
-	vector<int> vec(nums.size());
-	res.push_back(vector<int>());
-	bool flag = true;
-	while (true)
-	{
-		flag = true;
-		vector<int> r;
-		int c = 0;
-		for (int i = 0; i < vec.size(); i++)
-		{
-			vec[i] = vec[i] ^ 1 ^ c;
-			c = (vec[i] & 1) | (c &(vec[i] ^ 1));
-		}
-		
-		for (int i = 0; i < vec.size(); i++)
-		{
-			if (vec[i])
-				r.push_back(nums[i]);
-			flag &= vec[i];
-		}
-
-
-		res.push_back(r);
-
-		if (flag)
-			break;
-	}
-	return res;
-}
+//vector<vector<int>> subsets(vector<int>& nums)
+//{
+//	vector<vector<int>> res;
+//	vector<int> vec(nums.size());
+//	res.push_back(vector<int>());
+//	bool flag = true;
+//	while (true)
+//	{
+//		flag = true;
+//		vector<int> r;
+//		int c = 0;
+//		for (int i = 0; i < vec.size(); i++)
+//		{
+//			vec[i] = vec[i] ^ 1 ^ c;
+//			c = (vec[i] & 1) | (c &(vec[i] ^ 1));
+//		}
+//		
+//		for (int i = 0; i < vec.size(); i++)
+//		{
+//			if (vec[i])
+//				r.push_back(nums[i]);
+//			flag &= vec[i];
+//		}
+//
+//
+//		res.push_back(r);
+//
+//		if (flag)
+//			break;
+//	}
+//	return res;
+//}
 
 vector<vector<int>> subsetsWithDup(vector<int>& nums)
 {
@@ -1479,34 +1479,6 @@ int Add(int a, int b)
 	return res;
 }
 
-////a is longer than b
-//int equals_to(string a, string b)
-//{
-//	size_t idx = 0;
-//	while (idx < a.size() && idx < b.size())
-//		idx++;
-//	return idx == b.size() ? b.size() : 0;
-//}
-//
-//vector<int> splitIntoFibonacci(string s, int start, vector<int> tmp)
-//{
-//	if (start == s.size())
-//		return tmp;
-//
-//	vector<int> res;
-//	for (int i = 0; i < s.size(); i++)
-//	{
-//		if (atoi())
-//	}
-//
-//	return res;
-//}
-//
-//vector<int> splitIntoFibonacci(string s) 
-//{
-//		
-//}
-
 vector<int> dailyTemperatures(vector<int>& t)
 {
 	vector<int> res(t.size());
@@ -1544,7 +1516,7 @@ string decodeString(string s)
 	for (int i = 0; i < s.size(); i++)
 	{
 		//cout << sub_str << endl;
-		if (IS_DIGIT(s[i]))
+		if (digit(s[i]))
 		{
 			num.push_back(s[i]);
 		}
@@ -2305,8 +2277,8 @@ bool canPartition(vector<int>& nums)
 	
 	if (nums.size() < 2 || sum % 2)
 		return false;
-
-	return dfs(nums, 0, sum/2, vector<int>(nums.size()));
+	vector<int> used(nums.size());
+	return dfs(nums, 0, sum/2, used);
 }
 
 #ifndef to_digit
@@ -5384,30 +5356,6 @@ vector<vector<int>> fourSum(vector<int>& nums, int target)
 	return res;
 }
 
-bool checkPossibility(vector<int>& nums)
-{
-	int idx = 0;
-	bool skipped = false;
-	for (int i = 0; i < nums.size() - 1; i++)
-	{
-		if (nums[i] > nums[i + 1])
-		{
-			if (skipped)
-				return false;
-			else
-			{
-				skipped = ++i;
-				if (nums[idx] > nums[i])
-					return false;
-				continue;
-			}
-		}
-		else
-			idx++;
-	}
-	return true;
-}
-
 #define to_idx(c)(c - 'a')
 int dnc(string& s, int k, int start, int end)
 {
@@ -6473,10 +6421,10 @@ vector<int> preprocess(string s)
 			continue;
 		int digit_start = i;
 		int val = 0;
-		while (i < s.size() && is_digit(s[i]))
+		while (i < s.size() && digit(s[i]))
 			val = val * 10 + (s[i++] - '0');
 		res.push_back(val);
-		while (i < s.size() && !is_digit(s[i]))i++;
+		while (i < s.size() && !digit(s[i]))i++;
 	}
 	return res;
 }
@@ -6728,7 +6676,7 @@ unsigned int toDec(string s)
 	unsigned int res = 0;
 	while (idx < s.size())
 	{
-		if (is_digit(s[idx]))
+		if (digit(s[idx]))
 			res = res * 16 + (s[idx] - '0');
 		else
 			res = res * 16 + 10 + (s[idx] - 'a');
@@ -6905,7 +6853,7 @@ int unescape_c_quoted(char *buf, const char *s)
 	if (res == -1)
 	{
 		memset(buf, 0, idx);
-		char *r = "error";
+		const char *r = "error";
 		while (*buf++ = *r++);
 	}
 
@@ -9328,15 +9276,298 @@ int change(int amount, vector<int>& coins)
 	return dp[amount];
 }
 
+vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image)
+{
+	for (int i = 0; i < image.size(); i++)
+	{
+		for (int j = 0; j <= image[i].size() / 2; j++)
+		{
+			swap(image[i][j], image[i][image[i].size() - j - 1]);
+		}
+	}
+
+	for (int i = 0; i < image.size(); i++)
+	{
+		for (int j = 0; j < image[i].size(); j++)
+		{
+			image[i][j] = !image[i][j];
+		}
+	}
+
+	return image;
+}
+
+int cal(vector<int>& nums)
+{
+	int res = 0;
+	for (int i = 0; i < nums.size(); i++)
+	{
+		int min_height = nums[i];
+		for (int j = i; j >= 0; j--)
+		{
+			min_height = min(min_height, nums[j]);
+			res += min_height;
+		}
+	}
+	return res;
+}
+
+int numSubmat(vector<vector<int>>& nums)
+{
+	int res = cal(nums[0]);
+	for (int i = 1; i < nums.size(); i++)
+	{
+		for (int j = 0; j < nums[i].size(); j++)
+		{
+			if (nums[i][j])
+				nums[i][j] += nums[i - 1][j];
+		}
+		res += cal(nums[i]);
+	}
+
+	return res;
+}
+
+void plus_one(vector<int>& nums)
+{
+	int c = 1;
+	int idx = 0;
+	while (c && idx < nums.size())
+	{
+		int tc = (c + nums[idx]) / 2;
+		nums[idx] = (c + nums[idx]) % 2;
+		idx++;
+		c = tc;
+	}
+}
+
+vector<vector<int>> subsets(vector<int>& nums)
+{
+	int loop_size = (1 << nums.size()) - 1;
+	vector<int> n(nums.size());
+
+	vector<vector<int>> res(1, vector<int>());
+
+	for (int i = 0; i < loop_size; i++)
+	{
+		plus_one(n);
+		vector<int> t;
+		for (int j = 0; j < n.size(); j++) if (n[j])t.push_back(nums[j]);
+		res.push_back(t);
+	}
+
+	return res;
+}
+
+int numWaterBottles(int numBottles, int numExchange, int empty = 0)
+{
+	if (numBottles + empty < numExchange)
+		return numBottles;
+	return numBottles + numWaterBottles((numBottles + empty) / numExchange, numExchange, (numBottles + empty) % numExchange);
+}
+
+vector<int> count(vector<vector<int>>& graph, int curr, string& labels, vector<int>& res, vector<int>& visited)
+{
+	visited[curr] = true;
+	vector<int> ret(26);
+	++ret[labels[curr] - 'a'];
+
+	for (int i = 0; i < graph[curr].size(); i++)
+	{
+		if (!visited[graph[curr][i]])
+		{
+			vector<int> tmp = count(graph, graph[curr][i], labels, res, visited);
+			for (int j = 0; j < tmp.size(); j++)
+				ret[j] += tmp[j];
+		}
+	}
+
+	res[curr] += ret[labels[curr] - 'a'];
+	return ret;
+}
+
+vector<int> countSubTrees(int n, vector<vector<int>>& edges, string labels)
+{
+	vector<vector<int>> graph(n);
+
+	for (int i = 0; i < edges.size(); i++)
+	{
+		graph[edges[i][0]].push_back(edges[i][1]);
+		graph[edges[i][1]].push_back(edges[i][0]);
+	}
+		
+	vector<int> visited(n);
+	vector<int> res(n);
+	count(graph, 0, labels, res, visited);
+	return res;
+}
+
+vector<string> maxNumOfSubstrings(string s)
+{
+	vector<int> first(26);
+	vector<int> last(26);
+	vector<int> cnt(26);
+
+	for (int i = 0; i < s.size(); i++)
+	{
+		first[to_digit(s[s.size() - 1 - i])] = s.size() - 1 - i;
+		last[to_digit(s[i])] = i;
+		cnt[to_digit(s[i])]++;
+	}
+
+	//cout << first << endl;
+	//cout << last << endl;
+
+	vector<string> res;
+
+	int left = 0, right = last[to_digit(s[left])] + 1;
+	while (left < right)
+	{
+		int offset = 0;
+		while (s[left] == s[left + offset])++offset;
+		if (left == first[to_digit(s[left])] && last[to_digit(s[left])] + 1 == left + offset)
+			res.push_back(s.substr(left, offset));
+
+		right = max(right, last[to_digit(s[left])] + 1);
+		left += offset;
+	}
+
+	if (res.empty())
+	{
+		int start = 0, end = right - 1;
+		while (start < end && s[start] == s[end] && cnt[to_digit(s[start])] == 2)
+			start++, end--;
+		if (start == end)
+			res.push_back(s.substr(0, right));
+		else
+			res.push_back(s.substr(start, end - start + 1));
+	}
+
+	if (right < s.size())
+	{
+		vector<string> tmp = maxNumOfSubstrings(s.substr(right, s.size() - right));
+		for (string& str : tmp)
+			res.push_back(str);
+	}
+	return res;
+}
+
+bool checkPossibility(vector<int>& nums)
+{
+	int idx = 0;
+	while (idx + 1 < nums.size() && nums[idx] <= nums[idx + 1]) ++idx;
+	if (idx + 1 == nums.size())
+		return true;
+
+	if (idx > 0)
+	{
+		if (nums[idx - 1] < nums[idx + 1]) 
+			nums[idx] = nums[idx - 1];
+		else
+			nums[idx + 1] = nums[idx];
+	}
+	++idx;
+	while(idx + 1 < nums.size() && nums[idx] <= nums[idx + 1]) ++idx;
+	return idx + 1 == nums.size();
+}
+
+int check_element(string& f, int s)
+{
+	int len = 0;
+	while (s + len < f.size() && letter(f[s + len])) len++;
+	return len++;
+}
+
+int check_num(string& f, int s)
+{
+	int len = 0;
+	while (s + len < f.size() && digit(f[s + len])) len++;
+	return len;
+}
+
+string expend(string& f)
+{
+	string res;
+	for (int i = 0; i < f.size(); i++)
+	{
+		if (letter(f[i]) || digit(f[i]) || '(' == f[i])
+		{
+			if ((upper(f[i]) || '(' == f[i]) && res.size() && letter(res.back()))
+				res.push_back('1');
+			res.push_back(f[i]);
+		}
+		else
+		{
+			if (letter(res.back()))
+				res.push_back('1');
+
+			++i;
+			int len = check_num(f, i);
+			int num = len == 0 ? 1 : stoi(f.substr(i, len));
+			i += len - 1;
+			
+			string t;
+			while (res.back() != '(')
+			{
+				if (digit(res.back()))
+				{
+					int len = 0;
+
+					while (res.size() - len - 1 >= 0 && digit(res[res.size() - len - 1])) len++;
+
+					int n = stoi(res.substr(res.size() - len, len)) * num;
+					string num = to_string(n);
+					reverse(num.begin(), num.end());
+					t += num;
+
+					while (len--) res.pop_back();
+				}
+				else
+				{
+					t.push_back(res.back());
+					res.pop_back();
+				}
+			}
+			res.pop_back();
+			reverse(t.begin(), t.end());
+			res += t;
+		}
+	}
+	return res;
+}
+
+string countOfAtoms(string& s)
+{
+	map<string, int> cnt;
+	string f = expend(s);
+	cout << f << endl;
+	for (int i = 0; i < f.size();)
+	{		
+		int len = check_element(f, i);
+		string e = f.substr(i, len);
+		i += len;
+
+		len = check_num(f, i);
+		int num = len == 0 ? 1 : stoi(f.substr(i, len));
+		i += len;
+
+		cnt[e] += num;
+	}
+
+	string res;
+	for (auto it = cnt.begin(); it != cnt.end(); ++it)
+	{
+		res += it->first;
+		if(it->second > 1)
+			res += to_string(it->second);
+	}
+
+	return res;
+}
+
 int main()
 {
-	vector<int> nums = { 1, 2, 5 };
-	auto accumulate = [&](vector<int>& nums){
-		int res = 0;
-		for (int i : nums)
-			res += i;
-		return res;
-	};
-
-	cout << accumulate(nums) << endl;
+	int* a = NULL;
+	cout << sizeof(a) << endl;
+	return 0;
 }

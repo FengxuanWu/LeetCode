@@ -11,6 +11,10 @@
 #include <unordered_set>
 using namespace std;
 
+#define IS_LEFT(r, p)(p && p->left == r)
+#define IS_RIGHT(r, p)(p && p->right == r)
+#define IS_LEAF(r)(r && r->left == NULL && r->right == NULL)
+
 class TreeNode
 {
 public:
