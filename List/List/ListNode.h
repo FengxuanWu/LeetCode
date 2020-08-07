@@ -7,6 +7,14 @@
 #include <algorithm>
 using namespace std;
 
+#ifndef INT_MAX
+#define INT_MAX (1 << 31 - 1)
+#endif
+
+#ifndef INT_MIN
+#define INT_MIN (1 << 31)
+#endif
+
 typedef unsigned int size_type;
 
 class  ListNode

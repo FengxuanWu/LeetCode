@@ -1,7 +1,7 @@
 // Tree.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
+
 #include "Tree.h"
 
 vector<vector<int>> zigzagLevelOrder(TreeNode* root)

@@ -1,7 +1,6 @@
 // Array.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
 #include "Array.h"
 
 int sub_rob(vector<int>& nums, int start, int end)
@@ -9567,7 +9566,7 @@ string countOfAtoms(string& s)
 
 int main()
 {
-	int* a = NULL;
-	cout << sizeof(a) << endl;
+	string s = "C2H5OH";
+	cout << countOfAtoms(s) << endl;
 	return 0;
 }

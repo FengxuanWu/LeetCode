@@ -10,3 +10,4 @@ ipch/
 *.idb
 *-*
 *.tlog
+*.vs

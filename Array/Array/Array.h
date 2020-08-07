@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include <map>
 #include <iostream>
 #include <vector>
@@ -14,7 +13,20 @@
 #include <sstream>
 #include <unordered_map>
 #include <unordered_set>
+#include <string.h>
+
 using namespace std;
+
+#ifndef INT_MAX
+#define INT_MAX (1 << 31 - 1)
+#endif
+
+#ifndef INT_MIN
+#define INT_MIN (1 << 31)
+#endif
+
+typedef long long __int64;
+
 #define leap_year(year)(year % 100 == 0 ? year % 400 == 0 : year % 4 == 0)
 #define to_digit(c)(c - 'a')
 #define TO_DIGIT(c)(c - '0') 

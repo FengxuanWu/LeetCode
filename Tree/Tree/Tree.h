@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include <queue>
 #include <map>
 #include <iostream>
@@ -10,6 +10,14 @@
 #include <unordered_map>
 #include <unordered_set>
 using namespace std;
+
+#ifndef INT_MAX
+#define INT_MAX (1 << 31 - 1)
+#endif
+
+#ifndef INT_MIN
+#define INT_MIN (1 << 31)
+#endif
 
 #define IS_LEFT(r, p)(p && p->left == r)
 #define IS_RIGHT(r, p)(p && p->right == r)

@@ -1,7 +1,5 @@
 // Graph.cpp : Defines the entry point for the console application.
 //
-
-#include "stdafx.h"
 #include "Graph.h"
 
 Node* construct_graph(const vector<vector<int>>& graph)

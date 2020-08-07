@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include <vector>
 #include <algorithm>
 #include <string>
@@ -8,6 +8,14 @@
 #include <stack>
 #include <iostream>
 using namespace std;
+
+#ifndef INT_MAX
+#define INT_MAX (1 << 31 - 1)
+#endif
+
+#ifndef INT_MIN
+#define INT_MIN (1 << 31)
+#endif
 
 #define is_vowel(c)(c == 'a' || c =='e' || c == 'i' || c == 'o' || c == 'u' || c == 'A' || c =='E' || c == 'I' || c == 'O' || c == 'U')
 #define lowerCase(c)(c >= 'a' && c <= 'z' ? c : (c - 'A' + 'a'))

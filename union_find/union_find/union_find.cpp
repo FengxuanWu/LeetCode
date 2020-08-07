@@ -1,7 +1,6 @@
 // union_find.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
 #include "union_find.h"
 
 int test(vector<int>& nums, vector<vector<int>>& link)

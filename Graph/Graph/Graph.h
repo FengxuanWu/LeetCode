@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include <iostream>
 #include <algorithm>
 #include <queue>
@@ -9,6 +8,14 @@
 #include <set>
 #include <unordered_set>
 using namespace std;
+
+#ifndef INT_MAX
+#define INT_MAX (1 << 31 - 1)
+#endif
+
+#ifndef INT_MIN
+#define INT_MIN (1 << 31)
+#endif
 
 class Node
 {
