@@ -7,12 +7,9 @@ def write_instruction(file_name, display):
 		instructions = [regex_instruction.sub('', element) for element in lines[0].split(',')]
 		parameters = [element for element in lines[1][1 : -2].replace('[', '').split('],')]
 
-	print(instructions[0] + ' ' + instructions[0].lower()+';\n', end='')
+	print(instructions[0] + ' ' + instructions[0].lower() + '(' + parameters[0] + ')' + ';\n', end='')
 	for i in range(1, len(instructions)):
-		try:
-			print(display[instructions[i]] * 'cout << ' + instructions[0].lower() + '.' + instructions[i] + '(' + parameters[i] + ')'+ display[instructions[i]] * ' << endl' +';\n', end='')
-		except KeyError:
-			print(instructions[0].lower() + '.' + instructions[i] + '(' + parameters[i] + ')'+ ';\n', end='')
+		print((instructions[i] in display.keys()) * 'cout << ' + instructions[0].lower() + '.' + instructions[i] + '(' + parameters[i].replace(']','') + ')' + (instructions[i] in display.keys()) * ' << endl' +';\n', end='')
 	# with open(file_name.split('.')[0] + '_out.txt', 'w') as out:
 	# 	out.write(instructions[0] + ' ' + instructions[0].lower()+';\n')
 	# 	for i in range(1, len(instructions)):
@@ -75,4 +72,5 @@ def convert_to_cpp(file_name):
 
 
 if __name__ == '__main__':
-	convert_to_cpp('test.txt')
+	# convert_to_cpp('test.txt')
+	test_interface("instruction.txt")

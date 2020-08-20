@@ -290,26 +290,26 @@ int kthSmallest(TreeNode* root, int k)
 	return v[k - 1];
 }
 
-int pathSumHelper(TreeNode* root, int sum)
-{
-	if (root)
-	{	
-		return (root->val == sum) + pathSumHelper(root->left, sum - root->val) + pathSumHelper(root->right, sum - root->val);
-	}
-	return 0;
-}
-//10 5 3 3 -1 -1 -2 -1 -1 2 -1 1 -1 -1 -3 -1 11 -1 -1
-//1 -2 1 -10 -1 -1 -1 3 -1 -1 -3 -2 -1 -1 -1
-//-8 6 -1 -1 8 8 -1 -1 2 -1 -2 -1 -1
-int pathSum(TreeNode* root, int sum)
-{
-	if (root)
-	{
-		return pathSumHelper(root, sum) + pathSum(root->left, sum) + pathSum(root->right, sum);
-	}
-	
-	return 0;
-}
+//int pathSumHelper(TreeNode* root, int sum)
+//{
+//	if (root)
+//	{	
+//		return (root->val == sum) + pathSumHelper(root->left, sum - root->val) + pathSumHelper(root->right, sum - root->val);
+//	}
+//	return 0;
+//}
+////10 5 3 3 -1 -1 -2 -1 -1 2 -1 1 -1 -1 -3 -1 11 -1 -1
+////1 -2 1 -10 -1 -1 -1 3 -1 -1 -3 -2 -1 -1 -1
+////-8 6 -1 -1 8 8 -1 -1 2 -1 -2 -1 -1
+//int pathSum(TreeNode* root, int sum)
+//{
+//	if (root)
+//	{
+//		return pathSumHelper(root, sum) + pathSum(root->left, sum) + pathSum(root->right, sum);
+//	}
+//	
+//	return 0;
+//}
 
 int idx;
 int length;
@@ -1263,11 +1263,36 @@ int countPairs(TreeNode* root, int distance)
 	return res;
 }
 
+void dfs(TreeNode* root, int sum, vector<int>& nums, int start, int& res)
+{
+	if (root)
+	{
+		int val = root->val;
+		
+		dfs(root->right, sum, nums, nums.size(), res);
+		dfs(root->left, sum, nums, nums.size(), res);
+
+		for (int i = start; i < nums.size(); i++)
+			res += (nums[i] += val) == sum;
+
+		res += val == sum;
+		nums.push_back(val);
+	}
+}
+
+int pathSum(TreeNode* root, int sum)
+{
+	vector<int> nums;
+	int res = 0;
+	dfs(root, sum, nums, 0, res);
+	return res;
+}
+
 int main()
 {
 	//{ "4","5","3","null","null","null","2" }; //
-	vector<string> nodes = { "1","2","3", "null", "4" };
+	vector<string> nodes = { "10","5","-3","3","2","null","11","3","-2","null","1" };
 	TreeNode* root = construct(nodes);
-	cout << countPairs(root, 3) << endl;
+	cout << pathSum(root, 8) << endl;
 	return 0;
 }

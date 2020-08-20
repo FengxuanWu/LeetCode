@@ -1080,41 +1080,41 @@ int search_right(vector<int>& nums, int start, int end, int target)
 	return nums[index] == target ? index : start;
 }
 
-int search(vector<int>& nums, int target)
-{
-	int start = 0, end = nums.size(), index = start + (end - start) / 2;
+//int search(vector<int>& nums, int target)
+//{
+//	int start = 0, end = nums.size(), index = start + (end - start) / 2;
+//
+//	while (start != end - 1)
+//	{
+//		if (nums[index] == target)
+//			break;
+//		else if (nums[index] > target)
+//			end = index;
+//		else if (nums[index] < target)
+//			start = index;
+//
+//		index = start + (end - start) / 2;
+//	}
+//
+//	return nums[index] == target ? index : -1;
+//}
 
-	while (start != end - 1)
-	{
-		if (nums[index] == target)
-			break;
-		else if (nums[index] > target)
-			end = index;
-		else if (nums[index] < target)
-			start = index;
-
-		index = start + (end - start) / 2;
-	}
-
-	return nums[index] == target ? index : -1;
-}
-
-vector<int> searchRange(vector<int>& nums, int target)
-{
-	if (nums.size() == 0)
-		return vector<int>({ -1, -1 });
-
-	int idx = search(nums, target);
-	if (idx == -1)
-		return vector<int>({ -1, -1 });
-	else
-	{
-		int start = idx, end = idx;
-		start = search_left(nums, 0, idx + 1, target);
-		end = search_right(nums, idx, nums.size(), target);
-		return vector<int>({ start, end });
-	}
-}
+//vector<int> searchRange(vector<int>& nums, int target)
+//{
+//	if (nums.size() == 0)
+//		return vector<int>({ -1, -1 });
+//
+//	int idx = search(nums, target);
+//	if (idx == -1)
+//		return vector<int>({ -1, -1 });
+//	else
+//	{
+//		int start = idx, end = idx;
+//		start = search_left(nums, 0, idx + 1, target);
+//		end = search_right(nums, idx, nums.size(), target);
+//		return vector<int>({ start, end });
+//	}
+//}
 
 #ifndef TO_DIGIT
 	#define TO_DIGIT(c)(c - '0') 
@@ -4984,34 +4984,34 @@ int compareVersion(string version1, string version2)
 		return 0;
 }
 
-bool overlap(vector<int>& interval1, vector<int>& interval2)
-{
-	return interval1.back() >= interval2.front() && interval1.front() <= interval2.back()
-		|| interval1.front() <= interval2.back() && interval1.front() >= interval2.back();
-}
+//bool overlap(vector<int>& interval1, vector<int>& interval2)
+//{
+//	return interval1.back() >= interval2.front() && interval1.front() <= interval2.back()
+//		|| interval1.front() <= interval2.back() && interval1.front() >= interval2.back();
+//}
 
 vector<int> mergeIntervals(vector<int>& interval1, vector<int>& interval2)
 {
 	return vector<int>({ max(interval1.front(), interval2.front()), min(interval1.back(), interval2.back()) });
 }
 
-vector<vector<int>> intervalIntersection(vector<vector<int>>& a, vector<vector<int>>& b)
-{
-	int i = 0, j = 0;
-	vector<vector<int>> res;
-
-	while (i < a.size() && j < b.size())
-	{
-		if (overlap(a[i], b[j]))
-			res.push_back(mergeIntervals(a[i], b[j]));
-
-		if (a[i].back() < b[j].back())
-			++i;
-		else
-			++j;
-	}
-	return res;
-}
+//vector<vector<int>> intervalIntersection(vector<vector<int>>& a, vector<vector<int>>& b)
+//{
+//	int i = 0, j = 0;
+//	vector<vector<int>> res;
+//
+//	while (i < a.size() && j < b.size())
+//	{
+//		if (overlap(a[i], b[j]))
+//			res.push_back(mergeIntervals(a[i], b[j]));
+//
+//		if (a[i].back() < b[j].back())
+//			++i;
+//		else
+//			++j;
+//	}
+//	return res;
+//}
 
 bool canConstruct(string ransomNote, string magazine)
 {
@@ -6075,18 +6075,6 @@ vector<int> filterRestaurants(vector<vector<int>>& restaurants, int veganFriendl
 	});
 
 	return res;
-}
-
-void bubble_sort(vector<int>& nums)
-{
-	for (int i = 0; i < nums.size(); i++)
-	{
-		for (int j = 0; j < nums.size() - i - 1; j++)
-		{
-			if (nums[j] > nums[j + 1])
-				swap(nums[j], nums[j + 1]);
-		}
-	}
 }
 
 vector<int> kWeakestRows(vector<vector<int>>& mat, int k)
@@ -8174,25 +8162,25 @@ public:
 //	return s.substr(res_start, len);
 //}
 
-int maxProfit(vector<int>& prices)
-{
-	vector<vector<int>> dp(4, vector<int>(prices.size()));
-	dp[0][0] = -prices[0], dp[1][0] = INT_MIN, dp[2][0] = INT_MIN, dp[3][0] = 0;
-
-	for (int i = 1; i < prices.size(); i++)
-	{
-		//buy
-		dp[0][i] = dp[3][i - 1] - prices[i];
-		//no action after buy
-		dp[1][i] = max(dp[1][i - 1], dp[0][i - 1]);
-		//sell
-		dp[2][i] = max(dp[0][i - 1], dp[1][i - 1]) + prices[i];
-		//no action after sell
-		dp[3][i] = max(dp[3][i - 1], dp[2][i - 1]);
-	}
-
-	return max(dp[1].back(), max(dp[2].back(), dp[3].back()));
-}
+//int maxProfit(vector<int>& prices)
+//{
+//	vector<vector<int>> dp(4, vector<int>(prices.size()));
+//	dp[0][0] = -prices[0], dp[1][0] = INT_MIN, dp[2][0] = INT_MIN, dp[3][0] = 0;
+//
+//	for (int i = 1; i < prices.size(); i++)
+//	{
+//		//buy
+//		dp[0][i] = dp[3][i - 1] - prices[i];
+//		//no action after buy
+//		dp[1][i] = max(dp[1][i - 1], dp[0][i - 1]);
+//		//sell
+//		dp[2][i] = max(dp[0][i - 1], dp[1][i - 1]) + prices[i];
+//		//no action after sell
+//		dp[3][i] = max(dp[3][i - 1], dp[2][i - 1]);
+//	}
+//
+//	return max(dp[1].back(), max(dp[2].back(), dp[3].back()));
+//}
 
 int minDistance(string word1, string word2)
 {
@@ -9565,9 +9553,382 @@ string countOfAtoms(string& s)
 	return res;
 }
 
-int main()
+int getWinner(vector<int>& arr, int k)
 {
-	int* a = NULL;
-	cout << sizeof(a) << endl;
+	k = min(k, (int)arr.size());
+	
+	int curr = arr[0];
+	int win = 0;
+	for (int i = 1; i < arr.size() && win < k; i++) 
+	{
+		if (curr > arr[i])
+			win++;
+		else
+			curr = arr[i], win = 1;
+	}
+
+	return curr;
+}
+
+int minSwaps(vector<vector<int>>& grid)
+{
+	vector<int> cnt(grid.size());
+	for (int i = 0; i < grid.size(); i++)
+	{
+		for (int j = grid.size() - 1; j >= 0; j--)
+		{
+			if (grid[i][j] == 0)
+				cnt[i]++;
+			else
+				break;
+		}
+	}
+
+	vector<int> cpy = cnt;
+	sort(cpy.begin(), cpy.end(), greater<int>());
+
+	for (int i = 0; i < cpy.size(); i++)
+	{
+		if (cpy[i] < grid[i].size() - i - 1)
+			return -1;
+	}
+
+	int res = 0;
+	int i = 0;
+	while(i < cnt.size())
+	{
+		if (cnt[i] < grid.size() - 1 - i)
+		{
+			int offset = 0;
+			while (i + offset < grid.size() && cnt[i + offset] < grid.size() - 1 - i) offset++;
+			res += offset;
+			for (int j = i + offset; j - 1 >= i; j--)
+				swap(cnt[j], cnt[j - 1]);
+		}
+		else
+			i++;
+		//cout << cnt << endl;
+	}
+
+	return res;
+}
+
+int maxSum(vector<int>& nums1, vector<int>& nums2)
+{
+	int mod = 1e9 + 7;
+	int m = max(nums1.back(), nums2.back()) + 1;
+	vector<bool> a(m);
+	vector<bool> b(m);
+	for (int v : nums1)a[v] = true;
+	for (int v : nums2)b[v] = true;
+	long long int da = 0, db = 0;
+
+	for (int i = 1; i < m; i++)
+	{
+		if (a[i])
+			da += i;
+		if (b[i])
+			db += i;
+
+		if (a[i] && b[i])
+		{
+			da = max(da, db);
+			db = da;
+		}
+	}
+
+	return max(da, db) % mod;
+}
+
+int removePalindromeSub(string& s)
+{
+	if (s.size() == 0)
+		return 0;
+
+	int left = 0, right = s.size() - 1;
+	while (left < right && s[left] == s[right])
+		left++, right--;
+	return left >= right ? 1 : 2;
+}
+
+bool search(vector<int>& nums, int target, int start, int end)
+{
+	if (start == end)
+		return nums[start] == target;
+
+	int mid = start + (end - start) / 2;
+
+	if (nums[mid] == target)
+		return true;
+
+	return search(nums, target, start, mid) || search(nums, target, mid + 1, end);
+}
+
+bool search(vector<int>& nums, int target)
+{
+	return search(nums, target, 0, nums.size() - 1);
+}
+
+int find(int n, int k)
+{
+	if (n == 1 || k == 0)
+		return 0;
+
+	int total_len = 0;
+	for (int i = 0; i + 1 < n; i++)
+		total_len = total_len * 2 + 1;
+
+
+	if (k == total_len)
+		return 1;
+	else if (k < total_len)
+		return find(n - 1, k);
+	else
+		return !find(n - 1, total_len * 2 - k);
+}
+
+char findKthBit(int n, int k) {
+	return find(n, k - 1) + '0';
+}
+
+int maxNonOverlapping(vector<int>& nums, int target)
+{
+	unordered_map<int, int> sum;
+
+	int curr = 0;
+	int used = -1;
+	int res = 0;
+	sum[0] = -1;
+	for (int i = 0; i < nums.size(); i++)
+	{
+		curr += nums[i];
+		if (sum.count(curr - target) && sum[curr - target] >= used)
+		{
+			used = i;
+			++res;
+		}
+		sum[curr] = i;
+	}
+
+	return res;
+}
+
+int minCost(int n, vector<int>& cuts)
+{
+	sort(cuts.begin(), cuts.end());
+	cuts.insert(cuts.begin(), 0);
+	cuts.push_back(n);
+
+	vector<vector<long long int>> min_cost(cuts.size(), vector<long long int>(cuts.size(), INT_MAX));
+
+	for (int i = 1; i < cuts.size(); i++)
+		min_cost[i - 1][i] = 0;
+	
+
+	for (int len = 1; len < cuts.size(); len++)
+		for (int i = 0; i + len < cuts.size(); i++)
+			for (int j = i; j < i + len; j++)
+				min_cost[i][i + len] = min(min_cost[i][i + len], cuts[i + len] - cuts[i] + min_cost[i][j] + min_cost[j][i + len]);
+
+	return min_cost[0].back();
+}
+
+vector<vector<int>> generate(int numRows)
+{
+	vector<vector<int>> res(numRows);
+	if (numRows == 0)
+		return res;
+	//cout << res << endl;
+	for (int i = 0; i < res.size(); i++)
+	{
+		res[i].resize(i + 1);
+		res[i][0] = 1;
+		res[i][i] = 1;
+	}
+
+	//cout << res << endl;
+
+	for (int i = 1; i < res.size() - 1; i++)
+	{
+		for (int j = 0; j < res[i].size() - 1; j++)
+		{
+			res[i + 1][j + 1] = res[i][j] + res[i][j + 1];
+		}
+	}
+
+	return res;
+}
+
+vector<int> getRow(int row)
+{
+	if (row == 0)
+		return { 1 };
+	else if (row == 1)
+		return { 1, 1 };
+
+	vector<int> nums = { 1 };
+	vector<int> res = {1, 1};
+
+	for (int i = 1; i < row; i++)
+	{
+		nums = { 1 };
+		swap(nums, res);
+		for (int j = 1; j < nums.size(); j++)
+			res.push_back(nums[j] + nums[j - 1]);
+		res.push_back(1);
+	}
+	return res;
+}
+
+bool overlap(vector<int>& interval1, vector<int>& interval2)
+{
+	return interval1.back() > interval2.front() && interval1.front() < interval2.back()
+		|| interval1.front() < interval2.back() && interval1.front() > interval2.back();
+}
+
+int eraseOverlapIntervals(vector<vector<int>>& intervals)
+{
+	if (intervals.empty())
+		return 0;
+
+	sort(intervals.begin(), intervals.end());
+	int res = 0;
+
+	size_t idx = 1;
+	int l = intervals[0].front();
+	
+	for (size_t i = 1; i < intervals.size(); i++)
+	{
+		while (i < intervals.size() && l == intervals[i].front())
+			res++, i++;
+
+		if (i < intervals.size()) {
+			swap(intervals[idx], intervals[i]);
+			l = intervals[idx++].front();
+		}
+	}
+
+	for (int i = 1; i < idx; i++)
+	{
+		if (overlap(intervals[i - 1], intervals[i])) {
+			if (intervals[i].back() > intervals[i - 1].back())
+				swap(intervals[i], intervals[i - 1]);
+			res++;
+		}
+	}
+
+	return res;
+}
+
+class CombinationIterator {
+public:
+	vector<int> idx;
+	string chars;
+	int len;
+
+	CombinationIterator(string characters, int combinationLength) : chars(characters), len(combinationLength) {}
+
+	string next()
+	{
+		int i = idx.empty() ? 0 : idx.back() + 1;
+		if (!idx.empty())
+			idx.pop_back();
+		
+		while (idx.size() < len)
+		{
+			if (i == chars.size()) 
+			{
+				i = idx.back() + 1;
+				idx.pop_back();
+			}
+			else 
+			{
+				idx.push_back(i);
+				i = idx.back() + 1;
+			}			
+		}
+		
+		string res;
+		for (int i = 0; i < idx.size(); i++)
+			res += chars[idx[i]];
+		
+		return res;
+	}
+
+	bool hasNext() 
+	{
+		return idx.empty() || !(idx.front() == chars.size() - len && idx.back() + 1 == chars.size());
+	}
+};
+
+int minOperations(int n)
+{
+	int f = 1;
+	int res = 0;
+	for (int i = 0; i < n / 2; i++)
+	{
+		res += (n - f);
+		f += 2;
+	}
+	return res;
+}
+
+class Sol {
+public:
+	unordered_map<int, int> mindays;
+
+	Sol() { mindays[1] = 1; }
+
+	int minDays(int n) {
+		if (n == 1) return 1;
+		if (n == 2 || n == 3) return 2;
+		if (mindays.count(n))
+			return mindays[n];
+		int op1 = (n % 2 == 0 ? minDays(n / 2) + 1 : minDays(n - n % 2)) + n % 2;
+		int op2 = (n % 3 == 0 ? minDays(n / 3) + 1 : minDays(n - n % 3) + n % 3);
+		return mindays[n] = min(op1, op2);
+	}
+};
+
+int maxProfit(vector<int>& prices)
+{
+	if (prices.size() == 0)
+		return 0;
+
+	vector<int> profit(prices.size());
+	vector<int> rprofit(prices.size());
+
+	int mini = INT_MAX, maxprofit = 0;
+	for (int i = 0; i < prices.size(); i++)
+	{
+		mini = min(mini, prices[i]);
+		maxprofit = max(maxprofit, prices[i] - mini);
+		profit[i] = maxprofit;
+	}
+
+	int maxi = INT_MIN;
+	maxprofit = 0;
+
+	for (int i = prices.size() - 1; i >= 0; i--)
+	{
+		maxi = max(maxi, prices[i]);
+		maxprofit = max(maxprofit, maxi - prices[i]);
+		rprofit[i] = maxprofit;
+	}
+
+	// do one transcation
+	int res = profit.back();
+
+	// do two transcations
+	for (int i = 0; i + 1 < prices.size(); i++)
+		res = max(res, profit[i] + rprofit[i + 1]);
+
+	return res;
+}
+
+int main(){
+
+	vector<int> nums = { 2,1,2,0,1,1};
+	cout << maxProfit(nums) << endl;
 	return 0;
 }
