@@ -23,8 +23,11 @@ public:
 
 	UnionFind& find()
 	{
-		if (parent != NULL)
-			return *parent = parent->find();
+		if (parent != NULL) {
+			parent = &(parent->find());
+			return *parent;
+		}
+			
 		return *this;
 	}
 

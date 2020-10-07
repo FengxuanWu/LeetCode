@@ -98,19 +98,24 @@ char kthSingleChar(int k, string& str)
 	return -1;
 }
 
+vector<string> findAllConcatenatedWordsInADict(vector<string>& words)
+{
+	Trie trie;
+	for (string& word : words)
+		trie.insert(word);
+
+	string tmp = "";
+	vector<string> res;
+	unordered_set<int> seen;
+	trie.traverse(&trie, &trie, 0,0,0, seen, tmp, res);
+	return res;
+}
+
 int main()
 {
-	//string s;
-	//while (cin >> n)
-	//{
-	//	cin >> s;
-	//	cout << s << endl;
-	//	int c = kthSingleChar(n, s);
-	//	if (c == -1)
-	//		cout << "Myon~" << endl;
-	//	else
-	//		cout << '[' <<  (char)c << ']'<< endl;
-	//}
+	//{ "cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat" }
+	vector<string> words = { "aa", "aaa", "aaaa", "aaaaa","aaaaaa", "aaaaaaaaaaaaaaaaaa"};
+	cout << findAllConcatenatedWordsInADict(words) << endl;
 	return 0;
 }
 

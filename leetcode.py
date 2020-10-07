@@ -59,8 +59,8 @@ def convert_to_cpp(file_name):
 			for d in line.split('\n'):
 				if(len(d) > 0):
 					d = d.replace(']', '')
-					data += '{' + '\"' * string + '\'' * char
-					data += ('\"' * string  + '\'' * char + ',' + '\"' * string  + '\'' * char).join(d.split())
+					data += '\t' * (dimention == 2) + '{' + '\"' * string + '\'' * char
+					data += ('\"' * string  + '\'' * char + ', ' + '\"' * string  + '\'' * char).join(d.split())
 					data +=  '\"' * string  + '\'' * char+ '}' + (dimention == 2) * ',' + '\n'
 			idx += 1
 
@@ -72,5 +72,5 @@ def convert_to_cpp(file_name):
 
 
 if __name__ == '__main__':
-	# convert_to_cpp('test.txt')
-	test_interface("instruction.txt")
+	convert_to_cpp('test.txt')
+	# test_interface("instruction.txt")

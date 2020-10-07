@@ -2054,7 +2054,8 @@ bool isMatch(string s, string p)
 		if (DEFERENCE(re_elements[i - 1]).getType() == REPEAT 
 			&& DEFERENCE(re_elements[i]).getType() == REPEAT
 			&& (DEFERENCE(re_elements[i - 1]).getChar() == '.' 
-			|| DEFERENCE(re_elements[i]).getChar() == DEFERENCE(re_elements[i - 1]).getChar()))
+			|| DEFERENCE(re_elements[i]).getChar() == DEFERENCE(re_elements[i - 1]).getChar())
+			)
 			continue;
 
 		temp.clear();
@@ -2222,8 +2223,7 @@ int trap(vector<int>& height)
 	{
 		if (height[i] > height[i + 1])
 			peak.push(i);
-		else
-		if (peak.size() > 0)
+		else if (peak.size() > 0)
 		{
 			int prev = height[i];
 			while (!peak.empty() && height[i + 1] > height[peak.top()])
@@ -6623,7 +6623,6 @@ void GetAllSequence(string input, int i, const int N, stack<char> &stk, string &
 	}
 }
 
-
 vector<string> popStack(string s)
 {
 	stack<char> sta;
@@ -6969,12 +6968,8 @@ int numSquares(int n)
 		dp[i * i] = 1;
 
 	for (int i = 1; i <= n; i++)
-	{
 		for (int j = 1; j * j <= i; j++)
-		{
 			dp[i] = min(dp[i], dp[i - j * j] + dp[j * j]);
-		}
-	}
 
 	return dp[n];
 }
@@ -8383,10 +8378,13 @@ void fill(vector<vector<char>>& grid, int row, int col)
 
 		if (r > 0 && grid[r - 1][c] == '1')
 			q.push({ r - 1, c });
+
 		if (r < grid.size() - 1 && grid[r + 1][c] == '1')
 			q.push({ r + 1, c });
+		
 		if (c > 0 && grid[r][c - 1] == '1')
 			q.push({ r, c - 1 });
+		
 		if (c < grid[r].size() - 1 && grid[r][c + 1] == '1')
 			q.push({ r, c + 1 });
 
@@ -8977,8 +8975,6 @@ public:
 		return res;
 	}
 };
-
-vector<vector<int>> directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 
 vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor)
 {
@@ -9619,8 +9615,8 @@ int maxSum(vector<int>& nums1, vector<int>& nums2)
 	int m = max(nums1.back(), nums2.back()) + 1;
 	vector<bool> a(m);
 	vector<bool> b(m);
-	for (int v : nums1)a[v] = true;
-	for (int v : nums2)b[v] = true;
+	for (int v : nums1) a[v] = true;
+	for (int v : nums2) b[v] = true;
 	long long int da = 0, db = 0;
 
 	for (int i = 1; i < m; i++)
@@ -9820,7 +9816,8 @@ int eraseOverlapIntervals(vector<vector<int>>& intervals)
 	return res;
 }
 
-class CombinationIterator {
+class CombinationIterator 
+{
 public:
 	vector<int> idx;
 	string chars;
@@ -9879,7 +9876,8 @@ public:
 
 	Sol() { mindays[1] = 1; }
 
-	int minDays(int n) {
+	int minDays(int n) 
+	{
 		if (n == 1) return 1;
 		if (n == 2 || n == 3) return 2;
 		if (mindays.count(n))
@@ -9892,7 +9890,7 @@ public:
 
 int maxProfit(vector<int>& prices)
 {
-	if (prices.size() == 0)
+	if (prices.empty())
 		return 0;
 
 	vector<int> profit(prices.size());
@@ -9926,9 +9924,589 @@ int maxProfit(vector<int>& prices)
 	return res;
 }
 
-int main(){
+vector<int> mostVisited(int n, vector<int>& rounds)
+{
+	vector<pair<int, int>> count(n);
 
-	vector<int> nums = { 2,1,2,0,1,1};
-	cout << maxProfit(nums) << endl;
+	for (int i = 0; i < n; i++)
+		count[i].first = i + 1;
+
+	count[rounds[0] - 1].second++;
+	int idx = 1;
+	while (idx < rounds.size())
+	{
+		int b = rounds[idx - 1];
+		int e = rounds[idx] + (rounds[idx] < b) * n - 1;
+		while (b <= e)
+			count[b++ % n].second++;
+		idx++;
+	}
+
+	vector<int> res;
+	sort(count.begin(), count.end(), [&](pair<int, int>& a, pair<int, int>& b) { return a.second > b.second || a.second == b.second && a.first < b.first; });
+
+	int c = 0;
+	while (c < count.size() && count[0].second == count[c].second) {
+		res.push_back(count[c++].first);
+	}
+
+	return res;
+}
+
+int binSearch(vector<pair<int, int>>& group, int t)
+{
+	int l = 0, r = group.size() - 1;
+	while (l < r)
+	{
+		int mid = l + (r - l) / 2;
+		if (group[mid].first < t)
+			l = mid + 1;
+		else
+			r = mid;
+	}
+	return l;
+}
+
+int findLatestStep(vector<int>& arr, int m)
+{
+	vector<pair<int, int>> group;
+
+	int res = -1;
+	for (int i = 0; i < arr.size(); i++)
+	{
+		int t = arr[i] - 1;
+		int idx = binSearch(group, t);
+
+		int l = t, r = t;
+		if (idx > 0 && group[idx - 1].second == t)
+		{
+			l = min(l, group[idx - 1].first);
+			group.erase(group.begin() + idx - 1);
+		}
+
+		if (idx + 1 < group.size() && idx - 1 == group[idx + 1].first)
+		{
+			r = max(r, group[idx + 1].second);
+			group.erase(group.begin() + idx + 1);
+		}
+
+		group.push_back({ l, r });
+		if (r - l == m)
+			res = i + 1;
+		sort(group.begin(), group.end());
+	}
+
+	return res;
+}
+
+void dfs(vector<int>& nums, vector<int>& res)
+{
+	cout << nums << endl;
+	int idx = 1;
+	while (idx < nums.size() && nums.front() < nums[idx]) idx++;
+
+	if (idx == nums.size())
+		return;
+
+	int end = idx;
+	while (end < nums.size() && nums.front() > nums[end]) end++;
+
+	if(idx != 1)
+		res.push_back(idx - 1);
+	res.push_back(end - 1);
+	
+	reverse(nums.begin(), nums.begin() + idx);
+	reverse(nums.begin() + idx, nums.begin() + end);
+	reverse(nums.begin(), nums.begin() + end);
+
+	dfs(nums, res);
+}
+
+vector<int> pancakeSort(vector<int>& nums)
+{
+	vector<int> res;
+	dfs(nums, res);
+	return res;
+}
+
+
+//vector<vector<int>> directions = { {-1,0}, {1, 0}, {0, -1}, {0,1} };
+void dfs(vector<vector<int>>& grid, int row, int col, vector<vector<int>>* points = NULL)
+{
+	int count = 0;
+	vector<int> dir(4);
+	for (int i = 0; i < directions.size(); i++)
+	{
+		int r = row + directions[i][0];
+		int c = col + directions[i][1];
+
+		if (r >= 0 && r < grid.size() && c >= 0 && c < grid[r].size() && grid[r][c])
+		{
+			dir[i] = 1;
+			++count;
+			if (grid[r][c] == 1)
+			{
+				grid[r][c] = 2;
+				dfs(grid, r, c, points);
+			}
+		}
+	}
+
+	if (points)
+	{
+		if (count == 0 || (count == 2 && ((dir[0] & dir[1]) ^ (dir[2] & dir[3]))))
+			points->push_back({ row, col });
+		else if (count == 1)
+		{
+			for (int i = 0; i < dir.size(); i++)
+			{
+				if (dir[i])
+				{
+					points->push_back({ row + directions[i][0], col + directions[i][1] });
+					break;
+				}
+			}
+		}
+	}
+}
+
+int islandCount(vector<vector<int>> grid, vector<vector<int>>* points = NULL)
+{
+	int cnt = 0;
+	for (int i = 0; i < grid.size(); i++)
+	{
+		for (int j = 0; j < grid[i].size(); j++)
+		{
+			if (grid[i][j] == 1)
+			{
+				cnt++;
+				dfs(grid, i, j, points);
+			}
+		}
+	}
+	return cnt;
+}
+
+int minDays(vector<vector<int>>& grid)
+{
+	vector<vector<int>> points;
+
+	int cnt = islandCount(grid, &points);
+	if (cnt > 1 || cnt == 0)
+		return 0;
+
+	for (int i = 0; i < points.size(); i++)
+	{
+		grid[points[i][0]][points[i][1]] = 0;
+		int cnt = islandCount(grid);
+		if (cnt > 1 || cnt == 0)
+			return 1;
+		grid[points[i][0]][points[i][1]] = 1;
+	}
+	return 2;
+}
+
+int calculateMinimumHP(vector<vector<int>>& dungeon)
+{
+	if (dungeon.size() == 0 || dungeon[0].empty())
+		return 1;
+
+	dungeon.back().back() = min(0, dungeon.back().back());
+
+	for (int i = dungeon.size() - 1; i >= 0; i--)
+	{
+		for (int j = dungeon[i].size() - 1; j >= 0; j--)
+		{
+			int a = INT_MAX, b = INT_MAX;
+			if (i + 1 < dungeon.size())
+				a = min(dungeon[i][j] + dungeon[i + 1][j], 0);
+
+			if (j + 1 < dungeon[i].size())
+				b = min(dungeon[i][j] + dungeon[i][j + 1], 0);
+
+			if (i != dungeon.size() - 1 || j != dungeon[i].size() - 1)
+				dungeon[i][j] = -(int)min(abs(a), abs(b));
+		}
+	}
+	return max(abs(dungeon.front().front()), 0) + 1;
+}
+
+int dfs(vector<int>& nums, int i, int j, vector<vector<int>>& length, unordered_map<int, int>& idx)
+{
+	if (length[i][j] != -1)
+		return length[i][j];
+	else if (idx.count(nums[i] + nums[j]) == 0)
+		return length[i][j] = 0;
+	else
+		return length[i][j] = max(length[i][j], 1 + dfs(nums, j, idx[nums[i] + nums[j]], length, idx));
+}
+
+int lenLongestFibSubseq(vector<int>& nums)
+{
+	if (nums.size() < 3)
+		return 0;
+
+	vector<vector<int>> length(nums.size(), vector<int>(nums.size(), -1));
+	unordered_map<int, int> idx;
+
+	for (int i = 0; i < nums.size(); i++)
+		idx[nums[i]] = i;
+
+	int res = 0;
+
+	for (int i = 0; i + 1 < nums.size(); i++)
+		for (int j = i + 1; nums[i] + nums[j] <= nums.back(); j++)
+			res = max(res, dfs(nums, i, j, length, idx));
+
+	return res == 0 ? res : res + 2;
+}
+
+string modifyString(string s)
+{
+	for (int i = 0; i < s.size(); i++)
+	{
+		char c = (i > 0 && s[i - 1] == 'a');
+		while (s[i] == '?')
+		{
+			if (i + 1 == s.size() || s[i + 1] != c + 'a') {
+				s[i] = c % 26 + 'a';
+				i++;
+			}
+			c++;
+		}
+	}
+
+	return s;
+}
+
+int check(vector<int>& nums1, vector<int>& nums2)
+{
+	unordered_map<long long int, int> cnt;
+	unordered_map<long long int, int> square;
+	for (int i = 0; i < nums1.size(); i++)
+		square[(long long int)nums1[i] * (long long int)nums1[i]]++;
+
+	for (int i = 0; i < nums2.size(); i++)
+		cnt[nums2[i]]++;
+
+	int res = 0;
+	for (auto it = square.begin(); it != square.end(); it++)
+	{
+		unordered_map<int, int> checked;
+		for (auto it2 = cnt.begin(); it2 != cnt.end(); it2++)
+		{
+			long long int p = it->first;
+			int a = it2->first;
+			if (p % a == 0 && !checked[a] && cnt.count(p / a)) {
+				if (p / a != a) {
+					res += it->second * it2->second * (cnt[p / a]);
+				}
+				else {
+					res += it->second * it2->second * (cnt[p / a] - 1) / 2;
+				}
+				checked[p / a] = 1;
+ 			}
+		}
+	}
+	return res;
+}
+
+int numTriplets(vector<int>& nums1, vector<int>& nums2)
+{
+	return check(nums1, nums2) + check(nums2, nums1);
+}
+
+int minCost(string s, vector<int>& cost)
+{
+	long long int res = 0;
+	for (int i = 0; i < cost.size();)
+	{
+		char c = s[i];
+		int j = 1;
+		int sum = cost[i], max_cost = sum;
+		while (s[i + j] == s[i]) {
+			sum += cost[i + j];
+			max_cost = max(max_cost, cost[i + j]);
+			j++;
+		}
+
+		res += (sum - max_cost);
+		i += j;
+	}
+	return res;
+}
+
+int maxNumEdgesToRemove(int n, vector<vector<int>>& edges)
+{
+	sort(edges.begin(), edges.end());
+	int alice = 0, bob = 0, res = 0;
+
+	map<pair<int, int>, vector<int>> edge_cnt;
+
+	for (int i = 0; i < edges.size(); i++)
+	{
+		int type = edges[i][0];
+		int from = edges[i][1];
+		int to = edges[i][2];
+		pair<int, int> e = { from, to };
+
+		alice += (type ^ 2) != 0;
+		bob += (type ^ 1) != 0;
+
+		if (type == 3 && edge_cnt.count(e))
+		{
+			res++;
+			for (int i = 0; i < edge_cnt[e].size(); i++)
+			{
+				alice -= edge_cnt[e][i] == 1;
+				bob -= edge_cnt[e][i] == 2;
+			}
+			edge_cnt[e].clear();
+		}
+		edge_cnt[e].push_back(type);
+	}
+	
+	if (alice + 1 >= n && bob + 1 >= n)
+		return edges.size() - res - alice - bob + n * 2 - 2;
+	else
+		return -1;
+}
+
+int numSpecial(vector<vector<int>>& mat)
+{
+	vector<int> row(mat.size()), col(mat[0].size());
+	for (int i = 0; i < mat.size(); i++)
+	{
+		for (int j = 0; j < mat[i].size(); j++)
+		{
+			row[i] += mat[i][j];
+			col[j] += mat[i][j];
+		}
+	}
+	cout << row << endl;
+	cout << col << endl;
+	int res = 0;
+	for (int i = 0; i < mat.size(); i++)
+	{
+		for (int j = 0; j < mat[i].size(); j++)
+		{
+			if (row[i] == 1 && col[j] == 1)
+				cout << i << ' ' << j << endl;
+			res += (row[i] == 1 && col[j] == 1);
+		}
+	}
+	return res;
+}
+
+int distance(vector<int>& a, vector<int>& b)
+{
+	return abs(a.front() - b.front()) + abs(a.back() - b.back());
+}
+
+int minCostConnectPoints(vector<vector<int>>& points)
+{
+	if (points.size() < 2)
+		return 0;
+
+	vector<int> near(points.size(), 0);
+	near[0] = 1;
+
+	for (int i = 1; i < points.size(); i++)
+	{
+		int conn = 0;
+		unordered_set<int> idx;
+
+		for (int j = 0; j < i; j++)
+		{
+			int d = distance(points[j], points[i]);
+			if (d < distance(points[conn], points[i]))
+				conn = j;
+
+			if (d < distance(points[j], points[near[j]]))
+			{
+				idx.insert(j);
+			}
+
+			for (int n : idx)
+			{
+
+			}
+		} 
+		
+		near[i] = conn;
+	}
+
+	cout << near << endl;
+
+	set<pair<int, int>> connections;
+
+	int res = 0;
+	for (int i = 0; i < near.size(); i++)
+	{
+		pair<int, int> p = { min(i, near[i]), max(i, near[i]) };
+		if (connections.find(p) == connections.end())
+		{
+			res += distance(points[i], points[near[i]]);
+			connections.insert(p);
+		}	
+	}
+
+	return res;
+}
+
+void dfs(string& s, int curr, unordered_set<string>& seen, int cnt, int &res)
+{
+	if (curr == s.size()) 
+	{
+		res = max(cnt, res);
+	}
+
+	cout << s.substr(curr, s.size() - curr) << endl;
+	for (int len = 1; curr + len <= s.size(); len++)
+	{
+		string str = s.substr(curr, len);
+		if (!seen.count(str))
+		{
+			seen.insert(str);
+			dfs(s, curr + len, seen, cnt + 1, res);
+			seen.erase(seen.find(str));
+		}
+	}
+}
+
+int maxUniqueSplit(string s)
+{
+	int res = 0;
+	unordered_set<string> seen;
+	dfs(s, 0, seen, 0, res);
+	return res;
+}
+
+int maxProductPath(vector<vector<int>>& grid) 
+{
+	if (grid[0][0] == 0)
+		return 0;
+
+	vector<vector<long long int>> pos(grid.size(), vector<long long int>(grid[0].size(), 0));
+	vector<vector<long long int>> neg(grid.size(), vector<long long int>(grid[0].size(), 0));
+
+	if (grid[0][0] > 0)
+		pos[0][0] = grid[0][0];
+	else
+		neg[0][0] = grid[0][0];
+	bool zero = false;
+	for (int i = 0; i < grid.size(); i++)
+	{
+		for (int j = 0; j < grid[i].size(); j++)
+		{
+			zero |= grid[i][j] == 0;
+			if (i == 0 && j == 0)
+				continue;
+			
+			if (i > 0) 
+			{
+				if (grid[i][j] < 0) 
+				{
+					pos[i][j] = neg[i - 1][j] * grid[i][j];
+					neg[i][j] = pos[i - 1][j] * grid[i][j];
+				} 
+				else
+				{
+					pos[i][j] = pos[i - 1][j] * grid[i][j];
+					neg[i][j] = neg[i - 1][j] * grid[i][j];
+				}
+			}
+
+			if (j > 0)
+			{
+				if (grid[i][j] < 0)
+				{
+					pos[i][j] = max(pos[i][j], neg[i][j - 1] * grid[i][j]);
+					neg[i][j] = min(neg[i][j], pos[i][j - 1] * grid[i][j]);
+				}
+				else
+				{
+					pos[i][j] = max(pos[i][j], pos[i][j - 1] * grid[i][j]);
+					neg[i][j] = min(neg[i][j], neg[i][j - 1] * grid[i][j]);
+				}
+			}
+		}
+	}
+
+	int mod = 1e9 + 7;
+	return pos.back().back() == 0 && !zero ? -1 : pos.back().back() % mod;
+}
+
+int available_bit(int n, int size)
+{
+	if (n & 1)
+		return 1;
+
+	int pos = 0;
+	while (pos < size && (n & (1 << pos)) == 0)
+	{
+		pos++;
+	}
+		
+	return pos + 1 < size ? pos + 1 : -1;
+}
+
+int cnt_bit(int n)
+{
+	int res = 0;
+	while (n)
+	{
+		res++;
+		n >>= 1;
+	}
+	return res;
+}
+
+int dfs(int n, int level, int size, unordered_map<int, int>& count, unordered_set<int>& seen, int &res)
+{
+	if (count[n])
+		return count[n];
+
+	if (n == 0) {
+		return 0;
+	}
+
+	if (seen.count(n))
+		return INT_MAX - 1;
+
+	seen.insert(n);
+	int pos = available_bit(n, size);
+
+	if (pos != -1)
+	{
+		int a = n;
+		set_bit(a, pos, !get_bit(a, pos));
+		count[n] = 1 + dfs(a, level + 1, size, count, seen, res);
+	}
+		
+	int b = n;
+	set_bit(b, 0, !get_bit(b, 0));
+	int r = dfs(b, level + 1, size, count, seen, res);
+	if (count.count(n))
+		count[n] = min(count[n], 1 + r);
+	else
+		count[n] = 1 + r;
+
+	return count[n];
+}
+
+int minimumOneBitOperations(int n) 
+{
+	int size = cnt_bit(n);
+	unordered_map<int, int> count;
+	unordered_set<int> seen;
+	int res = INT_MAX;
+	dfs(n, 0, size, count, seen, res);
+	return res;
+}
+
+int main()
+{
+
 	return 0;
 }

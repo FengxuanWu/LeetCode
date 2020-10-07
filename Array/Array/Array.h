@@ -46,7 +46,9 @@ using namespace std;
 #define MALLOC(type, size)((type*)malloc(sizeof(type) * size))
 #endif
 
-vector<string> split(string s, char c, int* length = NULL)
+vector<vector<int>> directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+
+vector<string> split(string& s, char c, int* length = NULL)
 {
 	vector<string> res;
 	int left = 0, right = 0;
@@ -78,7 +80,7 @@ template<typename T>
 ostream& operator<<(ostream& os, vector<T> v)
 {
 	for (int i = 0; i < v.size(); i++)
-		os << v[i] << ", ";
+		os << v[i] << ",";
 	return os;
 }
 
@@ -92,7 +94,7 @@ ostream& operator<<(ostream& os, vector<vector<T>> v)
 
 
 template <typename T>
-size_t find(vector<T> v, const T& target)
+size_t find(vector<T> &v, const T &target)
 {
 	size_t idx = 0;
 	while (idx != v.size() && v[idx] != target) idx++;
@@ -100,14 +102,14 @@ size_t find(vector<T> v, const T& target)
 }
 
 template<typename T>
-ostream& operator<<(ostream& os, pair<T, T> p)
+ostream& operator<<(ostream &os, pair<T, T> &p)
 {
 	os << p.first << "," << p.second;
 	return os;
 }
 
 template<typename T>
-ostream& operator<<(ostream& os, set<T> s)
+ostream& operator<<(ostream &os, set<T> &s)
 {
 	for (auto i : s)
 		os << i << ", ";

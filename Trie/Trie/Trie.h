@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <unordered_map>
+#include <unordered_set>
 #include <queue>
 #include <stack>
 #include <iostream>
@@ -49,6 +50,34 @@ public:
 				return false;
 		}
 		return true;
+	}
+
+	void traverse(Trie* iter, Trie* root, int idx, int last_idx, int offset, unordered_set<int>& seen, string& tmp, vector<string>& res)
+	{
+		if (iter->critical == 1 && root->critical && iter != root)
+		{
+			iter->critical++;
+			res.push_back(tmp);
+		}
+
+		seen.insert(idx);
+		for (auto it = iter->children.begin(); it != iter->children.end(); ++it)
+		{
+			if (root->critical && this->children.count(it->first))
+			{
+				tmp.push_back(it->first);
+				traverse(it->second, this->children[it->first], idx + 1, idx, 1, seen, tmp, res);
+				tmp.pop_back();
+			}
+			
+			if (root->children.count(it->first) && seen.count(last_idx + offset + 1) == 0)
+			{
+				tmp.push_back(it->first);
+				traverse(it->second, root->children[it->first], idx + 1, idx + 1, 0, seen, tmp, res);
+				tmp.pop_back();
+			}
+		}
+		seen.erase(seen.find(idx));
 	}
 
 	bool search(string s)

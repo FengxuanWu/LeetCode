@@ -1288,11 +1288,57 @@ int pathSum(TreeNode* root, int sum)
 	return res;
 }
 
+bool check(vector<int>& nums, int level)
+{
+	int r = !(level % 2);
+	if (nums.front() % 2 != r)
+		return false;
+
+	for (int i = 1; i < nums.size(); i++)
+	{
+		if (nums[i] % 2 != r)
+			return false;
+
+		if (level % 2 == 0 && nums[i - 1] >= nums[i])
+			return false;
+
+		if (level % 2 && nums[i - 1] <= nums[i])
+			return false;
+	}
+	return true;
+}
+
+bool isEvenOddTree(TreeNode* root)
+{
+	queue<TreeNode*> q;
+	q.push(root);
+	int level = 0;
+	while (!q.empty())
+	{
+		int sz = q.size();
+		vector<int> layer;
+		for (int i = 0; i < sz; i++)
+		{
+			layer.push_back(q.front()->val);
+			if (q.front()->left)
+				q.push(q.front()->left);
+			if (q.front()->right)
+				q.push(q.front()->right);
+			q.pop();
+		}
+
+		if (!check(layer, level))
+			return false;
+		level++;
+	}
+	return true;
+}
+
 int main()
 {
 	//{ "4","5","3","null","null","null","2" }; //
-	vector<string> nodes = { "10","5","-3","3","2","null","11","3","-2","null","1" };
+	vector<string> nodes = { "1", "10", "4", "3", "null", "7", "9", "12", "8", "6", "null", "null", "2" };
 	TreeNode* root = construct(nodes);
-	cout << pathSum(root, 8) << endl;
+	cout << isEvenOddTree(root) << endl;
 	return 0;
 }
