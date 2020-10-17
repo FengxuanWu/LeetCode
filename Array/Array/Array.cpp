@@ -2717,7 +2717,7 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k)
 #define OPERATOR_NOT 3
 #define OPERATOR_LB 4
 
-#define is_operator(c)(OPERAND + (c == '!') * OPERATOR_NOT + (c == '&') * OPERATOR_AND \
+#define is_operator(c) (OPERAND + (c == '!') * OPERATOR_NOT + (c == '&') * OPERATOR_AND \
 + (c == '|') * OPERATOR_OR)
 
 bool parseBoolExpr(string expression)

@@ -462,27 +462,10 @@ ListNode* reverseKGroup(ListNode* head, int k)
 	return head;
 }
 
-ListNode* middleNode(ListNode* head)
-{
-	int len = 0;
-	ListNode* iter = head;
-	while (iter)
-	{
-		len++;
-		iter = iter->next;
-	}
-
-	int idx = 0;
-	iter = head;
-	while (idx * 2 < len)
-		iter = iter->next;
-	return iter;
-}
-
 int main()
 {
 	ListNode* head = Construct(vector<int>({ 1, 2, 3, 4, 5 }));
-	head = middleNode(head);
+	head = reverseKGroup(head, 2);
 	cout << head << endl;
 	return 0; 
 }

@@ -1336,9 +1336,9 @@ bool isEvenOddTree(TreeNode* root)
 
 int main()
 {
-	//{ "4","5","3","null","null","null","2" }; //
 	vector<string> nodes = { "1", "10", "4", "3", "null", "7", "9", "12", "8", "6", "null", "null", "2" };
 	TreeNode* root = construct(nodes);
 	cout << isEvenOddTree(root) << endl;
+
 	return 0;
 }
