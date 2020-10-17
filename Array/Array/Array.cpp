@@ -10505,8 +10505,105 @@ int minimumOneBitOperations(int n)
 	return res;
 }
 
+int maxDepth(string s)
+{
+	int left = 0, right = 0, max_left = 0, res = 0;
+	for (int i = 0; i < s.size(); i++) 
+	{
+		if (s[i] == '(') 
+		{
+			left++;
+			max_left = max(max_left, left);
+		}
+		else if (s[i] == ')') 
+		{
+			while (left && i < s.size() && s[i] != '(') 
+			{
+				if (s[i] == ')') {
+					left--;
+				}
+				i++;
+			}
+			res = max(res, max_left - left);
+			i -= (i < s.size() && s[i] == '(');
+		}
+	}
+	return res;
+}
+
+vector<int> palindrome(string& a)
+{
+	int idx = a.size() / 2;
+	vector<int> res(a.size() / 2 + 1);
+	res[0] = 1;
+	int len = 1;
+	while (len <= a.size() / 2) {
+		if (a[idx - len] == a[idx + len] && res[len - 1])
+			res[len] = 1;
+		len++;
+	}
+	return res;
+}
+
+
+bool checkPalindromeFormation(string a, string b)
+{
+	string s1 = "#", s2 = "#";
+	for (int i = 0; i < a.size(); i++)
+	{
+		s1.push_back(a[i]);
+		s1.push_back('#');
+	}
+
+	for (int i = 0; i < b.size(); i++)
+	{
+		s2.push_back(b[i]);
+		s2.push_back('#');
+	}
+
+	cout << s1 << endl;
+	cout << s2 << endl;
+
+	vector<int> p1 = palindrome(s1);
+	vector<int> p2 = palindrome(s2);
+	cout << p1 << endl;
+	cout << p2 << endl;
+	if (p1.back() || p2.back())
+		return true;
+
+	for (int i = 0; i < s1.size() && (s1[i] == s2[s2.size() - i - 1] || s2[i] == s1[s1.size() - i - 1]) ; i++)
+	{
+		int len = (s1.size() - i * 2) / 2 - 1;
+ 		if (p1[len] || p2[len])
+			return true;
+	}
+	
+	return false;
+}
+
+int maximalNetworkRank(int n, vector<vector<int>>& roads)
+{
+	vector<vector<int>> graph(n, vector<int>(n + 1));
+	for (vector<int>& edge : roads)
+	{
+		graph[edge[0]][edge[1]] = 1;
+		graph[edge[1]][edge[0]] = 1;
+		graph[edge[1]].back()++;
+		graph[edge[0]].back()++;
+	}
+
+	int res = 0;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = i + 1; j < n; j++)
+		{
+			res = max(res, graph[i].back() + graph[j].back() - graph[i][j]);
+		}
+	}
+	return res;
+} 
+
 int main()
 {
-
 	return 0;
 }

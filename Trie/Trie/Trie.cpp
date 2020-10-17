@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "Trie.h"
 
+
 vector<vector<string>> mem;
 
 vector<string> wordBreakHelper(string& s, Trie& trie, int idx)
@@ -111,11 +112,9 @@ vector<string> findAllConcatenatedWordsInADict(vector<string>& words)
 	return res;
 }
 
+
 int main()
 {
-	//{ "cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat" }
-	vector<string> words = { "aa", "aaa", "aaaa", "aaaaa","aaaaaa", "aaaaaaaaaaaaaaaaaa"};
-	cout << findAllConcatenatedWordsInADict(words) << endl;
 	return 0;
 }
 
