@@ -24,41 +24,88 @@ int test(vector<int>& nums, vector<vector<int>>& link)
 	return 0;
 }
 
-int find_vector(vector<string>& v, string val)
-{
-	for (int i = 0; i < v.size(); i++)
-	if (val == v[i])
-		return i;
-	return -1;
-}
 
-string findSmallestRegion(vector<vector<string>>& regions, string region1, string region2) 
+int minimumHammingDistance(vector<int>& source, vector<int>& target, vector<vector<int>>& allowedSwaps)
 {
-	map<string, string> parent;
-	for (int i = 0; i < regions.size(); i++)
+	vector<UnionFind<int>> sets(source.size());
+	for (int i = 0; i < sets.size(); i++)
+		sets[i] = UnionFind<int>(i);
+
+	for (int i = 0; i < allowedSwaps.size(); i++)
 	{
-		for (int j = 1; j < regions[i].size(); j++)
+		int a = min(allowedSwaps[i][0], allowedSwaps[i][1]), b = max(allowedSwaps[i][0], allowedSwaps[i][1]);
+		sets[a].merge(sets[b]);
+	}
+	
+	unordered_map<int, vector<int>> idx;
+	for (int i = 0; i < sets.size(); i++) {
+		idx[sets[i].find().val].push_back(sets[i].val);
+	}
+
+	int res = 0;
+	for (auto iter = idx.begin(); iter != idx.end(); iter++)
+	{
+		vector<int> a(iter->second.size()), b(iter->second.size());
+		for (int i = 0; i < iter->second.size(); i++)
+			a[i] = source[iter->second[i]], b[i] = target[iter->second[i]];
+		sort(a.begin(), a.end());
+		sort(b.begin(), b.end());
+		int i = 0, j = 0;
+		while (i < a.size() && j < b.size())
 		{
-			parent[regions[i][j]] = regions[i][0];
+			if (a[i] == b[j])
+				res++, i++, j++;
+			else if (a[i] < b[j])
+				i++;
+			else
+				j++;
 		}
 	}
-		
-	vector<string> path(1, region1);
-	while (parent.find(region1) != parent.end())
-	{
-		region1 = parent[region1];
-		path.push_back(region1);
-	}
 
-	while (find_vector(path, region2) == -1)
-	{
-		region2 = parent[region2];
-	}
-	return region2;
+	return source.size()-res;
 }
 
 int main()
 {
-	cout << "hello world" << endl;
+	vector<vector<int>> swaps = {
+		{0, 7},
+		{3, 0},
+	{4, 7},
+	{3, 1},
+	{8, 4},
+	{5, 6},
+	{2, 8},
+	{1, 6},
+	{3, 7},
+	{2, 5},
+	{8, 5},
+	{2, 1},
+	{6, 7},
+	{5, 1},
+	{3, 6},
+	{4, 0},
+	{7, 2},
+	{2, 6},
+	{4, 1},
+	{3, 2},
+	{8, 6},
+	{8, 0},
+	{5, 3},
+	{1, 0},
+	{4, 6},
+	{8, 7},
+	{5, 7},
+	{3, 8},
+	{6, 0},
+	{8, 1},
+	{7, 1},
+	{5, 0},
+	{4, 3},
+	{0, 2},
+	};
+
+	vector<int> nums = { 18,67,10,36,17,62,38,78,52 };
+	vector<int> nums2 = { 3,4,99,36,26,58,29,33,74 };
+	cout << minimumHammingDistance(nums, nums2, swaps) << endl;
 	return 0;
 }

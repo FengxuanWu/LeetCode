@@ -34,7 +34,8 @@ public:
 	void merge(UnionFind& set)
 	{
 		UnionFind* s1 = &(this->find()), *s2 = &(set.find()), *root = NULL;
-
+		if (s1 == s2)
+			return;
 		if (s2->rank > s1->rank)
 			root = s1->parent = s2;
 		else

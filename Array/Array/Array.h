@@ -129,3 +129,13 @@ vector<int> to_bin(int num)
 	return res;
 }
 
+template<typename T>
+ostream& operator<<(ostream& os, priority_queue<T> pq) 
+{
+	while (!pq.empty()) 
+	{
+		os << pq.top() << ", ";
+		pq.pop();
+	}
+	return os;
+}

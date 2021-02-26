@@ -592,20 +592,41 @@ int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int
 
 	return res == INT_MAX ? -1 : res;
 }
+
+int verify(vector<int>& nums, int target, int maxOperations)
+{
+	int idx = 0;
+	while (idx < nums.size() && maxOperations)
+	{
+		int opt = nums[idx] / target - (nums[idx] % target == 0);
+		maxOperations = max(0, maxOperations - opt);
+		idx++;
+	}
+
+	return idx == nums.size() || target >= nums[idx];
+}
+
+int minimumSize(vector<int>& nums, int opt)
+{
+	sort(nums.begin(), nums.end(), greater<int>());
+	int l = 1, r = nums.front();
+	while (l < r) {
+		int m = l + (r - l) / 2;
+		cout << m << endl;
+		if (verify(nums, m, opt)) {
+			r = m;
+		}
+		else {
+			l = m + 1;
+		}
+	}
+	return l;
+}
+
 int main()
 {
-	int n = 5;
-	int start = 0;
-	int end = 2;
-	int k = 2;
-	vector<vector<int>> graph = {
-{0,1,5},
-{1,2,5},
-{0,3,2},
-{3,1,2},
-{1,4,1},
-{4,2,1},
-	};
-	cout << findCheapestPrice(n, graph, start, end, k) << endl;
+	vector<int> nums = { 9 };
+	//cout << minimumSize(nums, 2) << endl;
+	cout << verify(nums, 3,2) << endl;
 	return 0;
- }
+}

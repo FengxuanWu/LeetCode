@@ -4416,34 +4416,34 @@ int binary_search(vector<int> nums, int target)
 	return end;
 }
 
-int binSearch(vector<vector<int>> &intervals, int target)
-{
-	int start = 0, end = intervals.size(), mid = start + (end - start) / 2;
-	while (start < end - 1)
-	{
-		if (intervals[mid][0] <= target && intervals[mid][1] >= target)
-			return mid;
-		
-		if (intervals[mid][0] > target)
-			end = mid;
-
-		else if (intervals[mid][1] < target)
-			start = mid;
-
-		mid = start + (end - start) / 2;
-	}
-	return -end;
-}
-
-vector<vector<int>> removeInterval(vector<vector<int>>& intervals, vector<int>& toBeRemoved)
-{
-	vector<vector<int>> ans;
-	int lower_bound = toBeRemoved[0], upper_bound = toBeRemoved[1];
-	cout << binSearch(intervals, lower_bound) << endl;
-	cout << binSearch(intervals, upper_bound) << endl;
-	
-	return ans;
-}
+//int binSearch(vector<vector<int>> &intervals, int target)
+//{
+//	int start = 0, end = intervals.size(), mid = start + (end - start) / 2;
+//	while (start < end - 1)
+//	{
+//		if (intervals[mid][0] <= target && intervals[mid][1] >= target)
+//			return mid;
+//		
+//		if (intervals[mid][0] > target)
+//			end = mid;
+//
+//		else if (intervals[mid][1] < target)
+//			start = mid;
+//
+//		mid = start + (end - start) / 2;
+//	}
+//	return -end;
+//}
+//
+//vector<vector<int>> removeInterval(vector<vector<int>>& intervals, vector<int>& toBeRemoved)
+//{
+//	vector<vector<int>> ans;
+//	int lower_bound = toBeRemoved[0], upper_bound = toBeRemoved[1];
+//	cout << binSearch(intervals, lower_bound) << endl;
+//	cout << binSearch(intervals, upper_bound) << endl;
+//	
+//	return ans;
+//}
 
 vector<int> intersection(vector<int>& nums1, vector<int>& nums2)
 {
@@ -7416,41 +7416,41 @@ bool check(vector<vector<char>>& grid, int row, int col, int key)
 	return true;
 }
 
-int finished = false;
-
-void solveSudoku(vector<vector<char>>& grid, int row = 0, int col = 0)
-{
-	while (row < grid.size())
-	{
-		while (col < grid[row].size())
-		{
-			if (grid[row][col] == '0')
-				goto breakloop;
-			col++;
-		}
-		col = 0;
-		row++;
-	}
-
-breakloop:
-	if (row == grid.size())
-	{
-		finished = true;
-		return;
-	}
-
-	for (int i = 1; i <= 9; i++)
-	{
-		if (check(grid, row, col, i + '0'))
-		{
-			grid[row][col] = i + '0';
-			solveSudoku(grid, row, col);
-			if (finished)
-				break;
-			grid[row][col] = '0';
-		}
-	}
-}
+//int finished = false;
+//
+//void solveSudoku(vector<vector<char>>& grid, int row = 0, int col = 0)
+//{
+//	while (row < grid.size())
+//	{
+//		while (col < grid[row].size())
+//		{
+//			if (grid[row][col] == '0')
+//				goto breakloop;
+//			col++;
+//		}
+//		col = 0;
+//		row++;
+//	}
+//
+//breakloop:
+//	if (row == grid.size())
+//	{
+//		finished = true;
+//		return;
+//	}
+//
+//	for (int i = 1; i <= 9; i++)
+//	{
+//		if (check(grid, row, col, i + '0'))
+//		{
+//			grid[row][col] = i + '0';
+//			solveSudoku(grid, row, col);
+//			if (finished)
+//				break;
+//			grid[row][col] = '0';
+//		}
+//	}
+//}
 
 bool isValidSudoku(vector<vector<char>>& board)
 {
@@ -7933,29 +7933,29 @@ int findMaxForm(vector<string>& strs, int m, int n)
 	return dp.back().back().back();
 }
 
-int maxProfit(vector<int>& prices, int fee)
-{
-	if (prices.size() < 2)
-		return 0;
-
-	for (int i = 1; i < prices.size(); i++)
-		prices[i - 1] = prices[i] - prices[i - 1];
-	//2 -1 6 -4 5
-	int max_in = prices[0] - fee, max_all = 0;
-	for (int i = 1; i < prices.size() - 1; i++)
-	{
-		int sell = max_in + prices[i];
-		int sell_buy_sell = prices[i] - fee;
-		if (sell > sell_buy_sell)
-			max_in = max_in + prices[i];
-		else
-			max_in = prices[i] - fee, max_all += max_in;
-
-		cout << max_in << ' ' << max_all << endl;
-	}
-
-	return max_in + max_all;
-}
+//int maxProfit(vector<int>& prices, int fee)
+//{
+//	if (prices.size() < 2)
+//		return 0;
+//
+//	for (int i = 1; i < prices.size(); i++)
+//		prices[i - 1] = prices[i] - prices[i - 1];
+//	//2 -1 6 -4 5
+//	int max_in = prices[0] - fee, max_all = 0;
+//	for (int i = 1; i < prices.size() - 1; i++)
+//	{
+//		int sell = max_in + prices[i];
+//		int sell_buy_sell = prices[i] - fee;
+//		if (sell > sell_buy_sell)
+//			max_in = max_in + prices[i];
+//		else
+//			max_in = prices[i] - fee, max_all += max_in;
+//
+//		cout << max_in << ' ' << max_all << endl;
+//	}
+//
+//	return max_in + max_all;
+//}
 
 int lastStoneWeightII(vector<int>& stones)
 {
@@ -8308,55 +8308,6 @@ bool checkValidString(string s)
 			left_min--, left_max++;
 	}
 	return left_min <= 0 && 0 <= left_max;
-}
-
-int cnt = 0;
-void merge(vector<int>& nums, int start_a, int end_a, int start_b, int end_b)
-{
-	vector<int> nums_a(nums.begin() + start_a, nums.begin() + end_a);
-	vector<int> nums_b(nums.begin() + start_b, nums.begin() + end_b);
-
-	int idx_a = 0, idx_b = 0, idx = start_a;
-	while (idx_a < nums_a.size() || idx_b < nums_b.size())
-	{
-		if (idx_a == nums_a.size())
-			nums[idx++] = nums_b[idx_b++];
-		else if (idx_b == nums_b.size())
-			nums[idx++] = nums_a[idx_a++];
-		else if (nums_a[idx_a] <= nums_b[idx_b])
-			nums[idx++] = nums_a[idx_a++];
-		else
-			nums[idx++] = nums_b[idx_b++];
-	}
-}
-
-void mergeSort(vector<int>& nums, int start, int end)
-{
-	int mid = start + (end - start) / 2;
-	if (start + 1 == end)
-		return;
-	else
-	{
-		//cout << cnt << endl;
-		mergeSort(nums, start, mid);
-		mergeSort(nums, mid, end);
-
-		for (int i = start; i < mid; i++)
-		{
-			int j = mid;
-			while (j < end && nums[i] > 2LL * nums[j]) j++;
-			cnt += j - mid;
-		}
-
-		merge(nums, start, mid, mid, end);
-	}
-}
-
-int reversePairs(vector<int>& nums)
-{
-	mergeSort(nums, 0, nums.size());
-	//cout << nums << endl;
-	return cnt;
 }
 
 #define LEFT(row, col)(board[row][col - 1])
@@ -10603,7 +10554,715 @@ int maximalNetworkRank(int n, vector<vector<int>>& roads)
 	return res;
 } 
 
+int findLengthOfShortestSubarray(vector<int>& arr)
+{
+	int l = 0, r = arr.size() - 1;
+	while (l + 1 < arr.size() && arr[l] <= arr[l + 1])
+		l++;
+
+	while (r > 0 && arr[r - 1] <= arr[r])
+		r--;
+
+	int res = min((int)arr.size() - l - 1, r);
+	if (res == 0)
+		return 0;
+
+	for (int i = 0; i < l + 1; i++)
+	{
+		int idx = lower_bound(arr.begin() + r, arr.end(), arr[i]) - arr.begin();
+		res = min(res, idx - i - 1);
+	}
+
+	return res;
+}
+
+int bestTeamScore(vector<int>& scores, vector<int>& ages) {
+	vector<pair<int, int>> candidate;
+	for (int i = 0; i < scores.size(); i++) {
+		candidate.push_back({ ages[i], scores[i] });
+	}
+
+	sort(candidate.begin(), candidate.end(), [&](pair<int, int>& a, pair<int, int>& b) {
+		return a.first < b.first || a.first == b.first && a.second < b.second;
+		});
+
+	vector<int> score(candidate.size());
+
+	int res = 0;
+	for (int i = 0; i < candidate.size(); i++)
+	{
+		score[i] = candidate[i].second;
+		for (int j = 0; j < i; j++)
+		{
+			if (candidate[j].first == candidate[i].first || candidate[j].second <= candidate[i].second)
+			{
+				score[i] = max(score[i], score[j] + candidate[i].second);
+			}
+		}
+		res = max(res, score[i]);
+	}
+
+	return res;
+}
+
+char transform(char c, int s)
+{
+	int n = c - '0';
+	int res = '0';
+	if (s == 5)
+		return res + min(n, (n + 5) % 10);
+	else if (s == 10)
+		return res + n;
+	else if (s % 2)
+		return res + 0;
+	else
+		return res + n % 2;
+}
+
+string findLexSmallestString(string s, int a, int b) 
+{
+	queue<string> q;
+	q.push(s);
+	set<string> res;
+	res.insert(s);
+	while (!q.empty())
+	{
+		string str = q.front();
+		for (int i = 1; i < str.size(); i += 2)
+			str[i] = (str[i] - '0' + a) % 10 + '0';
+
+		if (res.count(str) == 0) {
+			q.push(str);
+			res.insert(str);
+		}
+			
+		
+		reverse(str.begin(), str.begin() + str.size() - b);
+		reverse(str.begin() + str.size() - b, str.end());
+		reverse(str.begin(), str.end());
+
+		if (res.count(str) == 0) {
+			q.push(str);
+			res.insert(str);
+		}
+
+		q.pop();
+	}
+
+	return *res.begin();
+}
+
+vector<int> asteroidCollision(vector<int>& nums) {
+	vector<int> s;
+	for (int i = 0; i < nums.size(); i++)
+	{
+		if (s.empty() || s.back() * nums[i] > 0)
+		{
+			s.push_back(nums[i]);
+		}
+		else
+		{
+			while (!s.empty() && s.back() * nums[i] < 0)
+			{
+				int a = abs(s.back()), b = abs(nums[i]);
+				if (a > b)
+					break;
+				s.pop_back();
+			}
+		}
+	}
+	return s;
+}
+
+
+char slowestKey(vector<int>& releaseTimes, string keysPressed)
+{
+	vector<int> time(26);
+
+	for (int i = 0; i < keysPressed.size(); i++)
+		time[to_idx(keysPressed[i])] = max(time[to_idx(keysPressed[i])], (releaseTimes[i] - (i > 0 ? releaseTimes[i - 1] : 0)));
+
+	sort(keysPressed.begin(), keysPressed.end(), [&](char a, char b) {
+		return time[to_idx(a)] > time[to_idx(b)] || time[to_idx(a)] == time[to_idx(b)] && a > b;
+		});
+
+	return keysPressed.front();
+}
+
+bool check(vector<int>& nums, int l, int r) {
+	vector<int> tmp(nums.begin() + l, nums.begin() + r);
+	sort(tmp.begin(), tmp.end());
+	if (tmp.size() < 2)
+		return true;
+
+	int diff = tmp[1] - tmp[0];
+	for (int i = 2; i < tmp.size(); i++) {
+		if (tmp[i] - tmp[i - 1] != diff)
+			return false;
+	}
+	return true;
+}
+
+vector<bool> checkArithmeticSubarrays(vector<int>& nums, vector<int>& l, vector<int>& r)
+{
+	vector<bool> res;
+	for (int i = 0; i < l.size(); i++) {
+		res.push_back(check(nums, l[i], r[i]));
+	}
+	return res;
+}
+
+int minDeletions(string s)
+{
+	vector<int> bar(26);
+	for (int i = 0; i < s.size(); i++) {
+		bar[to_idx(s[i])]++;
+	}
+
+	sort(bar.begin(), bar.end());
+
+	int res = 0;
+	for (int i = 1; i < bar.size(); i++)
+	{
+		int j = i;
+		while (j > 0 && bar[j] == bar[j - 1] && bar[j - 1] > 0)
+		{
+			bar[j - 1]--;
+			res++;
+			j--;
+		}
+	}
+
+	return res;
+}
+
+int maxProfit(vector<int>& inventory, int orders)
+{
+	long long int res = 0;
+	int mod = 1e9 + 7;
+
+	map<int, int> freq;
+	for (int i = 0; i < inventory.size(); i++)
+		freq[inventory[i]]++;
+	
+	auto iter = freq.rbegin();
+	
+	priority_queue<long long int> pq(inventory.begin(), inventory.end());
+	while(orders) 
+	{
+		int cnt = iter->second;
+		long long int curr = iter->first;
+		iter++;
+
+		int top = iter == freq.rend() ? 0 : iter->first;
+
+		if (orders >= (curr - top) * cnt)
+		{
+			res = (res + cnt * (curr + top + 1) * (curr - top) / 2) % mod;
+			orders -= (curr - top) * cnt;
+			iter->second += cnt;
+		}
+		else
+		{
+			int trancs = orders / cnt;
+			int remain = orders % cnt;
+			res = (res + cnt * (curr + curr - trancs + 1) * trancs / 2) % mod;
+			res = (res + remain * (curr - trancs)) % mod;
+			orders = 0;
+		}
+ 	}
+
+	return res;
+}
+
+vector<int> insertion_sort(vector<int> nums)
+{
+	for (int i = 1; i < nums.size(); i++)
+		for (int j = i - 1; j >= 0 && nums[j] > nums[j + 1]; j--)
+			swap(nums[j + 1], nums[j]);
+	return nums;
+}
+
+vector<int> bubble_sort(vector<int> nums)
+{
+	for (int i = nums.size() - 1; i > 0; i--)
+		for (int j = 1; j <= i; j++)
+			if (nums[j] < nums[j - 1])
+				swap(nums[j - 1], nums[j]);
+	return nums;
+}
+
+vector<int> selection_sort(vector<int> nums)
+{
+	for (int i = 0; i < nums.size() - 1; i++) {
+		int idx = i;
+		for (int j = i + 1; j < nums.size(); j++) {
+			idx = nums[idx] < nums[j] ? idx : j;
+		}
+		swap(nums[idx], nums[i]);
+	}
+
+	return nums;
+}
+
+void heapify(vector<int>& nums, int root, int len = INT_MAX)
+{
+	int left = root * 2;
+	int right = root * 2 + 1;
+	int idx = root;
+
+	len = min((int)nums.size(), len);
+
+	idx = left < len && nums[idx] < nums[left] ? left : idx;
+	idx = right < len && nums[idx] < nums[right] ? right : idx;
+
+	if (idx != root) {
+		swap(nums[root], nums[idx]);
+		heapify(nums, idx, len);
+	}
+}
+
+void build_heap(vector<int>& nums)
+{
+	for (int i = nums.size() / 2; i > 0; i--) {
+		heapify(nums, i);
+	}
+}
+
+void heap_sort(vector<int>& nums)
+{
+	build_heap(nums);
+	for (int i = nums.size() - 1; i > 1; i--) {
+		swap(nums[1], nums[i]);
+		heapify(nums, 1, i);
+	}
+}
+
+
+void merge(vector<int>& nums, int start_a, int end_a, int start_b, int end_b)
+{
+	vector<int> nums_left(nums.begin() + start_a, nums.begin() + end_a + 1);
+	vector<int> nums_right(nums.begin() + start_b, nums.begin() + end_b + 1);
+
+	int idx_left = 0, idx_right = 0, idx = start_a;
+
+	while (idx_left < nums_left.size() && idx_right < nums_right.size())
+		nums[idx++] = nums_left[idx_left] < nums_right[idx_right] ? nums_left[idx_left++] : nums_right[idx_right++];
+
+	while (idx_left < nums_left.size())
+		nums[idx++] = nums_left[idx_left++];
+	
+	while (idx_right < nums_right.size())
+		nums[idx++] = nums_right[idx_right++];
+}
+
+void merge_sort(vector<int>& nums, int start, int end)
+{
+	if (start == end)
+		return;
+	else
+	{
+		int mid = start + (end - start) / 2;
+		merge_sort(nums, start, mid);
+		merge_sort(nums, mid + 1, end);
+		merge(nums, start, mid, mid + 1, end);
+	}
+}
+
+int partition(vector<int>& nums, int s, int e)
+{
+	int x = nums[e - 1];
+	int l = s;
+	for (int g = s; g + 1 < e; g++) {
+		if (nums[g] <= x) {
+			swap(nums[l++], nums[g]);
+		}
+	}
+	swap(nums[l], nums[e - 1]);
+	return l;
+}
+
+void quick_sort(vector<int>& nums, int s = 0, int e = INT_MAX)
+{
+	if (s < e)
+	{
+		e = min((int)nums.size(), e);
+		int idx = s + rand() % (e - s);
+		swap(nums[idx], nums[e - 1]);
+		int p = partition(nums, s, e);
+		quick_sort(nums, s, p - 1);
+		quick_sort(nums, p + 1, e);
+	}
+}
+
+int binSearch(vector<int>& nums, int target)
+{
+	int l = 0, r = nums.size() - 1;
+	while (l != r)
+	{
+		int m = l + (r - l) / 2;
+		if (nums[m] < target)
+			l = m + 1;
+		else
+			r = m;
+	}
+	return nums[l] == target ? l : -1;
+}
+
+int minOperations(vector<int>& nums, int x)
+{
+	vector<int> sum(nums.size() + 1);
+	vector<int> rsum(nums.size() + 1);
+
+	for (int i = 1; i <= nums.size(); i++) {
+		sum[i] = sum[i - 1] + nums[i - 1];
+		rsum[i] = rsum[i - 1] + nums[nums.size() - i];
+	}
+
+	unsigned int res = -1;
+	for (unsigned int i = 0; i < sum.size() && sum[i] <= x; i++)
+	{
+		unsigned int idx = binSearch(rsum, x - sum[i]);
+		if (idx != -1 && idx + i <= nums.size()) {
+			res = min(res, i + idx);
+		}
+	}
+	return res;
+}
+
+int waysToMakeFair(vector<int>& nums)
+{
+	vector<vector<int>> sums(2, vector<int>(nums.size() + 1));
+	vector<vector<int>> rsums(2, vector<int>(nums.size() + 1));
+	
+	for (int i = 1; i <= nums.size(); i++)
+	{
+		int idx = nums.size() - i;
+
+		sums[((i) % 2)][i] = sums[(i % 2)][i - 1] + nums[i - 1];
+		sums[!((i) % 2)][i] = sums[!(i % 2)][i - 1];
+
+		rsums[(idx % 2)][idx] = rsums[(idx % 2)][idx + 1] + nums[idx];
+		rsums[!(idx % 2)][idx] = rsums[!(idx % 2)][idx + 1];
+	}
+
+	int res = 0;
+	for (int i = 0; i < nums.size(); i++)
+	{
+		res += ((sums[1][i] + rsums[1][i + 1]) == (sums[0][i] + rsums[0][i + 1]));
+	}
+
+	return res;
+}
+
+// 
+// 
+int minimumEffort(vector<vector<int>>& tasks)
+{
+	sort(tasks.begin(), tasks.end(), [&](vector<int>& a, vector<int>& b) {
+		int diffa = a[1] - a[0], diffb = b[1] - b[0];
+		return (diffa < diffb) || ((diffa == diffb) && (a[1] < b[1]));
+		});
+
+	int res = 0;
+	for (int i = 0; i < tasks.size(); i++)
+		res = max(res + tasks[i][0], tasks[i][1]);
+	
+	return res;
+}
+
+vector<int> mostCompetitive(vector<int>& nums, int k)
+{
+	vector<int> res;
+	for (int i = 0; i < nums.size(); i++)
+	{
+		while (!res.empty() && i + k - res.size() < nums.size() && nums[i] < res.back())
+			res.pop_back();
+		if (res.size() < k)
+			res.push_back(nums[i]);
+	}
+
+	return res;
+}
+
+bool canPlaceFlowers(vector<int>& flowerbed, int n) {
+	int cnt = 0;
+	int c = 0;
+	for (int i = 0; i < flowerbed.size() && n; i++)
+	{
+		if (flowerbed[i]) {
+			n -= (c / 2) - (cnt % 2 == 0);
+			cout << n << endl;
+			c = 0;
+		}
+		else
+			c++;
+	}
+
+	return n == 0;
+}
+
+int maxOperations(vector<int>& nums, int k)
+{
+	map<int, int> freq;
+	for (int i = 0; i < nums.size(); i++)
+		freq[nums[i]]++;
+	int res = 0;
+	for (auto iter = freq.begin(); iter != freq.end() && iter->first < k / 2; iter++)
+	{
+		int num = iter->first;
+		res += min(freq[k - num], freq[num]);
+	}
+
+	if (k % 2)
+		res += min(freq[k / 2], freq[k / 2 + 1]);
+	else
+		res += freq[k / 2] / 2;
+
+	return res;
+}
+
+    
+int concatenatedBinary(int n)
+{
+	int thre = 1;
+	long long int res = 0;
+	int mod = 1e9 + 7;
+	for (int i = 1; i <= n; i++)
+	{
+		if (i == (thre << 1))
+			thre <<= 1;
+		res = ((res * thre) % mod) * 2;
+		res = (res+i) % mod;
+	}
+	return res;
+}
+
+int dfs(vector<int>& nums, int b, int e, vector<vector<int>>& res)
+{
+	cout << b << ' ' << e << endl;
+	if (e <= b)
+		return res[b][e] = 0;
+
+	if (res[b][e])
+		return res[b][e];
+	
+	int m = min(nums[b + 1], nums[e]);
+	int n = min(nums[b], nums[e - 1]);
+
+	int begin = b, end = e;
+	if (m == n)
+	{
+		int v = min(nums[b + 1] + dfs(nums, begin + 2, e, res), nums[e] + dfs(nums, b + 1, end - 1, res));
+		int f = min(nums[b] + dfs(nums, b + 1, e - 1, res), nums[e] + dfs(nums, b, e - 2, res));
+		return res[b][e] = max(v, f);
+	}
+
+	
+	if (m < n)
+		end = e - 1;
+	else
+		begin = b + 1;
+	return res[b][e] = min(nums[begin] + dfs(nums, begin + 1, end, res), nums[end] + dfs(nums, begin, end - 1, res));
+}
+
+int stoneGameVII(vector<int>& nums) 
+{
+	vector<vector<int>> res(nums.size() + 1, vector<int>(nums.size() + 1));
+	return dfs(nums, 0, nums.size() - 1, res);
+}
+
+int eatenApples(vector<int>& apples, vector<int>& days)
+{
+	map<int, int> rotten;
+	int curr = 0, res = 0;
+	for (int i = 0; i < apples.size() || rotten.size(); i++)
+	{
+		auto rotten_apple = rotten.begin();
+		if (rotten_apple != rotten.end() && rotten_apple->first == i)
+		{
+			curr = max(0, curr - rotten_apple->second);
+			rotten.erase(rotten_apple);
+			rotten_apple = rotten.begin();
+		}
+
+		if (i < apples.size() && apples[i])
+		{
+			curr += apples[i];
+			rotten[i + days[i]] += apples[i];
+		}
+
+		if (curr > 0)
+		{
+			curr--;
+			res++;
+			rotten_apple = rotten.begin();
+			if (--rotten_apple->second == 0)
+				rotten.erase(rotten_apple);
+		}
+	}
+	return res;
+}
+
+int count(unordered_map<int, int>& freq, int n)
+{
+	int res = 0;
+	for (int i = 0; i < 22; i++)
+	{
+		int num = (1 << i) - n;
+		if (num >= 0 && freq.count(num) && freq[num])
+		{
+			int c = freq[num];
+			if (num == n)
+				res += (c - 1) * c / 2;
+			else
+				res += c * freq[n];
+		}
+	}
+	freq[n] = 0;
+	return res;
+}
+
+int countPairs(vector<int>& nums)
+{
+	unordered_map<int, int> freq;
+	for (int num : nums)
+		freq[num]++;
+	int res = 0;
+	for (auto it = freq.begin(); it != freq.end(); it++)
+	{
+		res += count(freq, it->first);
+	}
+	return res;
+}
+
+int binSearch(vector<int>& nums, int l, int r, int t)
+{
+	while (l < r)
+	{
+		int m = l + (r - l) / 2;
+		if (nums[m] < t)
+			l = m + 1;
+		else
+			r = m;
+	}
+	return l;
+}
+
+int waysToSplit(vector<int>& nums)
+{
+	int mod = 1e9 + 7;
+	vector<int> sum = nums;
+	for (int i = 1; i < sum.size(); i++)
+		sum[i] = sum[i] + sum[i - 1];
+	int res = 0;
+	for (int i = 0; sum[i] <= sum.back() / 3; i++)
+	{
+		int l = lower_bound(sum.begin() + i + 1, sum.end(), sum[i] * 2) - sum.begin();
+		int r = upper_bound(sum.begin() + l, sum.end(), sum[i] + (sum.back() - sum[i]) / 2) - sum.begin();
+		res = (res + r - l) % mod;
+	}
+	return res;
+}
+
+int distinct(vector<int>& cnt)
+{
+	int res = 0, sum = 0;
+	for (int i = 0; i < cnt.size(); i++)
+	{
+		sum += cnt[i];
+		res = max(res, cnt[i]);
+	}
+	return sum - res;
+}
+
+int great(vector<int>& a, int a_len, vector<int>& b)
+{
+	int res = INT_MAX, suma = 0, sumb = 0;
+	for (int i = 0; i < 25; i++)
+	{
+		suma += a[i];
+		sumb += b[i];
+		res = min(res, a_len - suma + sumb);
+	}
+	return res;
+}
+
+int minCharacters(string a, string b)
+{
+	vector<int> cnta(26), cntb(26);
+
+	for (int i = 0; i < a.size(); i++)
+		cnta[a[i] - 'a']++;
+
+	for (int i = 0; i < b.size(); i++)
+		cntb[b[i] - 'a']++;
+
+	int res = distinct(cnta) + distinct(cntb);
+	res = min(res, great(cnta, a.size(), cntb));
+	res = min(res, great(cntb, b.size(), cnta));
+	return res;
+}
+
+int verify(vector<int>& nums, int target, int maxOperations)
+{
+	int idx = 0;
+	while (idx < nums.size() && maxOperations)
+	{
+		int opt = nums[idx] / target - (nums[idx] % target == 0);
+		if (maxOperations >= opt) {
+			maxOperations -= opt;
+			idx++;
+		}
+		else {
+			nums[idx] -= target * maxOperations;
+			maxOperations = 0;
+		}
+	}
+
+	return idx == nums.size() || target >= nums[idx];
+}
+
+int minimumSize(vector<int>& nums, int opt) 
+{
+	sort(nums.begin(), nums.end(), greater<int>());
+	int l = 1, r = nums.front();
+	while (l < r) {
+		int m = l + (r - l) / 2;
+		cout << m << endl;
+		if (verify(nums, m, opt)) {
+			r = m; 
+		}
+		else {
+			l = m + 1;
+		}
+	}
+	return l;
+}
+
+int minKBitFlips(vector<int>& a, int k)
+{
+	vector<int> prefix(a.size() + 1);
+	int res = 0;
+	int cnt = 0;
+	for (int i = 0; i < a.size(); i++)
+	{
+		cnt += prefix[i];
+		int num = cnt % 2 ? !a[i] : a[i];
+		if (num == 0) {
+			if (i + k > a.size())
+				return -1;
+			cnt++;
+			res++;
+			prefix[i + k]--;
+		}
+	}
+	return res;
+}
+
 int main()
 {
+	vector<int> nums = { 0,0,0,1,0,1,1,0 };
+	cout << minKBitFlips(nums, 3) << endl;
 	return 0;
 }
